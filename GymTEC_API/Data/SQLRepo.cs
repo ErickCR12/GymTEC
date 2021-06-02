@@ -158,5 +158,69 @@ namespace GymTEC_API.Data
 
             connection.Close();
         }
+
+        public IEnumerable<Payroll> GetAllPayrolls()
+        {
+            List<Payroll> payrolls = new List<Payroll>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllPayrolls()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                Payroll payroll = new Payroll();
+                payroll.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.description = dataReader.GetValue(1).ToString();
+                payroll.hourlyPay = Int32.Parse(dataReader.GetValue(2).ToString());
+                payroll.monthlyPay = Int32.Parse(dataReader.GetValue(3).ToString());
+                payroll.payPerClass = Int32.Parse(dataReader.GetValue(4).ToString());
+
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+        public Payroll GetPayrollById(int id)
+        {
+            Payroll payroll = new Payroll(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPayrollById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                payroll.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.description = dataReader.GetValue(1).ToString();
+                payroll.hourlyPay = Int32.Parse(dataReader.GetValue(2).ToString());
+                payroll.monthlyPay = Int32.Parse(dataReader.GetValue(3).ToString());
+                payroll.payPerClass = Int32.Parse(dataReader.GetValue(4).ToString());
+
+                connection.Close();
+                return payroll;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeletePayroll(Payroll payroll, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Payroll", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", payroll.id);
+            command.Parameters.AddWithValue("@descripcion", payroll.description);
+            command.Parameters.AddWithValue("@pago_horas", payroll.hourlyPay);
+            command.Parameters.AddWithValue("@pago_mensual", payroll.monthlyPay);
+            command.Parameters.AddWithValue("@pago_clase", payroll.payPerClass);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }

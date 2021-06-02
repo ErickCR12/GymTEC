@@ -25,6 +25,16 @@ namespace GymTEC_API.Data
         //Calls the stored SQL Procedure that inserts, updates or deletes a Spa Treatment Entity in the database..
         void CreateUpdateDeleteSpaTreatment(GymService spaTreatment, string statementType);
 
+        
+        //-------------------PAYROLLS ENTITIES MANAGMENT--------------------//
+
+        //Calls the stored SQL Function that returns all the existing Payrolls entities in the database.
+        IEnumerable<Payroll> GetAllPayrolls();
+        //Calls the stored SQL Function that returns the existing Payroll entity in the database with the matching id.
+        Payroll GetPayrollById(int id);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Payroll Entity in the database..
+        void CreateUpdateDeletePayroll(Payroll payroll, string statementType);
+
 
 
 

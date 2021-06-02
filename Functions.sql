@@ -157,3 +157,64 @@ AS
 EXEC	CreateUpdateDelete_SpaTreatment @nombre = 'Masaje de cuerpo completo', @StatementType = 'INSERT';
 
 EXEC	CreateUpdateDelete_SpaTreatment @id = 1, @StatementType = 'DELETE';
+
+
+
+
+--------------------GESTION DE TIPOS DE PLANILLA-----------------------------------------
+GO
+CREATE FUNCTION GetAllPayrolls()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, descripcion, pago_horas, pago_mensual, pago_clase
+	FROM TIPO_PLANILLA
+);
+
+GO
+CREATE FUNCTION GetSpaPayrollById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, descripcion, pago_horas, pago_mensual, pago_clase
+	FROM TIPO_PLANILLA
+	WHERE id = @storedId
+);
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Payroll
+(
+	@id INT = 0,
+	@descripcion VARCHAR(50) = '',
+	@pago_horas DECIMAL = 0,
+	@pago_mensual DECIMAL = 0,
+	@pago_clase DECIMAL = 0,
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO TIPO_PLANILLA(descripcion, pago_horas, pago_mensual, pago_clase)
+			VALUES (@descripcion, @pago_horas, @pago_mensual, @pago_clase)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE TIPO_PLANILLA  
+            SET	descripcion = @descripcion, pago_horas = @pago_horas, pago_mensual = @pago_mensual, pago_clase = @pago_clase
+            WHERE  id = @id
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM TIPO_PLANILLA  
+            WHERE  id = @id  
+        END  
+  END    
+
+EXEC	CreateUpdateDelete_Payroll @descripcion = 'Pago para administradores', @pago_mensual = 385000, @pago_horas = 2005, @pago_clase = 8000, @StatementType = 'INSERT';
+
+EXEC	CreateUpdateDelete_Payroll @id = 1, @StatementType = 'DELETE';

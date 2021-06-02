@@ -9,7 +9,7 @@ using System;
 namespace API_Service.Controllers
 {
 
-    //This is an API Controller for the Gym entity type. This Controller allows all the CRUD functions.
+    //This is an API Controller for the Spa Treatment entity type. This Controller allows all the CRUD functions.
     [Route("api/[controller]")]
     [ApiController]
     public class SpasController : ControllerBase
