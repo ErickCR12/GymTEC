@@ -71,6 +71,7 @@ namespace GymTEC_API.Data
                 gym.spaState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0; 
                 gym.storeState = Int32.Parse(dataReader.GetValue(11).ToString()) != 0;
                 
+                connection.Close();
                 return gym;
             }
             connection.Close();
@@ -101,6 +102,61 @@ namespace GymTEC_API.Data
 
             connection.Close();
 
+        }
+
+        public IEnumerable<GymService> GetAllSpaTreatments()
+        {
+            List<GymService> spaTreatments = new List<GymService>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllSpaTreatments()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymService treatment = new GymService();
+                treatment.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                treatment.name = dataReader.GetValue(1).ToString();
+
+                spaTreatments.Add(treatment);
+            }
+            connection.Close();
+            return spaTreatments;
+        }
+
+        public GymService GetSpaTreatmentById(int id)
+        {
+            GymService treatment = new GymService(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetSpaTreatmentById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                treatment.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                treatment.name = dataReader.GetValue(1).ToString();
+
+                connection.Close();
+                return treatment;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteSpaTreatment(GymService spaTreatment, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_SpaTreatment", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", spaTreatment.id);
+            command.Parameters.AddWithValue("@nombre", spaTreatment.name);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
     }
 }

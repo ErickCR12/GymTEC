@@ -1,5 +1,7 @@
 USE[gymTEC_DB]
 
+
+-----------------------------------GESTION DE SUCURSALES-----------------------------
 GO
 CREATE FUNCTION GetAllGyms()
 RETURNS TABLE
@@ -11,7 +13,7 @@ RETURN
 );
 
 GO
-CREATE FUNCTION GetGymById(@storedId decimal)
+CREATE FUNCTION GetGymById(@storedId int)
 RETURNS TABLE
 AS
 RETURN
@@ -97,3 +99,61 @@ EXEC	CreateUpdateDelete_Gym @id_administrador = 4, @nombre = 'GymTEC Orosi', @ca
 							@estado_spa = 0, @estado_tienda = 0, @StatementType = 'INSERT';
 
 EXEC	CreateUpdateDelete_Gym @id = 4, @StatementType = 'DELETE';
+
+
+
+
+--------------------GESTION DE TRATAMIENTOS DE SPA-----------------------------------------
+GO
+CREATE FUNCTION GetAllSpaTreatments()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM TRATAMIENTO_SPA
+);
+
+GO
+CREATE FUNCTION GetSpaTreatmentById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM TRATAMIENTO_SPA
+	WHERE id = @storedId
+);
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_SpaTreatment
+(
+	@id INT = 0,
+	@nombre VARCHAR(50) = '',
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO TRATAMIENTO_SPA (nombre)
+			VALUES (@nombre)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE TRATAMIENTO_SPA  
+            SET	nombre = @nombre
+            WHERE  id = @id
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM TRATAMIENTO_SPA  
+            WHERE  id = @id  
+        END  
+  END    
+
+EXEC	CreateUpdateDelete_SpaTreatment @nombre = 'Masaje de cuerpo completo', @StatementType = 'INSERT';
+
+EXEC	CreateUpdateDelete_SpaTreatment @id = 1, @StatementType = 'DELETE';
