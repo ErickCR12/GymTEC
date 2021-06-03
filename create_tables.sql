@@ -80,7 +80,7 @@ CREATE TABLE TIPO_PLANILLA (
 
 CREATE TABLE MAQUINA (
 	numero_serie	DECIMAL		NOT NULL,
-	tipo_equipo		VARCHAR(20) NOT NULL,
+	tipo_equipo		INT			NOT NULL,
 	marca			VARCHAR(20) NOT NULL,
 	costo			DECIMAL		NOT NULL,
 	PRIMARY KEY (numero_serie)

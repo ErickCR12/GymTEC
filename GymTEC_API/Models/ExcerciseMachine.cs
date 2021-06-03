@@ -9,7 +9,7 @@ namespace GymTEC_API.Models
         [Key]
         public int serialNumber {get; set;}
         [Required]
-        public string idEquipment {get; set;}
+        public int idEquipment {get; set;}
         [Required]
         public string brand {get; set;}
         [Required]

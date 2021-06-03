@@ -406,5 +406,67 @@ namespace GymTEC_API.Data
 
             connection.Close();
         }
+
+        public IEnumerable<ExcerciseMachine> GetAllMachines()
+        {
+            List<ExcerciseMachine> machines = new List<ExcerciseMachine>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllMachines()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                ExcerciseMachine machine = new ExcerciseMachine();
+                machine.serialNumber = Int32.Parse(dataReader.GetValue(0).ToString());
+                machine.idEquipment = Int32.Parse(dataReader.GetValue(1).ToString());
+                machine.brand = dataReader.GetValue(2).ToString();
+                machine.price = Int32.Parse(dataReader.GetValue(3).ToString());
+
+                machines.Add(machine);
+            }
+            connection.Close();
+            return machines;
+        }
+
+        public ExcerciseMachine GetMachineBySerialNumber(int serialNumber)
+        {           
+            ExcerciseMachine machine = new ExcerciseMachine(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetMachineBySerialNumber(@serialNumber)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@serialNumber", serialNumber);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                machine.serialNumber = Int32.Parse(dataReader.GetValue(0).ToString());
+                machine.idEquipment = Int32.Parse(dataReader.GetValue(1).ToString());
+                machine.brand = dataReader.GetValue(2).ToString();
+                machine.price = Int32.Parse(dataReader.GetValue(3).ToString());
+                
+                connection.Close();
+                return machine;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteMachine(ExcerciseMachine machine, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Machine", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@numero_serie", machine.serialNumber);
+            command.Parameters.AddWithValue("@tipo_equipo", machine.idEquipment);
+            command.Parameters.AddWithValue("@marca", machine.brand);
+            command.Parameters.AddWithValue("@costo", machine.price);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
     }
 }
