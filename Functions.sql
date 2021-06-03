@@ -173,7 +173,7 @@ RETURN
 );
 
 GO
-CREATE FUNCTION GetSpaPayrollById(@storedId int)
+CREATE FUNCTION GetPayrollById(@storedId int)
 RETURNS TABLE
 AS
 RETURN
@@ -218,3 +218,148 @@ AS
 EXEC	CreateUpdateDelete_Payroll @descripcion = 'Pago para administradores', @pago_mensual = 385000, @pago_horas = 2005, @pago_clase = 8000, @StatementType = 'INSERT';
 
 EXEC	CreateUpdateDelete_Payroll @id = 1, @StatementType = 'DELETE';
+
+
+---------------------------------GESTION DE PUESTOS-----------------------------------------
+GO
+CREATE FUNCTION GetAllPositions()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM PUESTO
+);
+
+GO
+CREATE FUNCTION GetPositionById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM PUESTO
+	WHERE id = @storedId
+);
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Position
+(
+	@id INT = 0,
+	@nombre VARCHAR(50) = '',
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO PUESTO(nombre)
+			VALUES (@nombre)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE PUESTO  
+            SET	nombre = @nombre
+            WHERE  id = @id
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM PUESTO  
+            WHERE  id = @id  
+        END  
+  END  
+
+EXEC	CreateUpdateDelete_Position @nombre = 'Administrador', @StatementType = 'INSERT';
+
+SELECT * FROM dbo.GetAllPositions();
+
+EXEC	CreateUpdateDelete_Position @id = 1, @StatementType = 'DELETE';
+
+
+
+-----------------------------------GESTION DE CLASES-----------------------------
+GO
+CREATE FUNCTION GetAllClasses()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	FROM CLASE
+);
+
+GO
+CREATE FUNCTION GetClassById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	FROM CLASE
+	WHERE id = @storedId
+);
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Class
+(
+	@id INT = 0,
+	@id_servicio DECIMAL = 0,
+	@cedula_instructor DECIMAL = 0,
+	@capacidad DECIMAL = 0,
+	@hora_inicio TIME = '',
+	@hora_fin TIME = '',
+	@fecha	DATE = '',
+	@es_grupal	INT = 0,
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO CLASE
+							   (id_servicio, 
+								cedula_instructor,
+								capacidad, 
+								hora_inicio, 
+								hora_fin, 
+								fecha, 
+								es_grupal)
+			VALUES			   (@id_servicio, 
+								@cedula_instructor,
+								@capacidad, 
+								@hora_inicio, 
+								@hora_fin, 
+								@fecha, 
+								@es_grupal)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE CLASE  
+            SET	id_servicio = @id_servicio,
+				cedula_instructor = @cedula_instructor,
+				capacidad = @capacidad,
+				hora_inicio = @hora_inicio,
+				hora_fin = @hora_fin, 
+				fecha = @fecha, 
+				es_grupal = @es_grupal
+            WHERE  id = @id  
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM CLASE  
+            WHERE  id = @id  
+        END  
+  END    
+
+EXEC	CreateUpdateDelete_Class @id_servicio = 2, @cedula_instructor = 305190315, @capacidad = 50, 
+							@hora_inicio = '7:00 AM', @hora_fin = '9:00 PM', @fecha = '2020/05/15', 
+							@es_grupal = 0, @StatementType = 'INSERT';
+
+SELECT * FROM GetAllClasses();
+
+EXEC	CreateUpdateDelete_Gym @id = 4, @StatementType = 'DELETE';
+

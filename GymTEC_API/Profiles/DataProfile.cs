@@ -14,6 +14,13 @@ namespace WebServiceResTEC.Profiles
             CreateMap<Client, ClientDto>().ReverseMap();
             CreateMap<GymService, GymServiceDto>().ReverseMap();
             CreateMap<Payroll, PayrollDto>().ReverseMap();
+            CreateMap<GymClass, GymClassDto>().ForMember(x => x.date,
+                    opt => opt.MapFrom(src => ((DateTime)src.date).ToShortDateString()))
+                .ForMember(x => x.startTime,
+                    opt=> opt.MapFrom(src => ((DateTime)src.startTime).ToShortTimeString()))
+                .ForMember(x => x.endTime,
+                    opt=> opt.MapFrom(src => ((DateTime)src.endTime).ToShortTimeString()))
+                    .ReverseMap();
             // CreateMap<Distributor, DistributorDto>()
             //     .ForMember(s => s.legal_card, c => c.MapFrom(m => m.legal_card))
             //     .ForMember(s => s.devices, c => c.MapFrom(m => m.devices_))

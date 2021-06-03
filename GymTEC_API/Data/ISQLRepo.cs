@@ -36,6 +36,26 @@ namespace GymTEC_API.Data
         void CreateUpdateDeletePayroll(Payroll payroll, string statementType);
 
 
+        //---------------POSITION ENTITIES MANAGMENT------------------//
+
+        //Calls the stored SQL Function that returns all the existing Positions entities in the database.
+        IEnumerable<GymService> GetAllPositions();
+        //Calls the stored SQL Function that returns the existing Positions entity in the database with the matching id.
+        GymService GetPositionById(int id);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Position Entity in the database..
+        void CreateUpdateDeletePosition(GymService position, string statementType);
+
+
+        //---------------CLASS ENTITIES MANAGMENT------------------//
+
+        //Calls the stored SQL Function that returns all the existing Classes entities in the database.
+        IEnumerable<GymClass> GetAllClasses();
+        //Calls the stored SQL Function that returns the existing Class entity in the database with the matching id.
+        GymClass GetClassById(int id);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Class Entity in the database..
+        void CreateUpdateDeleteClass(GymClass gymClass, string statementType);
+
+
 
 
 

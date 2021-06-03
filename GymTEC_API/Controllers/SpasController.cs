@@ -78,7 +78,7 @@ namespace API_Service.Controllers
         }
 
         //DELETE api/spas/{id}
-        //This request deletes the Gym entity with the id received in the request header.
+        //This request deletes the Spa Treatment entity with the id received in the request header.
         [HttpDelete("{id}")]
         public ActionResult DeleteSpaTreatment(int id)
         {

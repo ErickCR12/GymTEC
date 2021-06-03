@@ -222,5 +222,134 @@ namespace GymTEC_API.Data
 
             connection.Close();
         }
+
+        public IEnumerable<GymService> GetAllPositions()
+        {
+            List<GymService> positions = new List<GymService>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllPositions()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymService position = new GymService();
+                position.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                position.name = dataReader.GetValue(1).ToString();
+
+                positions.Add(position);
+            }
+            connection.Close();
+            return positions;
+        }
+
+        public GymService GetPositionById(int id)
+        {
+            GymService position = new GymService(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPositionById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                position.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                position.name = dataReader.GetValue(1).ToString();
+
+                connection.Close();
+                return position;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeletePosition(GymService position, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Position", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", position.id);
+            command.Parameters.AddWithValue("@nombre", position.name);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public IEnumerable<GymClass> GetAllClasses()
+        {
+            List<GymClass> gymClasses = new List<GymClass>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllClasses()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymClass gymClass = new GymClass();
+                gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(3).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.capacity = Int32.Parse(dataReader.GetValue(6).ToString());
+                gymClass.isGroup = Int32.Parse(dataReader.GetValue(7).ToString()) != 0;
+
+                gymClasses.Add(gymClass);
+            }
+            connection.Close();
+            return gymClasses;
+        }
+
+        public GymClass GetClassById(int id)
+        {           
+            GymClass gymClass = new GymClass(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetClassById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(3).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.capacity = Int32.Parse(dataReader.GetValue(6).ToString());
+                gymClass.isGroup = Int32.Parse(dataReader.GetValue(7).ToString()) != 0;
+                
+                connection.Close();
+                return gymClass;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteClass(GymClass gymClass, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Class", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", gymClass.id);
+            command.Parameters.AddWithValue("@id_servicio", gymClass.idService);
+            command.Parameters.AddWithValue("@cedula_instructor", gymClass.idInstructor);
+            command.Parameters.AddWithValue("@fecha", gymClass.date);
+            command.Parameters.AddWithValue("@hora_inicio", gymClass.startTime);
+            command.Parameters.AddWithValue("@hora_fin", gymClass.endTime);
+            command.Parameters.AddWithValue("@capacidad", gymClass.capacity);
+            command.Parameters.AddWithValue("@es_grupal", gymClass.isGroup);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
     }
 }

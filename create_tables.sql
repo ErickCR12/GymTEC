@@ -22,7 +22,7 @@ CREATE TABLE CLASE (
 	hora_inicio			TIME		NOT NULL,
 	hora_fin			TIME		NOT NULL,
 	capacidad			DECIMAL		NOT NULL,
-	es_grupal			BIT			NOT NULL,
+	es_grupal			INT			NOT NULL,
 	PRIMARY KEY	(id, id_servicio, cedula_instructor, 
 	fecha, hora_inicio, hora_fin)
 );
