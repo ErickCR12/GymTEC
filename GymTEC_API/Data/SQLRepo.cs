@@ -351,5 +351,60 @@ namespace GymTEC_API.Data
             connection.Close();
 
         }
+
+        public IEnumerable<GymService> GetAllEquipmentTypes()
+        {
+            List<GymService> equipmentTypes = new List<GymService>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllEquipmentTypes()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymService equipmentType = new GymService();
+                equipmentType.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                equipmentType.name = dataReader.GetValue(1).ToString();
+
+                equipmentTypes.Add(equipmentType);
+            }
+            connection.Close();
+            return equipmentTypes;
+        }
+
+        public GymService GetEquipmentTypeById(int id)
+        {
+            GymService equipmentType = new GymService(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetEquipmentTypeById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                equipmentType.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                equipmentType.name = dataReader.GetValue(1).ToString();
+
+                connection.Close();
+                return equipmentType;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteEquipmentType(GymService equipmentType, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_EquipmentType", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", equipmentType.id);
+            command.Parameters.AddWithValue("@nombre", equipmentType.name);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }

@@ -363,3 +363,59 @@ SELECT * FROM GetAllClasses();
 
 EXEC	CreateUpdateDelete_Gym @id = 4, @StatementType = 'DELETE';
 
+
+
+--------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
+GO
+CREATE FUNCTION GetAllEquipmentTypes()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM TIPO_EQUIPO
+);
+
+GO
+CREATE FUNCTION GetEquipmentTypeById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM TIPO_EQUIPO
+	WHERE id = @storedId
+);
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_EquipmentType
+(
+	@id INT = 0,
+	@nombre VARCHAR(50) = '',
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO TIPO_EQUIPO(nombre)
+			VALUES (@nombre)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE TIPO_EQUIPO  
+            SET	nombre = @nombre
+            WHERE  id = @id
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM TIPO_EQUIPO  
+            WHERE  id = @id  
+        END  
+  END    
+
+EXEC	CreateUpdateDelete_EquipmentType @nombre = 'Mancuernas', @StatementType = 'INSERT';
+
+EXEC	CreateUpdateDelete_EquipmentType @id = 1, @StatementType = 'DELETE';

@@ -56,6 +56,17 @@ namespace GymTEC_API.Data
         void CreateUpdateDeleteClass(GymClass gymClass, string statementType);
 
 
+        
+        //-----------EQUIPMENT TYPES ENTITIES MANAGMENT------------//
+
+        //Calls the stored SQL Function that returns all the existing Equipment Types entities in the database.
+        IEnumerable<GymService> GetAllEquipmentTypes();
+        //Calls the stored SQL Function that returns the existing Class entity in the database with the matching id.
+        GymService GetEquipmentTypeById(int id);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Class Entity in the database..
+        void CreateUpdateDeleteEquipmentType(GymService equipmenType, string statementType);
+
+
 
 
 
