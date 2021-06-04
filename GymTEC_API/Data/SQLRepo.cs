@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using GymTEC_API.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace GymTEC_API.Data
 {
@@ -12,9 +13,10 @@ namespace GymTEC_API.Data
 
         SqlConnection connection;
         
-        public SQLRepo() 
+        public SQLRepo(IConfiguration config) 
         {
-            var connectionString = "Server=localhost;Initial Catalog=gymTEC_DB;User ID=GymTEC_API;Password=gymtec";
+            
+            var connectionString = config.GetValue<string>("SQL_uri");
             connection = new SqlConnection(connectionString);
         }
 
@@ -523,6 +525,95 @@ namespace GymTEC_API.Data
             command.Parameters.AddWithValue("@nombre", product.name);
             command.Parameters.AddWithValue("@descripcion", product.description);
             command.Parameters.AddWithValue("@costo", product.price);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
+
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllEmployees()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Employee entity
+            {
+                Employee employee = new Employee();
+                employee.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                employee.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                employee.idJobPosition = Int32.Parse(dataReader.GetValue(2).ToString());
+                employee.idPayroll = Int32.Parse(dataReader.GetValue(3).ToString());
+                employee.email = dataReader.GetValue(4).ToString();
+                employee.password = dataReader.GetValue(5).ToString();
+                employee.name = dataReader.GetValue(6).ToString();
+                employee.last_name1 = dataReader.GetValue(7).ToString();
+                employee.last_name2 = dataReader.GetValue(8).ToString();
+                employee.province = dataReader.GetValue(9).ToString();
+                employee.canton = dataReader.GetValue(10).ToString();
+                employee.district = dataReader.GetValue(11).ToString();
+                employee.salary = Int32.Parse(dataReader.GetValue(12).ToString());
+
+                employees.Add(employee);
+            }
+            connection.Close();
+            return employees;
+        }
+
+        public Employee GetEmployeeByIdCard(int idCard)
+        {           
+            Employee employee = new Employee(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetEmployeeByIdCard(@idCard)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@idCard", idCard);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                employee.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                employee.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                employee.idJobPosition = Int32.Parse(dataReader.GetValue(2).ToString());
+                employee.idPayroll = Int32.Parse(dataReader.GetValue(3).ToString());
+                employee.email = dataReader.GetValue(4).ToString();
+                employee.password = dataReader.GetValue(5).ToString();
+                employee.name = dataReader.GetValue(6).ToString();
+                employee.last_name1 = dataReader.GetValue(7).ToString();
+                employee.last_name2 = dataReader.GetValue(8).ToString();
+                employee.province = dataReader.GetValue(9).ToString();
+                employee.canton = dataReader.GetValue(10).ToString();
+                employee.district = dataReader.GetValue(11).ToString();
+                employee.salary = Int32.Parse(dataReader.GetValue(12).ToString());
+                
+                connection.Close();
+                return employee;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteEmployee(Employee employee, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Employee", connection); //Stored Procedure that can insert, update or delete Employee entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@numero_cedula", employee.idCard);
+            command.Parameters.AddWithValue("@id_sucursal", employee.idGym);
+            command.Parameters.AddWithValue("@id_puesto", employee.idJobPosition);
+            command.Parameters.AddWithValue("@id_planilla", employee.idPayroll);
+            command.Parameters.AddWithValue("@correo", employee.email);
+            command.Parameters.AddWithValue("@contraseña", employee.password);
+            command.Parameters.AddWithValue("@nombre", employee.name);
+            command.Parameters.AddWithValue("@apellido1", employee.last_name1);
+            command.Parameters.AddWithValue("@apellido2", employee.last_name2);
+            command.Parameters.AddWithValue("@provincia", employee.province);
+            command.Parameters.AddWithValue("@canton", employee.canton);
+            command.Parameters.AddWithValue("@distrito", employee.district);
+            command.Parameters.AddWithValue("@salario", employee.salary);
             command.Parameters.AddWithValue("@StatementType", statementType);
 
             command.ExecuteNonQuery();

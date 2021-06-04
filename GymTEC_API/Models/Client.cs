@@ -1,12 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GymTEC_API.Models
 {
 
     public class Client
     {
-
+        
+        [BsonId]
+        public ObjectId Id {get; set;} 
         [Key]
         public int idCard {get; set;}
         [Required]
@@ -20,9 +24,9 @@ namespace GymTEC_API.Models
         [Required]
         public string last_name2 {get; set;}
         [Required]
-        public string country {get; set;}
+        public string province {get; set;}
         [Required]
-        public string continent {get; set;}
+        public string canton {get; set;}
         [Required]
         public string district {get; set;}
         [Required]
@@ -30,7 +34,7 @@ namespace GymTEC_API.Models
         [Required]
         public int weight {get; set;}
         [Required]
-        public int IMC {get; set;}
+        public double IMC {get; set;}
         
     }
 

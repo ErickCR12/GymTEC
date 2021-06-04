@@ -338,3 +338,93 @@ AS
 GO
 
 EXEC CreateUpdateDelete_Product @codigo_barras = 90992942, @descripcion = 'Barra 300kcal sin azucar', @nombre = 'Barra energetica', @costo = 1300, @StatementType = 'INSERT';
+
+
+
+
+-----------------------------------GESTION DE EMPLEADOS-----------------------------
+
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Employee
+(
+	@numero_cedula DECIMAL = 0,
+	@id_sucursal	INT = 0,
+	@id_puesto	INT = 0,
+	@id_planilla	INT = 0,
+	@correo VARCHAR(50) = 0,
+	@contraseña VARCHAR(30) = 0,
+	@nombre VARCHAR(20) = 0,
+	@apellido1 VARCHAR(20) = 0,
+	@apellido2 VARCHAR(20) = 0,
+	@provincia VARCHAR(20) = 0,
+	@canton	VARCHAR(20) = 0,
+	@distrito VARCHAR(20) = 0,
+	@salario DECIMAL = 0,
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO EMPLEADO
+							   (numero_cedula,
+							    id_sucursal,
+								id_puesto,
+								id_planilla,
+								correo, 
+								contraseña, 
+								nombre, 
+								apellido1, 
+								apellido2, 
+								provincia, 
+								canton, 
+								distrito, 
+								salario)
+			VALUES			   (@numero_cedula, 
+								@id_sucursal, 
+								@id_puesto,
+								@id_planilla,
+								@correo,
+								@contraseña,
+								@nombre,
+								@apellido1,
+								@apellido2,
+								@provincia, 
+								@canton, 
+								@distrito, 
+								@salario)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE EMPLEADO  
+            SET	id_sucursal = @id_sucursal,
+				id_puesto = @id_puesto,
+				id_planilla = @id_planilla,
+				correo = @correo,
+				contraseña = @contraseña,
+				nombre = @nombre,
+				apellido1 = @apellido1,
+				apellido2 = @apellido2,
+				provincia = @provincia,
+				canton = @canton, 
+				distrito = @distrito, 
+				salario = @salario
+            WHERE  numero_cedula = @numero_cedula  
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM EMPLEADO  
+            WHERE  numero_cedula = @numero_cedula
+        END  
+  END    
+
+
+  EXEC CreateUpdateDelete_Employee @numero_cedula = 70580214, @id_sucursal = 1, 
+  @id_puesto = 2, @id_planilla = 3, @correo = 'empleado1@gymtec.com', 
+  @contraseña = 'empleado123', @nombre = 'Jarod', @apellido1 = 'De la O', @apellido2 = 'Segura',
+  @provincia = 'Cartago', @canton = 'Paraiso', @distrito = 'Paraiso',
+  @salario = '520000',	@StatementType = 'INSERT';
+

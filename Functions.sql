@@ -162,24 +162,26 @@ RETURN
 );
 
 
---------------------GESTION DE PRODUCTOS-----------------------------------------
+--------------------GESTION DE EMPLEADOS-----------------------------------------
 GO
-CREATE FUNCTION GetAllProducts()
+CREATE FUNCTION GetAllEmployees()
 RETURNS TABLE
 AS
 RETURN
 (
-	SELECT codigo_barras, nombre, descripcion, costo
-	FROM PRODUCTO
+	SELECT	numero_cedula, id_sucursal, id_puesto, id_planilla, correo, contraseña,
+			nombre, apellido1, apellido2, provincia, canton, distrito, salario
+	FROM EMPLEADO
 );
 
 GO
-CREATE FUNCTION GetProductByBarCode(@storedBarCode int)
+CREATE FUNCTION GetEmployeeByIdCard(@storedIdCard DECIMAL)
 RETURNS TABLE
 AS
 RETURN
 (
-	SELECT codigo_barras, nombre, descripcion, costo
-	FROM PRODUCTO
-	WHERE codigo_barras = @storedBarCode
+	SELECT numero_cedula, id_sucursal, id_puesto, id_planilla, correo, contraseña,
+			nombre, apellido1, apellido2, provincia, canton, distrito, salario
+	FROM EMPLEADO
+	WHERE numero_cedula = @storedIdCard
 );

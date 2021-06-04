@@ -25,9 +25,9 @@ namespace GymTEC_API.DTOs
         [Required]
         public string last_name2 {get; set;}
         [Required]
-        public string country {get; set;}
+        public string province {get; set;}
         [Required]
-        public string continent {get; set;}
+        public string canton {get; set;}
         [Required]
         public string district {get; set;}
         [Required]

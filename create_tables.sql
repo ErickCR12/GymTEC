@@ -27,8 +27,11 @@ CREATE TABLE CLASE (
 	fecha, hora_inicio, hora_fin)
 );
 
-CREATE TABLE CLIENTE (
+CREATE TABLE EMPLEADO (
 	numero_cedula		DECIMAL		NOT NULL,
+	id_sucursal			INT		NOT NULL,
+	id_puesto			INT		NOT NULL,
+	id_planilla			INT		NOT NULL,
 	correo				VARCHAR(50) NOT NULL,
 	contraseña			VARCHAR(30)	NOT NULL,
 	nombre				VARCHAR(20) NOT NULL,
@@ -37,9 +40,7 @@ CREATE TABLE CLIENTE (
 	provincia			VARCHAR(20) NOT NULL,
 	canton				VARCHAR(20) NOT NULL,
 	distrito			VARCHAR(20) NOT NULL,
-	fecha_nacimiento	DATE		NOT NULL,
-	peso				DECIMAL		NOT NULL,
-	IMC					DECIMAL		NOT NULL,
+	salario				DECIMAL		NOT NULL,
 	PRIMARY KEY	(numero_cedula)
 );
 

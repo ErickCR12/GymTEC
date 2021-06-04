@@ -86,6 +86,16 @@ namespace GymTEC_API.Data
         //Calls the stored SQL Procedure that inserts, updates or deletes a Products Entity in the database..
         void CreateUpdateDeleteProduct(Product product, string statementType);
 
+    
+        //-----------EMPLOYEES MANAGMENT------------//
+
+        //Calls the stored SQL Function that returns all the existing Employees entities in the database.
+        IEnumerable<Employee> GetAllEmployees();
+        //Calls the stored SQL Function that returns the existing Employees entity in the database with the matching id.
+        Employee GetEmployeeByIdCard(int idCard);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Employees Entity in the database..
+        void CreateUpdateDeleteEmployee(Employee employee, string statementType);
+
 
 
 
