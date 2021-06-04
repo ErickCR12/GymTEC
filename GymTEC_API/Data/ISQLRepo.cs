@@ -61,20 +61,30 @@ namespace GymTEC_API.Data
 
         //Calls the stored SQL Function that returns all the existing Equipment Types entities in the database.
         IEnumerable<GymService> GetAllEquipmentTypes();
-        //Calls the stored SQL Function that returns the existing Class entity in the database with the matching id.
+        //Calls the stored SQL Function that returns the existing Equipment Type entity in the database with the matching id.
         GymService GetEquipmentTypeById(int id);
-        //Calls the stored SQL Procedure that inserts, updates or deletes a Class Entity in the database..
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Equipment Type Entity in the database..
         void CreateUpdateDeleteEquipmentType(GymService equipmenType, string statementType);
 
 
         //-----------EXCERCISE MACHINES MANAGMENT------------//
 
-        //Calls the stored SQL Function that returns all the existing Equipment Types entities in the database.
+        //Calls the stored SQL Function that returns all the existing Excercise Machines entities in the database.
         IEnumerable<ExcerciseMachine> GetAllMachines();
-        //Calls the stored SQL Function that returns the existing Class entity in the database with the matching id.
+        //Calls the stored SQL Function that returns the existing Excercise Machine entity in the database with the matching id.
         ExcerciseMachine GetMachineBySerialNumber(int serialNumber);
-        //Calls the stored SQL Procedure that inserts, updates or deletes a Class Entity in the database..
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Excercise Machine Entity in the database..
         void CreateUpdateDeleteMachine(ExcerciseMachine equipmenType, string statementType);
+
+
+        //-----------PRODUCTS MANAGMENT------------//
+
+        //Calls the stored SQL Function that returns all the existing Products entities in the database.
+        IEnumerable<Product> GetAllProducts();
+        //Calls the stored SQL Function that returns the existing Products entity in the database with the matching id.
+        Product GetProductByBarCode(int barCode);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Products Entity in the database..
+        void CreateUpdateDeleteProduct(Product product, string statementType);
 
 
 

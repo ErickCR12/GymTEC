@@ -160,3 +160,26 @@ RETURN
 	FROM MAQUINA
 	WHERE numero_serie = @storedSerialNumber
 );
+
+
+--------------------GESTION DE PRODUCTOS-----------------------------------------
+GO
+CREATE FUNCTION GetAllProducts()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT codigo_barras, nombre, descripcion, costo
+	FROM PRODUCTO
+);
+
+GO
+CREATE FUNCTION GetProductByBarCode(@storedBarCode int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT codigo_barras, nombre, descripcion, costo
+	FROM PRODUCTO
+	WHERE codigo_barras = @storedBarCode
+);

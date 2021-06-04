@@ -266,7 +266,7 @@ AS
   END    
 
 
-  --------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
+-------------------------GESTION DE TIPOS DE EQUIPO----------------------------------
 
 GO
 CREATE PROCEDURE CreateUpdateDelete_Machine
@@ -301,3 +301,40 @@ AS
 
 
   EXEC CreateUpdateDelete_Machine @numero_serie = 411254, @tipo_equipo = 2, @marca = 'Adidas', @costo = 89000, @StatementType = 'INSERT';
+
+
+--------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Product
+(
+	@codigo_barras DECIMAL = 0,
+	@nombre VARCHAR(20) = '',
+	@descripcion VARCHAR(50) = '',
+	@costo DECIMAL = 0,
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO PRODUCTO(codigo_barras, nombre, descripcion, costo)
+			VALUES (@codigo_barras, @nombre, @descripcion, @costo)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE PRODUCTO  
+            SET	nombre = @nombre, descripcion = @descripcion, costo = @costo
+            WHERE  codigo_barras = @codigo_barras
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM PRODUCTO  
+            WHERE  codigo_barras = @codigo_barras 
+        END  
+  END    
+GO
+
+EXEC CreateUpdateDelete_Product @codigo_barras = 90992942, @descripcion = 'Barra 300kcal sin azucar', @nombre = 'Barra energetica', @costo = 1300, @StatementType = 'INSERT';

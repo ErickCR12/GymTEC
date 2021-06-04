@@ -468,5 +468,67 @@ namespace GymTEC_API.Data
             connection.Close();
 
         }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            List<Product> products = new List<Product>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllProducts()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                Product product = new Product();
+                product.barCode = Int32.Parse(dataReader.GetValue(0).ToString());
+                product.name = dataReader.GetValue(1).ToString();
+                product.description = dataReader.GetValue(2).ToString();
+                product.price = Int32.Parse(dataReader.GetValue(3).ToString());
+
+                products.Add(product);
+            }
+            connection.Close();
+            return products;
+        }
+
+        public Product GetProductByBarCode(int barCode)
+        {           
+            Product product = new Product(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetProductByBarCode(@barCode)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@barCode", barCode);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                product.barCode = Int32.Parse(dataReader.GetValue(0).ToString());
+                product.name = dataReader.GetValue(1).ToString();
+                product.description = dataReader.GetValue(2).ToString();
+                product.price = Int32.Parse(dataReader.GetValue(3).ToString());
+                
+                connection.Close();
+                return product;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteProduct(Product product, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Product", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@codigo_barras", product.barCode);
+            command.Parameters.AddWithValue("@nombre", product.name);
+            command.Parameters.AddWithValue("@descripcion", product.description);
+            command.Parameters.AddWithValue("@costo", product.price);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
     }
 }
