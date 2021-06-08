@@ -8,7 +8,6 @@ namespace GymTEC_API.DTOs
 
         [Required]
         public int id {get; set;}
-        [Required]
         public string name {get; set;}
         
     }

@@ -8,11 +8,8 @@ namespace GymTEC_API.DTOs
 
         [Required]
         public int serialNumber {get; set;}
-        [Required]
         public int idEquipment {get; set;}
-        [Required]
         public string brand {get; set;}
-        [Required]
         public int price {get; set;}
 
         

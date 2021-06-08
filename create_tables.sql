@@ -16,7 +16,8 @@ CREATE TABLE SUCURSAL (
 
 CREATE TABLE CLASE (
 	id					INT IDENTITY(1,1) NOT NULL,
-	id_servicio			DECIMAL		NOT NULL,
+	id_sucursal			INT			NOT NULL,
+	id_servicio			INT			NOT NULL,
 	cedula_instructor	DECIMAL		NOT NULL,
 	fecha				DATE		NOT NULL,
 	hora_inicio			TIME		NOT NULL,
@@ -56,8 +57,6 @@ CREATE TABLE TIPO_EQUIPO (
 	PRIMARY KEY (id)
 );
 
-
-
 CREATE TABLE SERVICIO (
 	id		INT IDENTITY(1,1) NOT NULL,
 	nombre	VARCHAR(20) NOT NULL,
@@ -96,26 +95,26 @@ CREATE TABLE PRODUCTO (
 );
 
 CREATE TABLE SUCURSAL_PRODUCTO (
-	id_sucursal		DECIMAL	NOT NULL,
+	id_sucursal		INT		NOT NULL,
 	codigo_producto	DECIMAL NOT NULL,
 	PRIMARY KEY (id_sucursal, codigo_producto)
 );
 
-CREATE TABLE SUCURSAL_SPA (
-	id_sucursal	DECIMAL	NOT NULL,
-	id_spa		DECIMAL NOT NULL,
-	PRIMARY KEY (id_sucursal, id_spa)
+CREATE TABLE SUCURSAL_TRATAMIENTO (
+	id_sucursal	INT	NOT NULL,
+	id_tratamiento		INT NOT NULL,
+	PRIMARY KEY (id_sucursal, id_tratamiento)
 );
 
 CREATE TABLE SUCURSAL_MAQUINA (
-	id_sucursal		DECIMAL	NOT NULL,
+	id_sucursal		INT	NOT NULL,
 	numero_maquina	DECIMAL NOT NULL,
 	PRIMARY KEY (id_sucursal, numero_maquina)
 );
 
 CREATE TABLE SUCURSAL_SERVICIO (
-	id_sucursal	DECIMAL	NOT NULL,
-	id_servicio	DECIMAL NOT NULL,
+	id_sucursal	INT	NOT NULL,
+	id_servicio	INT NOT NULL,
 	PRIMARY KEY (id_sucursal, id_servicio)
 );
 

@@ -73,7 +73,7 @@ AS
             WHERE  id = @id  
         END  
   END    
-
+GO
 
 ----------------------GESTION DE TRATAMIENTOS DE SPA------------------------------
 
@@ -106,7 +106,41 @@ AS
             WHERE  id = @id  
         END  
   END    
+GO
 
+
+----------------------GESTION DE SERVICIOS------------------------------
+
+
+GO
+CREATE PROCEDURE CreateUpdateDelete_Service
+(
+	@id INT = 0,
+	@nombre VARCHAR(50) = '',
+	@StatementType VARCHAR(20)
+)
+
+AS  
+  BEGIN  
+      IF @StatementType = 'INSERT'  
+        BEGIN  
+            INSERT INTO SERVICIO(nombre)
+			VALUES (@nombre)
+        END  
+  
+      ELSE IF @StatementType = 'UPDATE'  
+        BEGIN  
+            UPDATE SERVICIO  
+            SET	nombre = @nombre
+            WHERE  id = @id
+        END  
+      ELSE IF @StatementType = 'DELETE'  
+        BEGIN  
+            DELETE FROM SERVICIO  
+            WHERE  id = @id  
+        END  
+  END    
+GO
 
 
 --------------------GESTION DE TIPOS DE PLANILLA-----------------------------------------
@@ -142,7 +176,7 @@ AS
             WHERE  id = @id  
         END  
   END    
-
+GO
 
 ---------------------------------GESTION DE PUESTOS-----------------------------------------
 
@@ -174,7 +208,7 @@ AS
             WHERE  id = @id  
         END  
   END  
-
+GO
 
 -----------------------------------GESTION DE CLASES-----------------------------
 
@@ -182,6 +216,7 @@ GO
 CREATE PROCEDURE CreateUpdateDelete_Class
 (
 	@id INT = 0,
+	@id_sucursal INT = 0,
 	@id_servicio DECIMAL = 0,
 	@cedula_instructor DECIMAL = 0,
 	@capacidad DECIMAL = 0,
@@ -197,14 +232,16 @@ AS
       IF @StatementType = 'INSERT'  
         BEGIN  
             INSERT INTO CLASE
-							   (id_servicio, 
+							   (id_servicio,
+							    id_sucursal,
 								cedula_instructor,
 								capacidad, 
 								hora_inicio, 
 								hora_fin, 
 								fecha, 
 								es_grupal)
-			VALUES			   (@id_servicio, 
+			VALUES			   (@id_servicio,
+								@id_sucursal,
 								@cedula_instructor,
 								@capacidad, 
 								@hora_inicio, 
@@ -217,6 +254,7 @@ AS
         BEGIN  
             UPDATE CLASE  
             SET	id_servicio = @id_servicio,
+				
 				cedula_instructor = @cedula_instructor,
 				capacidad = @capacidad,
 				hora_inicio = @hora_inicio,
@@ -231,7 +269,7 @@ AS
             WHERE  id = @id  
         END  
   END    
-
+GO
 
 
 --------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
@@ -264,9 +302,9 @@ AS
             WHERE  id = @id  
         END  
   END    
+GO
 
-
--------------------------GESTION DE TIPOS DE EQUIPO----------------------------------
+-------------------------GESTION DE MAQUINAS----------------------------------
 
 GO
 CREATE PROCEDURE CreateUpdateDelete_Machine
@@ -298,12 +336,12 @@ AS
             WHERE  numero_serie = @numero_serie  
         END  
   END    
-
+GO
 
   EXEC CreateUpdateDelete_Machine @numero_serie = 411254, @tipo_equipo = 2, @marca = 'Adidas', @costo = 89000, @StatementType = 'INSERT';
 
 
---------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
+--------------------GESTION DE PRODUCTOS-----------------------------------------
 
 GO
 CREATE PROCEDURE CreateUpdateDelete_Product
@@ -420,7 +458,7 @@ AS
             WHERE  numero_cedula = @numero_cedula
         END  
   END    
-
+GO
 
   EXEC CreateUpdateDelete_Employee @numero_cedula = 70580214, @id_sucursal = 1, 
   @id_puesto = 2, @id_planilla = 3, @correo = 'empleado1@gymtec.com', 
@@ -428,3 +466,47 @@ AS
   @provincia = 'Cartago', @canton = 'Paraiso', @distrito = 'Paraiso',
   @salario = '520000',	@StatementType = 'INSERT';
 
+
+-----------------------------------CONFIG GYM------------------------------------
+
+GO
+CREATE PROCEDURE SetSpaTreatmentsToGym
+(
+	@id_tratamiento	INT,
+	@id_sucursal	INT
+)
+
+AS  
+  BEGIN  
+	INSERT INTO SUCURSAL_TRATAMIENTO(id_sucursal, id_tratamiento)
+	VALUES (@id_sucursal, @id_tratamiento)
+  END    
+GO
+
+GO
+CREATE PROCEDURE SetProductsToGym
+(
+	@codigo_producto DECIMAL,
+	@id_sucursal	 INT
+)
+
+AS  
+  BEGIN  
+	INSERT INTO SUCURSAL_PRODUCTO(id_sucursal, codigo_producto)
+	VALUES (@id_sucursal, @codigo_producto)
+  END    
+GO
+
+GO
+CREATE PROCEDURE SetMachinesToGym
+(
+	@numero_maquina DECIMAL,
+	@id_sucursal	 INT
+)
+
+AS  
+  BEGIN  
+	INSERT INTO SUCURSAL_MAQUINA(id_sucursal, numero_maquina)
+	VALUES (@id_sucursal, @numero_maquina)
+  END    
+GO

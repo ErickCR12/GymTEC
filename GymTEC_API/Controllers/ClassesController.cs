@@ -58,38 +58,5 @@ namespace API_Service.Controllers
                                 newClassDto);
         }
 
-
-        //PUT api/classes/{id}
-        //This request receives all the needed info to modify an existing Class in the database.
-        [HttpPut("{id}")]
-        public ActionResult UpdateClass(int id, GymClassDto classDto)
-        {
-            var classFromRepo = _repository.GetClassById(id);
-            classDto.id = classFromRepo.id;
-            if(classFromRepo == null)
-            {
-                return NotFound();
-            }
-
-            _mapper.Map(classDto, classFromRepo);
-            _repository.CreateUpdateDeleteClass(classFromRepo, "UPDATE");
-
-            return NoContent();
-        }
-
-        //DELETE api/classes/{id}
-        //This request deletes the Class entity with the id received in the request header.
-        [HttpDelete("{id}")]
-        public ActionResult DeleteClass(int id)
-        {
-            var classFromRepo = _repository.GetClassById(id);
-            if(classFromRepo == null)
-            {
-                return NotFound();
-            }
-            _repository.CreateUpdateDeleteClass(classFromRepo, "DELETE");
-            return NoContent();
-        }
-
     }
 }

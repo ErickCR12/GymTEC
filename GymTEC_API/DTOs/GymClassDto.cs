@@ -9,6 +9,8 @@ namespace GymTEC_API.DTOs
         [Required]
         public int id {get; set;}
         [Required]
+        public int idGym {get; set;}
+        [Required]
         public int idService {get; set;}
         [Required]
         public int idInstructor {get; set;}

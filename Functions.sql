@@ -11,6 +11,7 @@ RETURN
 	SELECT id, id_administrador, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda
 	FROM SUCURSAL
 );
+GO
 
 GO
 CREATE FUNCTION GetGymById(@storedId int)
@@ -22,6 +23,7 @@ RETURN
 	FROM SUCURSAL
 	WHERE id = @storedId
 );
+GO
 
 
 
@@ -35,6 +37,7 @@ RETURN
 	SELECT id, nombre
 	FROM TRATAMIENTO_SPA
 );
+GO
 
 GO
 CREATE FUNCTION GetSpaTreatmentById(@storedId int)
@@ -46,7 +49,31 @@ RETURN
 	FROM TRATAMIENTO_SPA
 	WHERE id = @storedId
 );
+GO
 
+--------------------GESTION DE SERVICIOS-----------------------------------------
+GO
+CREATE FUNCTION GetAllServices()
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM SERVICIO
+);
+GO
+
+GO
+CREATE FUNCTION GetServiceById(@storedId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT id, nombre
+	FROM SERVICIO
+	WHERE id = @storedId
+);
+GO
 --------------------GESTION DE TIPOS DE PLANILLA-----------------------------------------
 GO
 CREATE FUNCTION GetAllPayrolls()
@@ -57,6 +84,7 @@ RETURN
 	SELECT id, descripcion, pago_horas, pago_mensual, pago_clase
 	FROM TIPO_PLANILLA
 );
+GO
 
 GO
 CREATE FUNCTION GetPayrollById(@storedId int)
@@ -68,6 +96,7 @@ RETURN
 	FROM TIPO_PLANILLA
 	WHERE id = @storedId
 );
+GO
 
 
 ---------------------------------GESTION DE PUESTOS-----------------------------------------
@@ -80,6 +109,7 @@ RETURN
 	SELECT id, nombre
 	FROM PUESTO
 );
+GO
 
 GO
 CREATE FUNCTION GetPositionById(@storedId int)
@@ -91,6 +121,7 @@ RETURN
 	FROM PUESTO
 	WHERE id = @storedId
 );
+GO
 
 
 -----------------------------------GESTION DE CLASES-----------------------------
@@ -100,9 +131,10 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_sucursal, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 );
+GO
 
 GO
 CREATE FUNCTION GetClassById(@storedId int)
@@ -110,10 +142,11 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_sucursal, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 	WHERE id = @storedId
 );
+GO
 
 
 
@@ -127,6 +160,7 @@ RETURN
 	SELECT id, nombre
 	FROM TIPO_EQUIPO
 );
+GO
 
 GO
 CREATE FUNCTION GetEquipmentTypeById(@storedId int)
@@ -138,6 +172,7 @@ RETURN
 	FROM TIPO_EQUIPO
 	WHERE id = @storedId
 );
+GO
 
 --------------------GESTION DE MÁQUINAS-----------------------------------------
 GO
@@ -149,6 +184,7 @@ RETURN
 	SELECT numero_serie, tipo_equipo, marca, costo
 	FROM MAQUINA
 );
+GO
 
 GO
 CREATE FUNCTION GetMachineBySerialNumber(@storedSerialNumber int)
@@ -160,6 +196,7 @@ RETURN
 	FROM MAQUINA
 	WHERE numero_serie = @storedSerialNumber
 );
+GO
 
 
 --------------------GESTION DE PRODUCTOS-----------------------------------------
@@ -172,6 +209,7 @@ RETURN
 	SELECT codigo_barras, nombre, descripcion, costo
 	FROM PRODUCTO
 );
+GO
 
 GO
 CREATE FUNCTION GetProductByBarCode(@storedBarCode int)
@@ -183,6 +221,7 @@ RETURN
 	FROM PRODUCTO
 	WHERE codigo_barras = @storedBarCode
 );
+GO
 
 
 
@@ -197,6 +236,7 @@ RETURN
 			nombre, apellido1, apellido2, provincia, canton, distrito, salario
 	FROM EMPLEADO
 );
+GO
 
 GO
 CREATE FUNCTION GetEmployeeByIdCard(@storedIdCard DECIMAL)
@@ -209,3 +249,4 @@ RETURN
 	FROM EMPLEADO
 	WHERE numero_cedula = @storedIdCard
 );
+GO

@@ -25,6 +25,16 @@ namespace GymTEC_API.Data
         //Calls the stored SQL Procedure that inserts, updates or deletes a Spa Treatment Entity in the database..
         void CreateUpdateDeleteSpaTreatment(GymService spaTreatment, string statementType);
 
+
+        //------------------SERVICES ENTITIES MANAGMENT--------------------//
+
+        //Calls the stored SQL Function that returns all the existing Service entities in the database.
+        IEnumerable<GymService> GetAllServices();
+        //Calls the stored SQL Function that returns the existing Service entity in the database with the matching id.
+        GymService GetServiceById(int id);
+        //Calls the stored SQL Procedure that inserts, updates or deletes a Service Entity in the database..
+        void CreateUpdateDeleteService(GymService service, string statementType);
+
         
         //-------------------PAYROLLS ENTITIES MANAGMENT--------------------//
 
@@ -97,9 +107,14 @@ namespace GymTEC_API.Data
         void CreateUpdateDeleteEmployee(Employee employee, string statementType);
 
 
+        //-----------GYM CONFIGURATIONS------------//
 
-
-
+        //Calls the SQL Procedure that creates the asociation between spa treatments and the specified gym entity.
+        void SetSpaTreatmentsToGym(IEnumerable<GymService> spaTreatments, int gymId);
+        //Calls the SQL Procedure that creates the asociation between products and the specified gym entity.
+        void SetProductsToGym(IEnumerable<Product> spaTreatments, int gymId);
+        //Calls the SQL Procedure that creates the asociation between machines and the specified gym entity.
+        void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId);
     
     }
 

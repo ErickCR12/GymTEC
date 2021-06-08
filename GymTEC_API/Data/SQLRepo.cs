@@ -161,6 +161,62 @@ namespace GymTEC_API.Data
             connection.Close();
         }
 
+public IEnumerable<GymService> GetAllServices()
+        {
+            List<GymService> services = new List<GymService>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetAllServices()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymService service = new GymService();
+                service.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                service.name = dataReader.GetValue(1).ToString();
+
+                services.Add(service);
+            }
+            connection.Close();
+            return services;
+        }
+
+        public GymService GetServiceById(int id)
+        {
+            GymService service = new GymService(); 
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetServiceById(@id)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                service.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                service.name = dataReader.GetValue(1).ToString();
+
+                connection.Close();
+                return service;
+            }
+            connection.Close();
+            return null;
+        }
+
+        public void CreateUpdateDeleteService(GymService service, string statementType)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CreateUpdateDelete_Service", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id", service.id);
+            command.Parameters.AddWithValue("@nombre", service.name);
+            command.Parameters.AddWithValue("@StatementType", statementType);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+
         public IEnumerable<Payroll> GetAllPayrolls()
         {
             List<Payroll> payrolls = new List<Payroll>();
@@ -292,13 +348,14 @@ namespace GymTEC_API.Data
             {
                 GymClass gymClass = new GymClass();
                 gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
-                gymClass.idService = Int32.Parse(dataReader.GetValue(1).ToString());
-                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(2).ToString());
-                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(3).ToString());
-                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
-                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
-                gymClass.capacity = Int32.Parse(dataReader.GetValue(6).ToString());
-                gymClass.isGroup = Int32.Parse(dataReader.GetValue(7).ToString()) != 0;
+                gymClass.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(3).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gymClass.capacity = Int32.Parse(dataReader.GetValue(7).ToString());
+                gymClass.isGroup = Int32.Parse(dataReader.GetValue(8).ToString()) != 0;
 
                 gymClasses.Add(gymClass);
             }
@@ -317,13 +374,14 @@ namespace GymTEC_API.Data
             while(dataReader.Read())
             {
                 gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
-                gymClass.idService = Int32.Parse(dataReader.GetValue(1).ToString());
-                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(2).ToString());
-                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(3).ToString());
-                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
-                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
-                gymClass.capacity = Int32.Parse(dataReader.GetValue(6).ToString());
-                gymClass.isGroup = Int32.Parse(dataReader.GetValue(7).ToString()) != 0;
+                gymClass.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(3).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(4).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gymClass.capacity = Int32.Parse(dataReader.GetValue(7).ToString());
+                gymClass.isGroup = Int32.Parse(dataReader.GetValue(8).ToString()) != 0;
                 
                 connection.Close();
                 return gymClass;
@@ -339,6 +397,7 @@ namespace GymTEC_API.Data
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@id", gymClass.id);
+            command.Parameters.AddWithValue("@id_sucursal", gymClass.idGym);
             command.Parameters.AddWithValue("@id_servicio", gymClass.idService);
             command.Parameters.AddWithValue("@cedula_instructor", gymClass.idInstructor);
             command.Parameters.AddWithValue("@fecha", gymClass.date);
@@ -620,6 +679,54 @@ namespace GymTEC_API.Data
 
             connection.Close();
 
+        }
+
+        public void SetSpaTreatmentsToGym(IEnumerable<GymService> spaTreatments, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SetSpaTreatmentsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            foreach(GymService spaTreatment in spaTreatments){
+                command.Parameters.AddWithValue("@id_sucursal", gymId);
+                command.Parameters.AddWithValue("@id_tratamiento", spaTreatment.id);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+            }
+
+            connection.Close();
+        }
+
+        public void SetProductsToGym(IEnumerable<Product> products, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SetProductsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            foreach(Product product in products){
+                command.Parameters.AddWithValue("@id_sucursal", gymId);
+                command.Parameters.AddWithValue("@codigo_producto", product.barCode);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+            }
+
+            connection.Close();
+        }
+
+        public void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("SetMachinesToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            foreach(ExcerciseMachine machine in machines){
+                command.Parameters.AddWithValue("@id_sucursal", gymId);
+                command.Parameters.AddWithValue("@numero_maquina", machine.serialNumber);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+            }
+
+            connection.Close();
         }
     }
 }
