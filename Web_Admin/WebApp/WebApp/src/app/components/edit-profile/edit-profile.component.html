@@ -1,0 +1,57 @@
+<body class="text-center">
+
+  <main class="form-signin">
+    <form>
+      <img class="mb-4" src="../assets/img/logo-tec.png" alt="" width="200" height="107">
+      <h1 class="h3 mb-3 fw-normal">Edit profile</h1>
+
+
+      <a>Update Personal Data</a>
+      <label for="inputName" class="visually-hidden">Name</label>
+      <input id="inputName" class="form-control" placeholder="{{client.name}}" #inputName [value]="client.name">
+
+      <label for="inputLastName" class="visually-hidden">LastName</label>
+      <input id="inputLastName" class="form-control" placeholder="{{client.last_name1}}" #inputLastName
+             [value]="client.last_name1">
+
+      <label for="inputSLastName" class="visually-hidden">SLastName</label>
+      <input id="inputSLastName" class="form-control" placeholder="{{client.last_name2}}" #inputSLastName
+             [value]="client.last_name2">
+
+      <a>Si desea cambiar la region: </a>
+
+      <label for="inputContinent" class="visually-hidden">Continente</label>
+      <select #continentInput id="inputContinent" class="caja" (change)="getAllCountries(continentInput.value)">
+        <option [value]="client.continent" selected disabled hidden>{{client.continent}}</option>
+        <option [value]="continent.continent" *ngFor="let continent of continents">{{continent.continent}}</option>
+      </select>
+
+      <label for="inputCountry" class="visually-hidden">Pais</label>
+      <select #countryInput id="inputCountry" class="caja">
+        <option [value]="client.country" selected disabled hidden>{{client.country}}</option>
+        <option [value]="country.country" *ngFor="let country of countries">{{country.country}}</option>
+      </select>
+
+      <a>Nueva contraseña:</a>
+
+      <label for="inputPassword" class="visually-hidden">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" #passwordInput
+             [value]="client.password">
+      <h6>Your email cannot be changed</h6>
+      <!--Upload data to loging with this button -->
+      <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
+      (click)="updateClient(inputName.value, inputLastName.value, inputSLastName.value, continentInput.value,
+      countryInput.value, passwordInput.value)">Save Changes</button>
+
+      <br><a>Si desea agregar más direcciones de entrega:</a>
+
+      <label for="inputAnotherDirection" class="visually-hidden"></label>
+      <input id="inputAnotherDirection" class="form-control" placeholder="Direccion"
+             required #anotherDirectionInput>
+      <!--Upload data to loging with this button -->
+      <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
+              (click)="addDirectionClient(anotherDirectionInput.value)">Agregar dirección</button>
+    </form>
+  </main>
+
+</body>

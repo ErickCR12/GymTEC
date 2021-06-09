@@ -1,0 +1,115 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar">
+
+      <!-- NAVIGATION BAR -->
+
+      <!--Título de la página principal de la web-->
+      <a class="navbar-brand" href="#">GymTEC</a>
+
+
+      <!--Botón del navigation bar con el título de Registrar-->
+
+      <!--Tiene la función regresar-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isLogged || isReg">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="clickBack()">Regresar</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Sucursales-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/sucursales" >Sucursales</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Tratamientos de Spa-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/tratamientos">Tratamientos de Spa</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Puestos-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/puestos">Puestos</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de PLanilla-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/planilla">Planilla</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Empleados-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/empleados">Empleados</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Servicios-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/servicios"  >Servicios</a>
+        </li>
+      </ul>
+
+      <!--Botón del navigation bar con el título de Tipos de Equipos-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/tipos">Tipos de Equipos</a>
+        </li>
+      </ul>
+
+
+      <!--Botón del navigation bar con el título de Tipos de Equipos-->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/inventario">Inventario</a>
+        </li>
+      </ul>
+
+
+
+
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="(this.usersService.isAdmin && this.usersService.isLogged);
+      else elseClient">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="clickDeviceManager()">{{isDeviceType? "Hide DeviceType":"DeviceType"}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="clickDevices()">{{isDevices? "Hide Devices":"Devices"}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="clickDashboard()">{{isDashboard? "Hide Dashboard":"Dashboard"}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="clickUploadDoc()">{{isUploadDoc? "Hide Excel Tab":"Excel Table"}}</a>
+        </li>
+      </ul>
+
+      <ng-template #elseClient>
+        <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isLogged">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="clickProfEdit()">{{isEditProf? "Hide Edit Profile":"EditProfile"}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="clickShop()">{{isShop? "Hide Shop":"Shop"}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="clickReports()">{{isReport? "Hide Report":"Report"}}</a>
+          </li>
+        </ul>
+      </ng-template>
+
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

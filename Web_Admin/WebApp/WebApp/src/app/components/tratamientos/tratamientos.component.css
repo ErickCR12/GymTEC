@@ -1,0 +1,65 @@
+html,
+body {
+  height: 100%;
+}
+/*
+Esto es la construcción de la página principal del registro de todas las sedes
+con su respectiva información asociada
+*/
+
+/*Fondo general para toda la ventana principal*/
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/*Contenedor de todos los input que se muestran en la pantalla*/
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 5px;
+  margin: auto;
+}
+
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+/*Input de Sede*/
+.form-signin input[type="solservicio"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color:white;
+}
+
+/*Input de Teléfono*/
+.form-signin input[type="idservcio"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: white;
+}
+
+.form-signin select[type="tratamientos"]{
+  color: black;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+

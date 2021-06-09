@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+
+
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+  <form>
+    <img class="mb-4" src="../assets/img/logo-tec.png" alt="" width="200" height="107">
+    <h1 class="h3 mb-3 fw-normal">Puestos Disponibles</h1>
+
+
+    <!-- Inidicación de datos a solicitar para los tratamientos -->
+    <a>Ingrese código y nombre de puesto</a>
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputtipopuesto" class="visually-hidden">Tipo de Puesto</label>
+    <input type = "puesto" id="inputtipopuesto" [(ngModel)]= "puestosD.nombrePuesto" class="form-control" placeholder="Tipo de puesto" name="Tipo de puesto" >
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputIdpuesto" class="visually-hidden">IdPuesto</label>
+    <input type = "idPuesto" id="inputIdpuesto" [(ngModel)]= "puestosD.idPuesto" class="form-control" placeholder="Id Puesto"  name="Id Puesto">
+
+
+    <a>Puestos Disponibles: </a>
+
+    <!-- List para agregar los servicios registrados en la página  -->
+
+    <select name="puestos" type = "puestos" id="puestos">
+      <option value="Administrador">Administrador</option>
+      <option value="Instructor">Instructor</option>
+      <option value="Dependiente de Spa">Dependiente de Spa</option>
+      <option value="Dependiente de Tienda">Dependiente de Tienda</option>
+      <option  *ngFor="let puestosDD of puestosDisp">{{puestosD.nombrePuesto}}</option>
+      <!-- <option value="audi">Audi</option> -->
+    </select>
+
+
+    <!--Upload data to loging with this button -->
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Agregar" (click)="agregarPuesto()" >Agregar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+
+  </form>
+</main>
+
+</body>
+</html>

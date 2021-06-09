@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+
+
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+  <form>
+    <img class="mb-4" src="../assets/img/logo-tec.png" alt="" width="200" height="107">
+    <h1 class="h3 mb-3 fw-normal">Tipos de Equipos</h1>
+
+
+    <!-- Inidicación de datos a solicitar para los tratamientos -->
+    <a>Tipos de equipos </a>
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputequipo" class="visually-hidden">TipoEquipo</label>
+    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Equipo" required #nameInput>
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputIdEquipo" class="visually-hidden">IdEquipo</label>
+    <input type = "idequipo" id="inputIdEquipo" class="form-control" placeholder="Id Equipo" required #nameInput>
+
+    <a>Equipos Disponibles: </a>
+
+    <!-- List para agregar los servicios registrados en la página  -->
+
+    <select name="equipos" type = "equipos" id="equipos">
+      <option value="Cintas de correr">Cintas de correr</option>
+      <option value="Bicicletas estacionarias">Bicicletas estacionarias</option>
+      <option value="Multigimnasios">Multigimnasios</option>
+      <option value="Remos">Remos</option>
+      <option value="Pesas">Pesas</option>
+      <!-- <option value="audi">Audi</option> -->
+    </select>
+
+    <!--Upload data to loging with this button -->
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" href="welcome!" >Agregar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+
+  </form>
+</main>
+
+</body>
+</html>

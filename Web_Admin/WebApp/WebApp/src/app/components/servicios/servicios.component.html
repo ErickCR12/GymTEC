@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+
+
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+  <form>
+    <img class="mb-4" src="../assets/img/logo-tec.png" alt="" width="200" height="107">
+    <h1 class="h3 mb-3 fw-normal">Servicios Disponibles</h1>
+
+
+    <!-- Inidicación de datos a solicitar para los tratamientos -->
+    <a>Ingrese código y nombre de servicio</a>
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputiposer" class="visually-hidden">TipoServicio</label>
+    <input type = "servicio" id="inputiposer" class="form-control" placeholder="Tipo de servicio" required #nameInput>
+
+    <!-- Input para solicitar el nombre del serivicio -->
+    <label for="inputIdServicio" class="visually-hidden">IdServicio</label>
+    <input type = "idservicio" id="inputIdServicio" class="form-control" placeholder="Id Servicio" required #nameInput>
+
+
+    <a>Servicios Disponibles: </a>
+
+    <!-- List para agregar los servicios registrados en la página  -->
+
+    <select name="servicios" type = "servicios" id="servicios">
+      <option value="Indoor Cycling">Indoor Cycling</option>
+      <option value="Pilates">Pilates</option>
+      <option value="Yoga">Yoga</option>
+      <option value="Zumba">Zumba</option>
+      <option value="Natación">Natación</option>
+      <!-- <option value="audi">Audi</option> -->
+    </select>
+
+    <!--Upload data to loging with this button -->
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" href="welcome!" >Agregar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+
+  </form>
+</main>
+
+</body>
+</html>
