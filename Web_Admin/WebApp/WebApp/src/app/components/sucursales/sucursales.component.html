@@ -22,15 +22,11 @@
 
     <!--input nombre del empleado-->
     <label for="inputnombre" class="visually-hidden">Nombre</label>
-    <input type = "sede" id="inputnombre" [(ngModel)]= "sedeDisp.sede" class="form-control" placeholder="Nombre" name="Nombre">
-
-    <!--input del telefono del empleado-->
-    <label for="inputelefono" class="visually-hidden">Cédula</label>
-    <input type='number' id="inputelefono" [(ngModel)]= "sedeDisp.telefono" class="form-control" placeholder="Teléfono" name="Teléfono">
+    <input type = "sede" id="inputnombre" [(ngModel)]= "sedeDisp.name" class="form-control" placeholder="Nombre" name="Nombre">
 
     <!--input provincia del empleado-->
     <label for="inputprovincia" class="visually-hidden">Provincia</label>
-    <input type = "provincia" id="inputprovincia" [(ngModel)]= "sedeDisp.provincia" class="form-control" placeholder="Provincia" name="Provincia">
+    <input type = "provincia" id="inputprovincia" [(ngModel)]= "sedeDisp.province" class="form-control" placeholder="Provincia" name="Provincia">
 
     <!--input canton del empleado-->
     <label for="inputcanton" class="visually-hidden">Canton</label>
@@ -38,28 +34,31 @@
 
     <!--input distrito del empleado-->
     <label for="inputdistrito" class="visually-hidden">Distrito</label>
-    <input type = "distrito" id="inputdistrito" [(ngModel)]= "sedeDisp.distrito" class="form-control" placeholder="Distrito" name="Distrito">
+    <input type = "distrito" id="inputdistrito" [(ngModel)]= "sedeDisp.canton" class="form-control" placeholder="Distrito" name="Distrito">
 
     <!--input puesto del empleado-->
     <label for="inputfecha" class="visually-hidden">Fecha de Apertura</label>
-    <input type = "date" id="inputfecha"  [(ngModel)]= "sedeDisp.fecha" class="form-control" placeholder="Fecha de Apertura" name="Distrito">
+    <input type = "date" id="inputfecha"  [(ngModel)]= "sedeDisp.openingDate" class="form-control" placeholder="Fecha de Apertura" name="Distrito">
 
     <!--input sucursal empleado-->
     <label for="inputhorario" class="visually-hidden">Horario</label>
-    <input type = "time" id="inputhorario"  [(ngModel)]= "sedeDisp.horario" class="form-control" placeholder="Horario" name="Distrito">
+    <input type = "time" id="inputhorario"  [(ngModel)]= "sedeDisp.openingTime" class="form-control" placeholder="Horario" name="Distrito">
+
+    <!--input sucursal empleado-->
+    <input type = "time" id="inputhorario"  [(ngModel)]= "sedeDisp.closingTime" class="form-control" placeholder="Horario" name="Distrito">
 
     <!--input tipo de planilla empleado-->
     <label for="inputadministrador" class="visually-hidden">Administrador</label>
-    <input type = "administrador" id="inputadministrador"  [(ngModel)]= "sedeDisp.adminsitrador" class="form-control" placeholder="Administrador" name="Distrito">
+    <input type = "administrador" id="inputadministrador"  [(ngModel)]= "sedeDisp.idAdmin" class="form-control" placeholder="Administrador" name="Distrito">
 
     <!--input salario empleado empleado-->
     <label for="inputcapacidad" class="visually-hidden">Capacidad</label>
-    <input type = "number" id="inputcapacidad" [(ngModel)]= "sedeDisp.capacidad" class="form-control" placeholder="Capacidad" name="Capacidad">
+    <input type = "number" id="inputcapacidad" [(ngModel)]= "sedeDisp.capacity" class="form-control" placeholder="Capacidad" name="Capacidad">
 
     <a>Sucursales Disponibles: </a>
 
     <select name="sedes" type = "sedes" id="sedes">
-      <option value="Masaje descarga muscular" *ngFor="let sede of sucursalesDisp">{{sede.sede}}</option>
+      <option value="Masaje descarga muscular" *ngFor="let sede of sucursalesDisp">{{sede.name}}</option>
     </select>
 
     <!--Upload data to loging with this button -->
