@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Sucursal} from '../../models/sucursal';
+import {DataService} from '../../data.service';
 // @ts-ignore
 
 
@@ -13,10 +14,15 @@ export class SucursalesComponent implements OnInit {
   sucursalesDisp: Sucursal[] = [];
   sedeDisp: Sucursal = new Sucursal();
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.getSucursales();
   }
+
+  getSucursales(): void{
+    this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
+}
 
   // tslint:disable-next-line:typedef
   agregarSede(){

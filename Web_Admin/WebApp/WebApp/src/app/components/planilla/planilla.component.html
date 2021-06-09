@@ -18,21 +18,31 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputplanilla" class="visually-hidden">TipoPlanilla</label>
-    <input type = "planilla" id="inputplanilla" [(ngModel)]= "planillaD.tipoPlanilla" class="form-control" placeholder="Tipo de planilla" name="Tipo de planilla">
+    <input type = "planilla" id="inputplanilla" [(ngModel)]= "planillaD.description" class="form-control" placeholder="Tipo de planilla" name="Tipo de planilla">
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputIdPlanilla" class="visually-hidden">IdPlanilla</label>
-    <input type = "idplanilla" id="inputIdPlanilla"  [(ngModel)]= "planillaD.idPlanilla" class="form-control" placeholder="Id Planilla" name="Id Planilla">
+    <input type = "idplanilla" id="inputIdPlanilla" [(ngModel)]= "planillaD.id" class="form-control" placeholder="Id Planilla" name="Id Planilla">
 
-    <a>Tipo de Planilla: </a>
+    <!-- Input para solicitar el valor de pago por hora -->
+    <label for="inputIdPlanilla" class="visually-hidden">pagoHorasPlanilla</label>
+    <input type = "idplanilla" id="inputPagoHoras" [(ngModel)]= "planillaD.hourlyPay" class="form-control" placeholder="Pago por horas" name="Pago horas">
+
+    <!-- Input para solicitar el valor de pago por mes -->
+    <label for="inputIdPlanilla" class="visually-hidden">pagoMesPlanilla</label>
+    <input type = "idplanilla" id="inputPagoMes" [(ngModel)]= "planillaD.monthlyPay" class="form-control" placeholder="Pago por mes" name="Pago mes">
+
+    <!-- Input para solicitar el valor de pago por clase -->
+    <label for="inputIdPlanilla" class="visually-hidden">PagoClasesPlanilla</label>
+    <input type = "idplanilla" id="inputPagoClases" [(ngModel)]= "planillaD.payPerClass" class="form-control" placeholder="Pago por clase" name="Pago clase">
+
+
+    <a>Planillas disponibles: </a>
 
     <!-- List para agregar los servicios registrados en la página  -->
 
     <select name="planillat" type = "planillat" id="planillat">
-      <option value="Pago mensual">Pago mensual</option>
-      <option value="Pago por horas">Pago por horas</option>
-      <option value="Pago por clase">Pago por clase</option>
-      <option value="Pago por clase" *ngFor="let planilla of planillaDisp">{{planillaD.tipoPlanilla}}</option>
+      <option value="Pago por clase" *ngFor="let planilla of planillaDisp">{{planillaD.description}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 

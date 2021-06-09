@@ -18,11 +18,11 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputiposer" class="visually-hidden">TipoServicio</label>
-    <input type = "solservicio"  id="inputiposer"  [(ngModel)]= "tratamientos.nombreTratamiento"  class="form-control" placeholder="Tratamiento de spa"  name="Tratamiento de spa">
+    <input type = "solservicio"  id="inputiposer"  [(ngModel)]= "tratamientos.name"  class="form-control" placeholder="Servicio de spa"  name="Tratamiento de spa">
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputIdServicio" class="visually-hidden">IdServicio</label>
-    <input type = "idservcio" id="inputIdServicio"  [(ngModel)]= "tratamientos.iDTtratamiento" class="form-control" placeholder="Id Tratamiento" name="Id Tratamiento">
+    <input type = "idservcio" id="inputIdServicio"  [(ngModel)]= "tratamientos.id" class="form-control" placeholder="Id Servicio" name="Id Tratamiento">
 
 
     <a>Tratamientos Disponibles: </a>
@@ -33,7 +33,7 @@
       <option value="Masaje relajante">Masaje relajante</option>
       <option value="Masaje descarga muscular">Masaje descarga muscular</option>
       <option value="Baños a vapor">Baños a vapor</option>
-      <option  *ngFor="let tratamiento of tratamientosDisp">{{tratamiento.nombreTratamiento}}</option>
+      <option  *ngFor="let tratamiento of tratamientosDisp">{{tratamiento.name}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 

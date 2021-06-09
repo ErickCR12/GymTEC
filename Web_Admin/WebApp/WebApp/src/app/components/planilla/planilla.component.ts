@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Planilla} from '../../models/planilla';
-import {Tratamiento} from '../../models/tratamiento';
 
 @Component({
   selector: 'app-planilla',

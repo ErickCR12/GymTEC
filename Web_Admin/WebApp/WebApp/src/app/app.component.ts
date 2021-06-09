@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(public usersService: UsersService) { }
 
-  // ________/Client\_______
+  // ________/Cliente\_______
   isEditProf = false;
   isShop = false;
   isReport = false;
@@ -26,7 +26,7 @@ export class AppComponent {
   isDashboard = false;
   isUploadDoc = false;
 
-  // ____________________/Client Tabs\_____________________
+  // ____________________/Cliente Tabs\_____________________
   clickProfEdit() {
     this.isEditProf = !this.isEditProf;
     this.isShop = false;

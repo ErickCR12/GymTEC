@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Tratamiento} from '../../models/tratamiento';
+import {Servicio} from '../../models/servicio';
 
 @Component({
   selector: 'app-tratamientos',
@@ -8,8 +8,8 @@ import {Tratamiento} from '../../models/tratamiento';
 })
 export class TratamientosComponent implements OnInit {
 
-  tratamientosDisp: Tratamiento[] = [];
-  tratamientos: Tratamiento = new Tratamiento();
+  tratamientosDisp: Servicio[] = [];
+  tratamientos: Servicio = new Servicio();
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class TratamientosComponent implements OnInit {
 
   agregarTratamientos(){
     this.tratamientosDisp.push(this.tratamientos);
-    this.tratamientos = new Tratamiento();
+    this.tratamientos = new Servicio();
   }
 
 }
