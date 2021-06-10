@@ -11,6 +11,8 @@ namespace GymTEC_API.Data
         void CreateClient(Client client);
         void UpdateClient(Client client);
         void DeleteClient(Client client);
+
+        LoginProfile CheckCredentials(LoginProfile loginProfile);
     
     }
 

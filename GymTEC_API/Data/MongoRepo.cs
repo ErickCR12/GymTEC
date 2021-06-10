@@ -50,5 +50,11 @@ namespace GymTEC_API.Data
             mongoClientCollection.DeleteOne(s => s.idCard == client.idCard);
         }
 
+        public LoginProfile CheckCredentials(LoginProfile loginProfile)
+        {
+            Client client = GetClientByIdCard(loginProfile.Username);
+            loginProfile.UserType = (client != null) ? "Client":"Invalid";
+            return loginProfile;
+        }
     }
 }

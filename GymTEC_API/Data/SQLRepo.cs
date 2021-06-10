@@ -20,6 +20,13 @@ namespace GymTEC_API.Data
             connection = new SqlConnection(connectionString);
         }
 
+        public LoginProfile CheckCredentials(LoginProfile loginProfile)
+        {
+            Employee employee = GetEmployeeByIdCard(loginProfile.Username);
+            loginProfile.UserType = (employee != null) ? GetPositionById(employee.idJobPosition).name:"Invalid";
+            return loginProfile;
+        }
+
         public IEnumerable<Gym> GetAllGyms()
         {
             List<Gym> gyms = new List<Gym>();
@@ -728,5 +735,6 @@ public IEnumerable<GymService> GetAllServices()
 
             connection.Close();
         }
+
     }
 }

@@ -6,6 +6,8 @@ namespace GymTEC_API.Data
     // Interface for the SQL Repo that controls all the operations for the entities in the SQL Server Database
     public interface ISQLRepo{
 
+        LoginProfile CheckCredentials(LoginProfile loginProfile);
+
         //----------------------GYM ENTITIES MANAGMENT-----------------------//
 
         //Calls the stored SQL Function that returns all the existing Gym entities in the database.
