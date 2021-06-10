@@ -50,13 +50,13 @@ export class DataService {
   }
 
   updateSucursal(sucursal: Sucursal): Observable<Sucursal> {
-    return this.http.put<Sucursal>(this.sucursalesUrl + sucursal.name, sucursal, this.httpOptions).pipe(
+    return this.http.put<Sucursal>(this.sucursalesUrl + sucursal.id, sucursal, this.httpOptions).pipe(
       catchError(this.handleError<Sucursal>('updateDish'))
     );
   }
 
-  deleteSucursal(sucursalName: string): Observable<{}> {
-    return this.http.delete(this.sucursalesUrl + sucursalName, this.httpOptions).pipe(
+  deleteSucursal(sucursalId: number): Observable<{}> {
+    return this.http.delete(this.sucursalesUrl + sucursalId, this.httpOptions).pipe(
       catchError(this.handleError('deleteSucursal'))
     );
   }
@@ -142,7 +142,7 @@ export class DataService {
     );
   }
 
-  deleteTratamiento(tratamientoId: number): Observable<{}> {
+  deleteTratamiento(tratamientoId: string): Observable<{}> {
     return this.http.delete(this.tratamientosUrl + tratamientoId, this.httpOptions).pipe(
       catchError(this.handleError('deleteTratamiento'))
     );
@@ -171,7 +171,7 @@ export class DataService {
     );
   }
 
-  deleteServicio(servicioId: number): Observable<{}> {
+  deleteServicio(servicioId: string): Observable<{}> {
     return this.http.delete(this.serviciosUrl + servicioId, this.httpOptions).pipe(
       catchError(this.handleError('deleteServicio'))
     );

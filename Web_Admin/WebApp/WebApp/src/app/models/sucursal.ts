@@ -1,4 +1,5 @@
 export class Sucursal{
+  id: number;
   idAdmin: number;
   name: string;
   capacity: number;
