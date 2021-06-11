@@ -29,8 +29,6 @@
 
     <a>Tratamientos Disponibles: </a>
 
-    <label for="tratamientos">Choose a car:</label>
-
     <select name="tratamientos" type = "tratamientos" id="tratamientos" #tratamiento (change)="onChange(tratamiento.id)">
       <option value="">Seleccionar tratamiento existente</option>
       <option  *ngFor="let tratamiento of tratamientosDisp" [value]="tratamiento.id"> ID: {{tratamiento.name}}</option>

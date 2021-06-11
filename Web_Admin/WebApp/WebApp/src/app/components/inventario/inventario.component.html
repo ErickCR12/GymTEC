@@ -20,22 +20,28 @@
 
     <!--Sección de inputs para ingresar la diferente información-->
 
+    <a>Tipo de Equipo </a>
+
     <!--input nombre del empleado-->
     <label for="inputequipo" class="visually-hidden">Tipo de Equipo</label>
     <input type = "equipo" id="inputequipo" class="form-control" placeholder="Tipo de equipo" [ngModel]="maquinaSleccionada.tipoequipo" #inputmaquina>
 
+    <a>Marca </a>
     <!--input primer apellido del empleado-->
     <label for="inputmarca" class="visually-hidden">Marca</label>
     <input type = "marca" id="inputmarca" class="form-control" placeholder="Marca" [ngModel]="maquinaSleccionada.brand" #inputmarca>
 
+    <a>Serie </a>
     <!--input  segundo apellido del empleado-->
     <label for="inputserie" class="visually-hidden">Serie</label>
     <input type = "serie" id="inputserie" class="form-control" placeholder="Serie" [ngModel]="maquinaSleccionada.serialNumber" #inputserie>
 
+    <a>Costo </a>
     <!--input cedula del empleado-->
     <label for="inputcosto" class="visually-hidden">Costo</label>
     <input type = "costo" id="inputcosto" class="form-control" placeholder="Costo" [ngModel]="maquinaSleccionada.price" #inputcosto>
 
+    <a>Sucursal </a>
     <!--input del telefono del empleado-->
     <label for="inputsucursal" class="visually-hidden">Sucursal</label>
     <input type='sucursal' id="inputsucursal" class="form-control" placeholder="Sucursal" [ngModel]="maquinaSleccionada.sucursal" #inputsurcursal>

@@ -20,46 +20,48 @@
 
     <!--Sección de inputs para ingresar la diferente información-->
 
+    <a>Nombre de sucursal </a>
     <!--input nombre del empleado-->
     <label for="inputnombre" class="visually-hidden">Nombre</label>
     <input type = "sede" id="inputnombre" class="form-control" placeholder="Nombre" name="Nombre"
            [ngModel]="sucursalSeleccionada.name" #inputNombre>
 
+    <a>Provincia </a>
     <!--input provincia del empleado-->
     <label for="inputprovincia" class="visually-hidden">Provincia</label>
     <input type = "provincia" id="inputprovincia" class="form-control" placeholder="Provincia" name="Provincia"
            [ngModel]="sucursalSeleccionada.province" #inputProvincia>
 
-    <!--input canton del empleado-->
+    <a>Canton </a>
     <label for="inputcanton" class="visually-hidden">Canton</label>
     <input type = "canton" id="inputcanton" class="form-control" placeholder="Canton" name="Canton"
            [ngModel]="sucursalSeleccionada.canton" #inputCanton>
 
-    <!--input distrito del empleado-->
+    <a>Distrito </a>
     <label for="inputdistrito" class="visually-hidden">Distrito</label>
     <input type = "distrito" id="inputdistrito" class="form-control" placeholder="Distrito" name="Distrito"
            [ngModel]="sucursalSeleccionada.district" #inputDistrict>
 
-    <!--input puesto del empleado-->
+    <a>Fecha de Apertura </a>
     <label for="inputfecha" class="visually-hidden">Fecha de Apertura</label>
     <input type = "date" id="inputfecha" class="form-control" placeholder="Fecha de Apertura" name="Fecha de apertura"
            [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #inputDate>
 
-    <!--input sucursal empleado-->
+    <a>Hora de apertura </a>
     <label for="inputhorario" class="visually-hidden">Horario</label>
     <input type = "time" class="form-control" placeholder="Horario" name="Hora apertura"
            [ngModel]="sucursalSeleccionada.openingTime" #inputOpTime>
 
-    <!--input sucursal empleado-->
+    <a>Hora de cierre </a>
     <input type = "time" id="inputhorario" class="form-control" placeholder="Horario" name="Hora cierre"
            [ngModel]="sucursalSeleccionada.closingTime" #inputCloTime>
 
-    <!--input tipo de planilla empleado-->
+    <a>Administrador </a>
     <label for="inputadministrador" class="visually-hidden">Administrador</label>
     <input type = "administrador" id="inputadministrador" class="form-control" placeholder="Administrador" name="Administrador"
            [ngModel]="sucursalSeleccionada.idAdmin" #inputAdmin>
 
-    <!--input salario empleado empleado-->
+    <a>Capacidad </a>
     <label for="inputcapacidad" class="visually-hidden">Capacidad</label>
     <input type = "number" id="inputcapacidad" class="form-control" placeholder="Capacidad" name="Capacidad"
            [ngModel]="sucursalSeleccionada.capacity" #inputCapacity>

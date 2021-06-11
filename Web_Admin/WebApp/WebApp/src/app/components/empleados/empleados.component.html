@@ -20,72 +20,86 @@
 
     <!--Sección de inputs para ingresar la diferente información-->
 
+
+    <a>Nombre de empleado </a>
     <!--input nombre del empleado-->
     <label for="inputnombre" class="visually-hidden">Nombre</label>
     <input type = "nombre" id="inputnombre" class="form-control" placeholder="Nombre"
            [ngModel]="empleadoSeleccionado.name" #inputEmpleado>
 
+    <a>Primer Apellido </a>
     <!--input primer apellido del empleado-->
     <label for="inputpapellido" class="visually-hidden">Primer Apellido</label>
     <input type = "papellido" id="inputpapellido" class="form-control" placeholder="Primer Apellido"
            [ngModel]="empleadoSeleccionado.last_name1" #inputprimerapellido>
 
+    <a>Segundo Apellido </a>
     <!--input  segundo apellido del empleado-->
     <label for="inputsapellido" class="visually-hidden">Segundo Apellido</label>
     <input type = "sapellido" id="inputsapellido" class="form-control" placeholder="Segundo Apellido"
            [ngModel]="empleadoSeleccionado.last_name2" #inputsegundoapellido>
 
+    <a>Cédula </a>
     <!--input cedula del empleado-->
     <label for="inputcedula" class="visually-hidden">Cedula</label>
     <input type = "cedula" id="inputcedula" class="form-control" placeholder="Cédula"
            [ngModel]="empleadoSeleccionado.idCard" #inputcedula>
 
+    <a>Número de Teléfono </a>
     <!--input del telefono del empleado-->
     <label for="inputelefono" class="visually-hidden">Telefono</label>
     <input type='telefono' id="inputelefono" class="form-control" placeholder="Teléfono"
            [ngModel]="empleadoSeleccionado.phonenumber" #inputtelefeono>
 
+    <a>Provincia </a>
     <!--input provincia del empleado-->
     <label for="inputprovincia" class="visually-hidden">Provincia</label>
     <input type = "provincia" id="inputprovincia" class="form-control" placeholder="Provincia"
            [ngModel]="empleadoSeleccionado.province" #inputprovincia>
 
+    <a>Cantón </a>
     <!--input canton del empleado-->
     <label for="inputcanton" class="visually-hidden">Canton</label>
     <input type = "canton" id="inputcanton" class="form-control" placeholder="Canton"
            [ngModel]="empleadoSeleccionado.canton" #inputcanton>
 
+    <a>Distrito </a>
     <!--input distrito del empleado-->
     <label for="inputdistrito" class="visually-hidden">Distrito</label>
     <input type = "distrito" id="inputdistrito" class="form-control" placeholder="Distrito"
            [ngModel]="empleadoSeleccionado.district" #inputdistrito>
 
+    <a>Puesto </a>
     <!--input puesto del empleado-->
     <label for="inputpuesto" class="visually-hidden">Puesto desempeñado</label>
     <input type = "puesto" id="inputpuesto" class="form-control" placeholder="Puesto desempeñado"
            [ngModel]="empleadoSeleccionado.idJobPosition" #inputpuesto>
 
-
+    <a>Sucursal </a>
     <!--input sucursal empleado-->
     <label for="inputsucursal" class="visually-hidden">Sucursal</label>
     <input type = "sucursal" id="inputsucursal" class="form-control" placeholder="Sucursal"
            [ngModel]="empleadoSeleccionado.idGym" #inputsucursal>
 
+    <a>Planilla </a>
     <!--input tipo de planilla empleado-->
     <label for="inputplanilla" class="visually-hidden">Planilla</label>
     <input type = "planilla" id="inputplanilla" class="form-control" placeholder="Planilla"
            [ngModel]="empleadoSeleccionado.idPayroll" #inputplanilla>
 
+    <a>Salario </a>
     <!--input salario empleado empleado-->
     <label for="inputsalario" class="visually-hidden">Salario</label>
     <input type = "salario" id="inputsalario" class="form-control" placeholder="Salario"
            [ngModel]="empleadoSeleccionado.salary" #inputsalario>
 
+    <a>Correo </a>
     <!--input correo electrónico empleado-->
     <label for="inputcorreo" class="visually-hidden">Correo</label>
     <input type = "correo" id="inputcorreo" class="form-control" placeholder="Correo Electrónico"
            [ngModel]="empleadoSeleccionado.email" #inputcorreo>
 
+    <a>Contraseña </a>
     <!--input contraseña empleado-->
     <label for="inputcontrasena" class="visually-hidden">Contrasena</label>
     <input type = "contrasena" id="inputcontrasena" class="form-control" placeholder="Contraseña"
