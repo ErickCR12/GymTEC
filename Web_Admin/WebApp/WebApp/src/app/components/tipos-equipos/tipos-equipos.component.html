@@ -18,31 +18,29 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputequipo" class="visually-hidden">TipoEquipo</label>
-    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Equipo" required #nameInput>
+    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Equipo" [ngModel]="tipoSeleccionado.name" #inputequipo>
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputIdEquipo" class="visually-hidden">IdEquipo</label>
-    <input type = "idequipo" id="inputIdEquipo" class="form-control" placeholder="Id Equipo" required #nameInput>
+    <input type = "idequipo" id="inputIdEquipo" class="form-control" placeholder="Id Equipo"  [ngModel]="tipoSeleccionado.idEquipo" #inputIdequipo>
 
     <a>Equipos Disponibles: </a>
 
     <!-- List para agregar los servicios registrados en la página  -->
 
-    <select name="equipos" type = "equipos" id="equipos">
-      <option value="Cintas de correr">Cintas de correr</option>
-      <option value="Bicicletas estacionarias">Bicicletas estacionarias</option>
-      <option value="Multigimnasios">Multigimnasios</option>
-      <option value="Remos">Remos</option>
-      <option value="Pesas">Pesas</option>
+    <select name="equipos" type = "equipos" id="equipos" #equipo  (change)="onChange(equipo.value)">
+      <option value="">Equipos Disponibles</option>
+
+      <option *ngFor="let equipo of tiposDisp" [value]="equipo.idEquipo">ID: {{equipo.idEquipo}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" href="welcome!" >Agregar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" (click)="crearEquipo(inputIdequipo.value, inputequipo.value)">Agregar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="eliminarEquipo(equipo.value)" >Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarEquipo(equipo.value, inputIdequipo.value, inputequipo.value)" >Actualizar</button>
 
   </form>
 </main>

@@ -18,32 +18,28 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputiposer" class="visually-hidden">TipoServicio</label>
-    <input type = "servicio" id="inputiposer" class="form-control" placeholder="Tipo de servicio" required #nameInput>
+    <input type = "servicio" id="inputiposer" class="form-control" placeholder="Tipo de servicio" [ngModel]="servicioSeleccionado.name" #inputservicio>
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputIdServicio" class="visually-hidden">IdServicio</label>
-    <input type = "idservicio" id="inputIdServicio" class="form-control" placeholder="Id Servicio" required #nameInput>
+    <input type = "idservicio" id="inputIdServicio" class="form-control" placeholder="Id Servicio" [ngModel]="servicioSeleccionado.id" #inputIdservicio>
 
 
     <a>Servicios Disponibles: </a>
 
     <!-- List para agregar los servicios registrados en la página  -->
 
-    <select name="servicios" type = "servicios" id="servicios">
-      <option value="Indoor Cycling">Indoor Cycling</option>
-      <option value="Pilates">Pilates</option>
-      <option value="Yoga">Yoga</option>
-      <option value="Zumba">Zumba</option>
-      <option value="Natación">Natación</option>
-      <!-- <option value="audi">Audi</option> -->
+    <select name="servicios" type = "servicios" id="servicios" #serivicio (change)="onChange(serivicio.value)">
+      <option value="">Servicios Disponibles</option>
+      <option *ngFor="let servicio of serviciosDisp" [value]="serivicio.id">ID: {{serivicio.id}}</option>
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" href="welcome!" >Agregar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" (click)="crearServicio(inputIdservicio.value, inputservicio.value)" >Agregar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarServicio(serivicio.value, inputIdservicio.value, inputservicio.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="eliminarServicio(serivicio.value)">Actualizar</button>
 
   </form>
 </main>

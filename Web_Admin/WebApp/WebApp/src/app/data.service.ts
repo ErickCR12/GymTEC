@@ -10,6 +10,9 @@ import {Servicio} from './models/servicio';
 import {Planilla} from './models/planilla';
 import {Empleado} from './models/empleado';
 import {Cliente} from './models/cliente';
+import {Puesto} from './models/puesto';
+import {Equipo} from "./models/equipo";
+import {Tratamiento} from "./models/tratamiento";
 
 @Injectable({
   providedIn: 'root'
@@ -121,28 +124,28 @@ export class DataService {
 
   // ---------------------------------GESTION DE TRATAMIENTOS-------------------------------------
 
-  getAllTratamientos(): Observable<Servicio[]> {
+  getAllTratamientos(): Observable<Tratamiento[]> {
     this.messageService.add('DataService: fetched tratamientos');
-    return this.http.get<Servicio[]>(this.tratamientosUrl)
+    return this.http.get<Tratamiento[]>(this.tratamientosUrl)
       .pipe(
-        catchError(this.handleError<Servicio[]>('getAllTratamientos', []))
+        catchError(this.handleError<Tratamiento[]>('getAllTratamientos', []))
       );
   }
 
-  addTratamiento(tratamiento: Servicio): Observable<Servicio> {
-    return this.http.post<Servicio>(this.tratamientosUrl, tratamiento, this.httpOptions).pipe(
-      tap((newTratamiento: Servicio) => this.log(`added tratamiento w/ id=${newTratamiento.id}`)),
-      catchError(this.handleError<Servicio>('addTratamiento'))
+  crearTratamiento(tratamiento: Tratamiento): Observable<Servicio> {
+    return this.http.post<Tratamiento>(this.tratamientosUrl, tratamiento, this.httpOptions).pipe(
+      tap((newTratamiento: Tratamiento) => this.log(`added tratamiento w/ id=${newTratamiento.id}`)),
+      catchError(this.handleError<Tratamiento>('addTratamiento'))
     );
   }
 
-  updateTratamiento(tratamiento: Servicio): Observable<Servicio> {
-    return this.http.put<Servicio>(this.tratamientosUrl + tratamiento.id, tratamiento, this.httpOptions).pipe(
-      catchError(this.handleError<Servicio>('updateTratamiento'))
+  updateTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
+    return this.http.put<Tratamiento>(this.tratamientosUrl + tratamiento.id, tratamiento, this.httpOptions).pipe(
+      catchError(this.handleError<Tratamiento>('updateTratamiento'))
     );
   }
 
-  deleteTratamiento(tratamientoId: string): Observable<{}> {
+  deleteTratamiento(tratamientoId: number): Observable<{}> {
     return this.http.delete(this.tratamientosUrl + tratamientoId, this.httpOptions).pipe(
       catchError(this.handleError('deleteTratamiento'))
     );
@@ -158,7 +161,8 @@ export class DataService {
       );
   }
 
-  addServicio(servicio: Servicio): Observable<Servicio> {
+
+  crearServicio(servicio: Servicio): Observable<Servicio> {
     return this.http.post<Servicio>(this.serviciosUrl, servicio, this.httpOptions).pipe(
       tap((newServicio: Servicio) => this.log(`added servicio w/ id=${newServicio.id}`)),
       catchError(this.handleError<Servicio>('addServicio'))
@@ -171,7 +175,7 @@ export class DataService {
     );
   }
 
-  deleteServicio(servicioId: string): Observable<{}> {
+  deleteServicio(servicioId: number): Observable<{}> {
     return this.http.delete(this.serviciosUrl + servicioId, this.httpOptions).pipe(
       catchError(this.handleError('deleteServicio'))
     );
@@ -179,24 +183,24 @@ export class DataService {
 
   // ---------------------------------GESTION DE TIPOS DE EQUIPO-------------------------------------
 
-  getAllEquipos(): Observable<Servicio[]> {
+  getAllEquipos(): Observable<Equipo[]> {
     this.messageService.add('DataService: fetched equipos');
-    return this.http.get<Servicio[]>(this.equiposUrl)
+    return this.http.get<Equipo[]>(this.equiposUrl)
       .pipe(
-        catchError(this.handleError<Servicio[]>('getAllEquipos', []))
+        catchError(this.handleError<Equipo[]>('getAllEquipos', []))
       );
   }
 
-  addEquipo(equipo: Servicio): Observable<Servicio> {
-    return this.http.post<Servicio>(this.equiposUrl, equipo, this.httpOptions).pipe(
-      tap((newEquipo: Servicio) => this.log(`added equipo w/ id=${newEquipo.id}`)),
-      catchError(this.handleError<Servicio>('addEquipo'))
+  addEquipo(equipo: Equipo): Observable<Equipo> {
+    return this.http.post<Equipo>(this.equiposUrl, equipo, this.httpOptions).pipe(
+      tap((newEquipo: Equipo) => this.log(`added equipo w/ id=${newEquipo.idEquipo}`)),
+      catchError(this.handleError<Equipo>('addEquipo'))
     );
   }
 
-  updateEquipo(equipo: Servicio): Observable<Servicio> {
-    return this.http.put<Servicio>(this.equiposUrl + equipo.id, equipo, this.httpOptions).pipe(
-      catchError(this.handleError<Servicio>('updateEquipo'))
+  updateEquipo(equipo: Equipo): Observable<Equipo> {
+    return this.http.put<Equipo>(this.equiposUrl + equipo.idEquipo, equipo, this.httpOptions).pipe(
+      catchError(this.handleError<Equipo>('updateEquipo'))
     );
   }
 
@@ -237,24 +241,24 @@ export class DataService {
 
   // ---------------------------------GESTION DE PUESTOS-------------------------------------
 
-  getAllPuestos(): Observable<Servicio[]> {
+  getAllPuestos(): Observable<Puesto[]> {
     this.messageService.add('DataService: fetched puestos');
-    return this.http.get<Servicio[]>(this.puestosUrl)
+    return this.http.get<Puesto[]>(this.puestosUrl)
       .pipe(
-        catchError(this.handleError<Servicio[]>('getAllPuestos', []))
+        catchError(this.handleError<Puesto[]>('getAllPuestos', []))
       );
   }
 
-  addPuesto(puesto: Servicio): Observable<Servicio> {
-    return this.http.post<Servicio>(this.puestosUrl, puesto, this.httpOptions).pipe(
-      tap((newPuesto: Servicio) => this.log(`added puesto w/ id=${newPuesto.id}`)),
-      catchError(this.handleError<Servicio>('addPuesto'))
+  addPuesto(puesto: Puesto): Observable<Puesto> {
+    return this.http.post<Puesto>(this.puestosUrl, puesto, this.httpOptions).pipe(
+      tap((newPuesto: Puesto) => this.log(`added puesto w/ id=${newPuesto.idPuesto}`)),
+      catchError(this.handleError<Puesto>('addPuesto'))
     );
   }
 
-  updatePuesto(puesto: Servicio): Observable<Servicio> {
-    return this.http.put<Servicio>(this.puestosUrl + puesto.id, puesto, this.httpOptions).pipe(
-      catchError(this.handleError<Servicio>('updatePuesto'))
+  updatePuesto(puesto: Puesto): Observable<Puesto> {
+    return this.http.put<Puesto>(this.puestosUrl + puesto.idPuesto, puesto, this.httpOptions).pipe(
+      catchError(this.handleError<Puesto>('updatePuesto'))
     );
   }
 

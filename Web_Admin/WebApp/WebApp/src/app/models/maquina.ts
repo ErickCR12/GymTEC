@@ -1,6 +1,7 @@
 export class Maquina{
   serialNumber: number;
-  idEquipment: number;
+  tipoequipo: string;
   brand: string;
   price: number;
+  sucursal: string;
 }

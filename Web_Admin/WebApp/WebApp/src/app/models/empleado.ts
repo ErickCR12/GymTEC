@@ -12,4 +12,5 @@ export class Empleado{
   canton: string;
   district: string;
   salary: number;
+  phonenumber: number;
 }

@@ -21,7 +21,7 @@ export class SucursalesComponent implements OnInit {
   }
 
   onChange(idSucursal: string): void{
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+     this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
   }
 
   getSucursales(): void{

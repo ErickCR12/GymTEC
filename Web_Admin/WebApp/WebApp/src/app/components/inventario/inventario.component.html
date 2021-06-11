@@ -22,31 +22,41 @@
 
     <!--input nombre del empleado-->
     <label for="inputequipo" class="visually-hidden">Tipo de Equipo</label>
-    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Tipo de equipo">
+    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Tipo de equipo" [ngModel]="maquinaSleccionada.tipoequipo" #inputmaquina>
 
     <!--input primer apellido del empleado-->
     <label for="inputmarca" class="visually-hidden">Marca</label>
-    <input type = "marca" id="inputmarca" class="form-control" placeholder="Marca">
+    <input type = "marca" id="inputmarca" class="form-control" placeholder="Marca" [ngModel]="maquinaSleccionada.brand" #inputmarca>
 
     <!--input  segundo apellido del empleado-->
     <label for="inputserie" class="visually-hidden">Serie</label>
-    <input type = "serie" id="inputserie" class="form-control" placeholder="Serie">
+    <input type = "serie" id="inputserie" class="form-control" placeholder="Serie" [ngModel]="maquinaSleccionada.serialNumber" #inputserie>
 
     <!--input cedula del empleado-->
     <label for="inputcosto" class="visually-hidden">Costo</label>
-    <input type = "costo" id="inputcosto" class="form-control" placeholder="Costo">
+    <input type = "costo" id="inputcosto" class="form-control" placeholder="Costo" [ngModel]="maquinaSleccionada.price" #inputcosto>
 
     <!--input del telefono del empleado-->
     <label for="inputsucursal" class="visually-hidden">Sucursal</label>
-    <input type='sucursal' id="inputsucursal" class="form-control" placeholder="Sucursal">
+    <input type='sucursal' id="inputsucursal" class="form-control" placeholder="Sucursal" [ngModel]="maquinaSleccionada.sucursal" #inputsurcursal>
 
+    <a>Máquinas Disponibles: </a>
+
+    <select name="sedes" type = "sedes" id="sedes" #maquinas (change)="onChange(maquinas.value)">
+
+      <option value="" selected>Seleccionar máquina existente</option>
+
+      <option *ngFor="let maquinas of maquinaSleccionada" [value]="maquinas.id">ID: {{maquinas.id}}</option>
+    </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" href="welcome!">Registrar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="crearMaquina(inputserie.value, inputmaquina.value,
+                inputmarca.value, inputcosto.value, inputsurcursal.value)">Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="eliminarMaquina(maquinas.value)">Actualizar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="modificarMaquina(maquinas.value, inputserie.value, inputmaquina.value,
+                inputmarca.value, inputcosto.value, inputsurcursal.value)">Eliminar</button>
 
   </form>
 

@@ -47,7 +47,7 @@
 
     <!--input sucursal empleado-->
     <label for="inputhorario" class="visually-hidden">Horario</label>
-    <input type = "time" id="inputhorario" class="form-control" placeholder="Horario" name="Hora apertura"
+    <input type = "time" class="form-control" placeholder="Horario" name="Hora apertura"
            [ngModel]="sucursalSeleccionada.openingTime" #inputOpTime>
 
     <!--input sucursal empleado-->
@@ -68,7 +68,7 @@
 
     <select name="sedes" type = "sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
 
-      <option value="" selected>Seleccionar sucursal existente</option>
+      <option value="" selected>Seleccionar tratamiento existente</option>
 
       <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
     </select>
@@ -79,10 +79,10 @@
                                    inputDate.value, inputOpTime.value, inputCloTime.value, inputAdmin.value, inputCapacity.value)">
       Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!"
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar"
             (click)="eliminarSucursal(sucursal.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!"
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar"
             (click)="modificarSucursal(sucursal.value, inputNombre.value, inputProvincia.value, inputCanton.value, inputDistrict.value,
                                    inputDate.value, inputOpTime.value, inputCloTime.value, inputAdmin.value, inputCapacity.value)">Actualizar</button>
 

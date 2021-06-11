@@ -18,40 +18,50 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputplanilla" class="visually-hidden">TipoPlanilla</label>
-    <input type = "planilla" id="inputplanilla" [(ngModel)]= "planillaD.description" class="form-control" placeholder="Tipo de planilla" name="Tipo de planilla">
+    <input type = "planilla" id="inputplanilla" [(ngModel)]= "planillaSeleccionada.description"
+           class="form-control" placeholder="Tipo de planilla" name="Tipo de planilla" #inputdescripcion>
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputIdPlanilla" class="visually-hidden">IdPlanilla</label>
-    <input type = "idplanilla" id="inputIdPlanilla" [(ngModel)]= "planillaD.id" class="form-control" placeholder="Id Planilla" name="Id Planilla">
+    <input type = "idplanilla" id="inputIdPlanilla" [(ngModel)]= "planillaSeleccionada.id"
+           class="form-control" placeholder="Id Planilla" name="Id Planilla" #inputIdPlanilla>
 
     <!-- Input para solicitar el valor de pago por hora -->
     <label for="inputIdPlanilla" class="visually-hidden">pagoHorasPlanilla</label>
-    <input type = "idplanilla" id="inputPagoHoras" [(ngModel)]= "planillaD.hourlyPay" class="form-control" placeholder="Pago por horas" name="Pago horas">
+    <input type = "idplanilla" id="inputPagoHoras" [(ngModel)]= "planillaSeleccionada.hourlyPay"
+           class="form-control" placeholder="Pago por horas" name="Pago horas" #inputpagohoras>
 
     <!-- Input para solicitar el valor de pago por mes -->
     <label for="inputIdPlanilla" class="visually-hidden">pagoMesPlanilla</label>
-    <input type = "idplanilla" id="inputPagoMes" [(ngModel)]= "planillaD.monthlyPay" class="form-control" placeholder="Pago por mes" name="Pago mes">
+    <input type = "idplanilla" id="inputPagoMes" [(ngModel)]= "planillaSeleccionada.monthlyPay"
+           class="form-control" placeholder="Pago por mes" name="Pago mes" #inputpagomes>
 
     <!-- Input para solicitar el valor de pago por clase -->
     <label for="inputIdPlanilla" class="visually-hidden">PagoClasesPlanilla</label>
-    <input type = "idplanilla" id="inputPagoClases" [(ngModel)]= "planillaD.payPerClass" class="form-control" placeholder="Pago por clase" name="Pago clase">
+    <input type = "idplanilla" id="inputPagoClases" [(ngModel)]= "planillaSeleccionada.payPerClass"
+           class="form-control" placeholder="Pago por clase" name="Pago clase" #inputpagoclase>
 
 
     <a>Planillas disponibles: </a>
 
     <!-- List para agregar los servicios registrados en la página  -->
 
-    <select name="planillat" type = "planillat" id="planillat">
-      <option value="Pago por clase" *ngFor="let planilla of planillaDisp">{{planillaD.description}}</option>
+    <select name="planillat" type = "planillat" id="planillat" #planilla (change)="onChange(planilla.value)">
+      <option value="" selected>Seleccione un tipo de planilla </option>
+      <option value="Pago por clase" *ngFor="let planilla of planillaDisp" [value] = "planilla.id"> {{planilla.id}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" (click)="agregarPlanilla()">Agregar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" (click)="crearPlanilla(inputIdPlanilla.value, inputdescripcion.value, inputpagohoras.value,
+    inputpagomes.value, inputpagoclase.value)">Agregar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="eliminarPlanilla(planilla.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="modificarPlanilla(planilla.value, inputIdPlanilla.value, inputdescripcion.value,
+    inputpagohoras.value, inputpagomes.value, inputpagoclase.value)">Modificar</button>
+
+
 
   </form>
 </main>
