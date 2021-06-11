@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Planilla} from '../../models/planilla';
 import {DataService} from '../../data.service';
-import {Sucursal} from '../../models/sucursal';
 
 @Component({
   selector: 'app-planilla',
@@ -27,28 +26,35 @@ export class PlanillaComponent implements OnInit {
     this.dataService.getAllPlanillas().subscribe(data => this.planillaDisp = data);
   }
 
-  crearPlanilla(idStr: string, description: string, hourlyPayStr: string, monthlyPayStr: string, payPerClassStr: string): void{
-    const id = Number(idStr);
+  crearPlanilla(description: string, hourlyPayStr: string, monthlyPayStr: string, payPerClassStr: string): void{
     const hourlyPay = Number(hourlyPayStr);
     const monthlyPay = Number(monthlyPayStr);
     const payPerClass = Number(payPerClassStr);
-    const nuevaPlanilla = {id, description, hourlyPay, monthlyPay, payPerClass} as Planilla;
-    this.dataService.addPlanilla(nuevaPlanilla).subscribe();
+    const nuevaPlanilla = {description, hourlyPay, monthlyPay, payPerClass} as Planilla;
+    this.dataService.addPlanilla(nuevaPlanilla).subscribe(data => {
+      if (data){
+        this.getPlanilla();
+      }
+    });
   }
 
-  modificarPlanilla(IdStrSelect: string, idStr: string, description: string, hourlyPayStr: string, monthlyPayStr: string, payPerClassStr: string): void{
-    const idSelect = Number(IdStrSelect);
+  modificarPlanilla(idStr: string, description: string, hourlyPayStr: string, monthlyPayStr: string,
+                    payPerClassStr: string): void{
     const id = Number(idStr);
     const hourlyPay = Number(hourlyPayStr);
     const monthlyPay = Number(monthlyPayStr);
     const payPerClass = Number(payPerClassStr);
-    const PLanillaporModificar = {IdStrSelect, id, description, hourlyPay, monthlyPay, payPerClass} as Planilla;
-    this.dataService.updatePlanilla(PLanillaporModificar).subscribe();
+    const PLanillaporModificar = {id, description, hourlyPay, monthlyPay, payPerClass} as Planilla;
+    this.dataService.updatePlanilla(PLanillaporModificar).subscribe(data => {
+        this.getPlanilla();
+      });
   }
 
   eliminarPlanilla(idStr: string): void{
     const id = Number(idStr);
     this.dataService.deletePlanilla(id).subscribe();
+    this.planillaDisp = this.planillaDisp.filter(x => x.id !== id);
+
   }
 
 }

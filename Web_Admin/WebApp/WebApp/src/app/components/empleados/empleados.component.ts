@@ -30,37 +30,41 @@ export class EmpleadosComponent implements OnInit {
   crearEmpleado(idCardStr: string,
                 idGymStr: string, idJobPositionStr: string, idPayrollStr: string, email: string,
                 password: string, name: string, last_name1: string, last_name2: string,
-                province: string, canton: string, district: string, salaryStr: string, phone_numbersTR: string): void{
+                province: string, canton: string, district: string, salaryStr: string): void{
     const idCard = Number(idCardStr);
     const idGym = Number(idGymStr);
     const idJobPosition = Number(idJobPositionStr);
     const idPayroll = Number(idPayrollStr);
     const salary = Number(salaryStr);
-    const phonenumber = Number(phone_numbersTR);
     const nuevoEmpleado = {idCard, idGym, idJobPosition, idPayroll, email, password, name, last_name1, last_name2,
-          province, canton, district, salary, phonenumber} as Empleado;
-    this.dataService.addEmpleado(nuevoEmpleado).subscribe();
+          province, canton, district, salary} as Empleado;
+    this.dataService.addEmpleado(nuevoEmpleado).subscribe(data => {
+      if (data){
+        this.getEmpleados();
+      }
+    });
   }
 
-  modificarEmpleado(idSelectStr: string, idCardStr: string,
+  modificarEmpleado(idCardStr: string,
                     idGymStr: string, idJobPositionStr: string, idPayrollStr: string, email: string,
                     password: string, name: string, last_name1: string, last_name2: string,
-                    province: string, canton: string, district: string, salaryStr: string, phone_numbersTR: string): void{
-    const idSelect = Number(idSelectStr);
+                    province: string, canton: string, district: string, salaryStr: string): void{
     const idCard = Number(idCardStr);
     const idGym = Number(idGymStr);
     const idJobPosition = Number(idJobPositionStr);
     const idPayroll = Number(idPayrollStr);
     const salary = Number(salaryStr);
-    const phonenumber = Number(phone_numbersTR);
-    const empleadoAmodiciar = {idSelect, idCard, idGym, idJobPosition, idPayroll, email, password, name, last_name1, last_name2,
-      province, canton, district, salary, phonenumber} as Empleado;
-    this.dataService.updateEmpleado(empleadoAmodiciar).subscribe();
+    const empleadoAModificar = {idCard, idGym, idJobPosition, idPayroll, email, password, name, last_name1, last_name2,
+      province, canton, district, salary} as Empleado;
+    this.dataService.updateEmpleado(empleadoAModificar).subscribe(data => {
+        this.getEmpleados();
+      });
   }
 
   eliminarEmpleado(idStr: string): void{
     const idCard = Number(idStr);
     this.dataService.deleteEmpleado(idCard).subscribe();
+    this.empleadosDisp = this.empleadosDisp.filter(x => x.idCard !== idCard);
   }
 
 }

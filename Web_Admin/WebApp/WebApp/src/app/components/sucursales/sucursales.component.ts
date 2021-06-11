@@ -35,7 +35,11 @@ export class SucursalesComponent implements OnInit {
     const capacity = Number(capacityStr);
     const nuevaSucursal = {name, province, canton, district, openingDate, openingTime,
       closingTime, idAdmin, capacity} as Sucursal;
-    this.dataService.addSucursal(nuevaSucursal).subscribe();
+    this.dataService.addSucursal(nuevaSucursal).subscribe(data => {
+      if (data){
+        this.getSucursales();
+      }
+    });
   }
 
   modificarSucursal(idStr: string, name: string, province: string, canton: string, district: string,
@@ -47,11 +51,13 @@ export class SucursalesComponent implements OnInit {
     const sucursalPorModificar = {id, name, province, canton, district, openingDate, openingTime,
       closingTime, idAdmin, capacity} as Sucursal;
     this.dataService.updateSucursal(sucursalPorModificar).subscribe();
+    this.getSucursales();
   }
 
   eliminarSucursal(idStr: string): void{
     const id = Number(idStr);
     this.dataService.deleteSucursal(id).subscribe();
+    this.sucursalesDisp = this.sucursalesDisp.filter(x => x.id !== id);
   }
 
 }

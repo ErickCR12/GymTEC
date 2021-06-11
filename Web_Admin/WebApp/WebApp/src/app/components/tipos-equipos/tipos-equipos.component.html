@@ -18,11 +18,7 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputequipo" class="visually-hidden">TipoEquipo</label>
-    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Equipo" [ngModel]="tipoSeleccionado.name" #inputequipo>
-
-    <!-- Input para solicitar el nombre del serivicio -->
-    <label for="inputIdEquipo" class="visually-hidden">IdEquipo</label>
-    <input type = "idequipo" id="inputIdEquipo" class="form-control" placeholder="Id Equipo"  [ngModel]="tipoSeleccionado.idEquipo" #inputIdequipo>
+    <input id="inputequipo" class="form-control" placeholder="Equipo" name="Equipo" [ngModel]="tipoSeleccionado.name" #inputequipo>
 
     <a>Equipos Disponibles: </a>
 
@@ -31,16 +27,16 @@
     <select name="equipos" type = "equipos" id="equipos" #equipo  (change)="onChange(equipo.value)">
       <option value="">Equipos Disponibles</option>
 
-      <option *ngFor="let equipo of tiposDisp" [value]="equipo.idEquipo">ID: {{equipo.idEquipo}}</option>
+      <option *ngFor="let tipo of tiposDisp" [value]="tipo.id">ID: {{tipo.id}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" (click)="crearEquipo(inputIdequipo.value, inputequipo.value)">Agregar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="crearEquipo(inputequipo.value)">Agregar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="eliminarEquipo(equipo.value)" >Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="eliminarEquipo(equipo.value)" >Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarEquipo(equipo.value, inputIdequipo.value, inputequipo.value)" >Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="modificarEquipo(equipo.value, inputequipo.value)" >Actualizar</button>
 
   </form>
 </main>

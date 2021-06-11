@@ -1,4 +1,4 @@
 export class Puesto{
-  nombrePuesto: string;
-  idPuesto: number;
+  name: string;
+  id: number;
 }

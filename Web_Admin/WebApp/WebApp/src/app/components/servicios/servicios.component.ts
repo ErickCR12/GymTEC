@@ -26,22 +26,27 @@ export class ServiciosComponent implements OnInit {
     this.dataService.getAllServicios().subscribe(data => this.serviciosDisp = data);
   }
 
-  crearServicio(idStr: string, name: string): void{
-    const id = Number(idStr);
-    const nuevoServicio = {id, name} as Servicio;
-    this.dataService.crearTratamiento(nuevoServicio).subscribe();
+  crearServicio(name: string): void{
+    const nuevoServicio = {name} as Servicio;
+    this.dataService.crearServicio(nuevoServicio).subscribe(data => {
+      if (data){
+        this.getServicios();
+      }
+    });
   }
 
-  modificarServicio(idStrSelect: string, idStr: string, name: string){
-    const idSelect = Number(idStrSelect);
+  modificarServicio(idStr: string, name: string): void{
     const id = Number(idStr);
-    const ServicioporModificar = {idSelect, id, name} as Servicio;
-    this.dataService.updateTratamiento(ServicioporModificar).subscribe();
+    const ServicioporModificar = {id, name} as Servicio;
+    this.dataService.updateServicio(ServicioporModificar).subscribe(data => {
+        this.getServicios();
+      });
   }
 
   eliminarServicio(idStrSelect: string): void{
     const id = Number(idStrSelect);
-    this.dataService.deleteTratamiento(id).subscribe();
+    this.dataService.deleteServicio(id).subscribe();
+    this.serviciosDisp = this.serviciosDisp.filter(x => x.id !== id);
   }
 
 }

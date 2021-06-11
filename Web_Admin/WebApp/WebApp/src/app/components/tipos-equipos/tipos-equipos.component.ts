@@ -19,29 +19,34 @@ export class TiposEquiposComponent implements OnInit {
   }
 
   onChange(idEquipo: string): void{
-    this.tipoSeleccionado = this.tiposDisp.find(x => x.idEquipo === Number(idEquipo));
+    this.tipoSeleccionado = this.tiposDisp.find(x => x.id === Number(idEquipo));
   }
 
   getEquipo(): void{
     this.dataService.getAllEquipos().subscribe(data => this.tiposDisp = data);
   }
 
-  crearEquipo(idStr: string, name: string): void{
-    const idEquipo = Number(idStr);
-    const nuevoEquipo = {name, idEquipo} as Equipo;
-    this.dataService.addEquipo(nuevoEquipo).subscribe();
+  crearEquipo(name: string): void{
+    const nuevoEquipo = {name} as Equipo;
+    this.dataService.addEquipo(nuevoEquipo).subscribe(data => {
+      if (data){
+        this.getEquipo();
+      }
+    });
   }
 
-  modificarEquipo(idStrSelect: string, idStr: string, name: string){
-    const idSelect = Number(idStrSelect);
-    const idEquipo = Number(idStr);
-    const EquipoaModificar = {idSelect, name, idEquipo} as Equipo;
-    this.dataService.updateEquipo(EquipoaModificar).subscribe();
+  modificarEquipo(idStr: string, name: string){
+    const id = Number(idStr);
+    const EquipoaModificar = {name, id} as Equipo;
+    this.dataService.updateEquipo(EquipoaModificar).subscribe(data => {
+        this.getEquipo();
+      });
   }
 
   eliminarEquipo(idStrSelect: string): void{
     const idEquipo = Number(idStrSelect);
     this.dataService.deleteEquipo(idEquipo).subscribe();
+    this.tiposDisp = this.tiposDisp.filter(x => x.id !== idEquipo);
   }
 
 }

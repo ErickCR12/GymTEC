@@ -11,8 +11,8 @@ import {Planilla} from './models/planilla';
 import {Empleado} from './models/empleado';
 import {Cliente} from './models/cliente';
 import {Puesto} from './models/puesto';
-import {Equipo} from "./models/equipo";
-import {Tratamiento} from "./models/tratamiento";
+import {Equipo} from './models/equipo';
+import {Tratamiento} from './models/tratamiento';
 
 @Injectable({
   providedIn: 'root'
@@ -193,13 +193,13 @@ export class DataService {
 
   addEquipo(equipo: Equipo): Observable<Equipo> {
     return this.http.post<Equipo>(this.equiposUrl, equipo, this.httpOptions).pipe(
-      tap((newEquipo: Equipo) => this.log(`added equipo w/ id=${newEquipo.idEquipo}`)),
+      tap((newEquipo: Equipo) => this.log(`added equipo w/ id=${newEquipo.id}`)),
       catchError(this.handleError<Equipo>('addEquipo'))
     );
   }
 
   updateEquipo(equipo: Equipo): Observable<Equipo> {
-    return this.http.put<Equipo>(this.equiposUrl + equipo.idEquipo, equipo, this.httpOptions).pipe(
+    return this.http.put<Equipo>(this.equiposUrl + equipo.id, equipo, this.httpOptions).pipe(
       catchError(this.handleError<Equipo>('updateEquipo'))
     );
   }
@@ -251,13 +251,13 @@ export class DataService {
 
   addPuesto(puesto: Puesto): Observable<Puesto> {
     return this.http.post<Puesto>(this.puestosUrl, puesto, this.httpOptions).pipe(
-      tap((newPuesto: Puesto) => this.log(`added puesto w/ id=${newPuesto.idPuesto}`)),
+      tap((newPuesto: Puesto) => this.log(`added puesto w/ id=${newPuesto.id}`)),
       catchError(this.handleError<Puesto>('addPuesto'))
     );
   }
 
   updatePuesto(puesto: Puesto): Observable<Puesto> {
-    return this.http.put<Puesto>(this.puestosUrl + puesto.idPuesto, puesto, this.httpOptions).pipe(
+    return this.http.put<Puesto>(this.puestosUrl + puesto.id, puesto, this.httpOptions).pipe(
       catchError(this.handleError<Puesto>('updatePuesto'))
     );
   }

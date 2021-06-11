@@ -20,49 +20,45 @@
 
     <!--Sección de inputs para ingresar la diferente información-->
 
-    <a>Tipo de Equipo </a>
-
-    <!--input nombre del empleado-->
-    <label for="inputequipo" class="visually-hidden">Tipo de Equipo</label>
-    <input type = "equipo" id="inputequipo" class="form-control" placeholder="Tipo de equipo" [ngModel]="maquinaSleccionada.tipoequipo" #inputmaquina>
-
-    <a>Marca </a>
-    <!--input primer apellido del empleado-->
-    <label for="inputmarca" class="visually-hidden">Marca</label>
-    <input type = "marca" id="inputmarca" class="form-control" placeholder="Marca" [ngModel]="maquinaSleccionada.brand" #inputmarca>
 
     <a>Serie </a>
     <!--input  segundo apellido del empleado-->
     <label for="inputserie" class="visually-hidden">Serie</label>
-    <input type = "serie" id="inputserie" class="form-control" placeholder="Serie" [ngModel]="maquinaSleccionada.serialNumber" #inputserie>
+    <input name = "Serie" id="inputserie" class="form-control" placeholder="Serie" [ngModel]="maquinaSleccionada.serialNumber" #inputserie>
+
+    <a>Tipo de Equipo </a>
+    <!--input nombre del empleado-->
+    <label for="inputequipo" class="visually-hidden">Tipo de Equipo</label>
+    <input name = "Tipo de equipo" id="inputequipo" class="form-control" placeholder="Tipo de equipo"
+           [ngModel]="maquinaSleccionada.idEquipment" #inputmaquina>
+
+    <a>Marca </a>
+    <!--input primer apellido del empleado-->
+    <label for="inputmarca" class="visually-hidden">Marca</label>
+    <input name = "Marca" id="inputmarca" class="form-control" placeholder="Marca" [ngModel]="maquinaSleccionada.brand" #inputmarca>
 
     <a>Costo </a>
     <!--input cedula del empleado-->
     <label for="inputcosto" class="visually-hidden">Costo</label>
-    <input type = "costo" id="inputcosto" class="form-control" placeholder="Costo" [ngModel]="maquinaSleccionada.price" #inputcosto>
-
-    <a>Sucursal </a>
-    <!--input del telefono del empleado-->
-    <label for="inputsucursal" class="visually-hidden">Sucursal</label>
-    <input type='sucursal' id="inputsucursal" class="form-control" placeholder="Sucursal" [ngModel]="maquinaSleccionada.sucursal" #inputsurcursal>
+    <input name = "Costo" id="inputcosto" class="form-control" placeholder="Costo" [ngModel]="maquinaSleccionada.price" #inputcosto>
 
     <a>Máquinas Disponibles: </a>
 
-    <select name="sedes" type = "sedes" id="sedes" #maquinas (change)="onChange(maquinas.value)">
+    <select name="sedes" id="sedes" #maquinas (change)="onChange(maquinas.value)">
 
       <option value="" selected>Seleccionar máquina existente</option>
 
-      <option *ngFor="let maquinas of maquinaSleccionada" [value]="maquinas.id">ID: {{maquinas.id}}</option>
+      <option *ngFor="let maquina of maquinaDisp" [value]="maquina.serialNumber">Serie: {{maquina.serialNumber}}</option>
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="crearMaquina(inputserie.value, inputmaquina.value,
-                inputmarca.value, inputcosto.value, inputsurcursal.value)">Registrar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="crearMaquina(inputserie.value, inputmaquina.value,
+                inputmarca.value, inputcosto.value)">Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="eliminarMaquina(maquinas.value)">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="eliminarMaquina(maquinas.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)="modificarMaquina(maquinas.value, inputserie.value, inputmaquina.value,
-                inputmarca.value, inputcosto.value, inputsurcursal.value)">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="modificarMaquina(maquinas.value, inputmaquina.value,
+                inputmarca.value, inputcosto.value)">Actualizar</button>
 
   </form>
 

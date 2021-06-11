@@ -18,29 +18,24 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputiposer" class="visually-hidden">TipoServicio</label>
-    <input type = "solservicio"  id="inputiposer"  [(ngModel)]= "tratamientoSeleccionado.id"
+    <input type = "solservicio"  id="inputiposer"  [ngModel]= "tratamientoSeleccionado.name"
            class="form-control" placeholder="Servicio de spa"  name="Tratamiento de spa" #inputServicio>
-
-    <!-- Input para solicitar el nombre del serivicio -->
-    <label for="inputIdServicio" class="visually-hidden">IdServicio</label>
-    <input type = "idservcio" id="inputIdServicio"  [(ngModel)]= "tratamientoSeleccionado.name"
-           class="form-control" placeholder="Id Servicio" name="Id Tratamiento" #inputIdServicio>
 
 
     <a>Tratamientos Disponibles: </a>
 
-    <select name="tratamientos" type = "tratamientos" id="tratamientos" #tratamiento (change)="onChange(tratamiento.id)">
+    <select name="tratamientos" type = "tratamientos" id="tratamientos" #tratamiento (change)="onChange(tratamiento.value)">
       <option value="">Seleccionar tratamiento existente</option>
-      <option  *ngFor="let tratamiento of tratamientosDisp" [value]="tratamiento.id"> ID: {{tratamiento.name}}</option>
+      <option  *ngFor="let tratamiento of tratamientosDisp" [value]="tratamiento.id">ID: {{tratamiento.id}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="crearTratamiento(inputServicio.value, inputIdServicio.value)">Registrar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="crearTratamiento(inputServicio.value)">Registrar</button>
 
     <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)= "eliminarTratamiento(tratamiento.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarTratamiento(tratamiento.value, inputServicio.value, inputIdServicio.value)">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarTratamiento(tratamiento.value, inputServicio.value)">Actualizar</button>
 
   </form>
 </main>

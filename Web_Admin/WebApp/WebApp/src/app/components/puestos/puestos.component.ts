@@ -21,7 +21,7 @@ export class PuestosComponent implements OnInit {
   }
 
   onChange(idPuestoS: string): void{
-    this.puestoSeleccionado = this.puestosDisp.find(x => x.idPuesto === Number(idPuestoS));
+    this.puestoSeleccionado = this.puestosDisp.find(x => x.id === Number(idPuestoS));
   }
 
 
@@ -29,23 +29,27 @@ export class PuestosComponent implements OnInit {
     this.dataService.getAllPuestos().subscribe(data => this.puestosDisp = data);
   }
 
-  crearPuesto(idStr: string, nombrePuesto: string): void{
-    const idPuesto = Number(idStr);
-    const nuevoPuesto = {nombrePuesto, idPuesto} as Puesto;
-    this.dataService.addPuesto(nuevoPuesto).subscribe();
+  crearPuesto(name: string): void{
+    const nuevoPuesto = {name} as Puesto;
+    this.dataService.addPuesto(nuevoPuesto).subscribe(data => {
+      if (data){
+        this.getPuestos();
+      }
+    });
   }
 
-  // tslint:disable-next-line:typedef
-  modificarPuesto(idStrSelect: string, idStr: string, nombrePuesto: string){
-    const idSelect = Number(idStrSelect);
-    const idPuesto = Number(idStr);
-    const PuestoporModificar = {idSelect, nombrePuesto, idPuesto} as Puesto;
-    this.dataService.updatePuesto(PuestoporModificar).subscribe();
+  modificarPuesto(idStr: string, name: string): void{
+    const id = Number(idStr);
+    const PuestoporModificar = {id, name} as Puesto;
+    this.dataService.updatePuesto(PuestoporModificar).subscribe(data => {
+      this.getPuestos();
+    });
   }
 
   eliminarPuesto(idStrSelect: string): void{
     const idPuesto = Number(idStrSelect);
     this.dataService.deletePuesto(idPuesto).subscribe();
+    this.puestosDisp = this.puestosDisp.filter(x => x.id !== idPuesto);
   }
 
 }

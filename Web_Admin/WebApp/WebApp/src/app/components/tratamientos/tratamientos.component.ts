@@ -10,8 +10,8 @@ import {Tratamiento} from '../../models/tratamiento';
 })
 export class TratamientosComponent implements OnInit {
 
-    tratamientosDisp: Tratamiento[] = [];
-  tratamientoSeleccionado: Tratamiento = new Tratamiento();
+  tratamientosDisp: Tratamiento[] = [];
+  tratamientoSeleccionado: Tratamiento = {} as Tratamiento;
 
   constructor(private dataService: DataService) { }
 
@@ -27,22 +27,28 @@ export class TratamientosComponent implements OnInit {
     this.dataService.getAllTratamientos().subscribe(data => this.tratamientosDisp = data);
   }
 
-  crearTratamiento(idStr: string, name: string): void{
-    const id = Number(idStr);
-    const nuevoServicio = {id, name} as Servicio;
-    this.dataService.crearTratamiento(nuevoServicio).subscribe();
+  crearTratamiento(name: string): void{
+    const nuevoServicio = {name} as Servicio;
+    this.dataService.crearTratamiento(nuevoServicio).subscribe(data => {
+      if (data){
+        this.getTratamientos();
+      }
+    });
   }
 
-  modificarTratamiento(idStrSelect: string, idStr: string, name: string){
-    const idSelect = Number(idStrSelect);
+  modificarTratamiento(idStr: string, name: string): void{
     const id = Number(idStr);
-    const ServicioporModificar = {idSelect, id, name} as Servicio;
-    this.dataService.updateTratamiento(ServicioporModificar).subscribe();
+    const ServicioporModificar = {id, name} as Servicio;
+    this.dataService.updateTratamiento(ServicioporModificar).subscribe(data => {
+      this.getTratamientos();
+    });
+    this.getTratamientos();
   }
 
   eliminarTratamiento(idStrSelect: string): void{
     const id = Number(idStrSelect);
     this.dataService.deleteTratamiento(id).subscribe();
+    this.tratamientosDisp = this.tratamientosDisp.filter(x => x.id !== id);
   }
 
 }

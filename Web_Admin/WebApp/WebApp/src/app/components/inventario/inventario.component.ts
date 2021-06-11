@@ -27,24 +27,33 @@ export class InventarioComponent implements OnInit {
     this.dataService.getAllMaquinas().subscribe(data => this.maquinaDisp = data);
   }
 
-  crearMaquina(serialStr: string, tipoequipo: string, brand: string, priceStr: string, sucursal: string): void{
+  crearMaquina(serialStr: string, idEquipmentStr: string, brand: string, priceStr: string): void{
     const serialNumber = Number(serialStr);
+    const idEquipment = Number(idEquipmentStr);
     const price = Number(priceStr);
-    const nuevaMaquina = {serialNumber, tipoequipo, brand, price, sucursal} as Maquina;
-    this.dataService.addMaquina(nuevaMaquina).subscribe();
+    const nuevaMaquina = {serialNumber, idEquipment, brand, price} as Maquina;
+    this.dataService.addMaquina(nuevaMaquina).subscribe(data => {
+      if (data){
+        this.getMaquinas();
+      }
+    });
   }
 
-  modificarMaquina(idSelectstr: string, serialStr: string, tipoequipo: string, brand: string, priceStr: string, sucursal: string): void{
-    const idSelect = Number(idSelectstr);
+  modificarMaquina(serialStr: string, idEquipmentStr: string, brand: string, priceStr: string): void{
     const serialNumber = Number(serialStr);
+    const idEquipment = Number(idEquipmentStr);
     const price = Number(priceStr);
-    const maquinaModificada = {idSelect, serialNumber, tipoequipo, brand, price, sucursal} as Maquina;
-    this.dataService.updateMaquina(maquinaModificada).subscribe();
+    const maquinaModificada = {serialNumber, idEquipment, brand, price} as Maquina;
+    this.dataService.updateMaquina(maquinaModificada).subscribe(data => {
+        this.getMaquinas();
+      });
   }
 
   eliminarMaquina(idStr: string): void{
     const serialNumber = Number(idStr);
     this.dataService.deleteMaquina(serialNumber).subscribe();
+    this.maquinaDisp = this.maquinaDisp.filter(x => x.serialNumber !== serialNumber);
+
   }
 
 
