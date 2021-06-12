@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+
+
+  </head>
+  <body class="text-center">
+
+    <main class="form-signin">
+      <form>
+        <img class="mb-4" src="../assets/img/logo-tec.png" alt="" width="200" height="107">
+        <h1 class="h3 mb-3 fw-normal">Ingrese sus datos para ser Registrado</h1>
+
+
+        <a>Datos personales</a>
+        <label for="inputID" class="visually-hidden">ID card</label>
+        <input id="inputName" class="form-control" placeholder="ID card" required #nameID>
+
+        <label for="inputName" class="visually-hidden">Name</label>
+        <input id="inputName" class="form-control" placeholder="Name" required #nameInput>
+
+        <label for="inputLastName" class="visually-hidden">LastName</label>
+        <input id="inputLastName" class="form-control" placeholder="First Lastname" required #flastnameInput>
+
+        <label for="inputSLastName" class="visually-hidden">SLastName</label>
+        <input id="inputSLastName" class="form-control" placeholder="Second Lastname" required #slastnameInput>
+
+        <label for="inputAge" class="visually-hidden">Age</label>
+        <input id="inputAge" class="form-control" placeholder="Age" required #inputAge>
+
+        <label for="inputBD" class="visually-hidden">Date of Birth</label>
+        <input id="inputBD" class="form-control" placeholder="Date of Birth dd/mm/yyyy" required #inputBD>
+
+        <label for="inputWeight" class="visually-hidden">Weight</label>
+        <input id="inputWeight" class="form-control" placeholder="Weight" required #inputWeight>
+
+        <label for="inputIMC" class="visually-hidden">IMC</label>
+        <input id="inputIMC" class="form-control" placeholder="IMC" required #inputIMC>
+
+
+        <a>De que region es?: </a>
+
+        <label for="inputContinent" class="visually-hidden">Continente</label>
+        <select #continentInput id="inputContinent" class="caja" (change)="getAllCountries(continentInput.value)">
+          <option value="" selected disabled hidden>Continente</option>
+          <!--<option [value]="continent.continent" *ngFor="let continent of continents">{{continent.continent}}</option>-->
+        </select>
+
+        <label for="inputCountry" class="visually-hidden">Pais</label>
+        <select #countryInput id="inputCountry" class="caja">
+          <option value="" selected disabled hidden>Pais</option>
+          <!--<option [value]="country.country" *ngFor="let country of countries">{{country.country}}</option>-->
+        </select>
+
+        <br><label for="inputDireccion" class="visually-hidden">Direccion</label>
+        <input id="inputDireccion" class="form-control" placeholder="Direccion de entrega" required #direccionInput>
+
+        <a>Ingrese sus credenciales:</a>
+
+        <label for="inputEmail" class="visually-hidden">Email</label>
+        <input id="inputEmail" class="form-control" placeholder="Email" required autofocus #usernameInput>
+
+        <label for="inputPassword" class="visually-hidden">n"Passwordl></label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required #passwordInput>
+        <!--Upload data to loging with this button -->
+        <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
+                (click)="addClient(usernameInput.value, nameInput.value, passwordInput.value, flastnameInput.value,
+        slastnameInput.value, countryInput.value, continentInput.value, direccionInput.value)">
+          Registrarse
+        </button>
+
+        <a>Si desea agregar más direcciones de entrega:</a>
+
+        <label for="inputAnotherDirection" class="visually-hidden"></label>
+        <input id="inputAnotherDirection" class="form-control" placeholder="Direccion"
+               required #anotherDirectionInput>
+        <!--Upload data to loging with this button -->
+        <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
+                (click)="addDirectionClient(anotherDirectionInput.value)">
+          Agregar dirección
+        </button>
+      </form>
+    </main>
+
+  </body>
+</html>
