@@ -8,7 +8,6 @@ GO
 CREATE PROCEDURE CreateUpdateDelete_Gym 
 (
 	@id INT = 0,
-	@id_administrador DECIMAL = 0,
 	@nombre VARCHAR(50) = 0,
 	@capacidad DECIMAL = 0,
 	@provincia VARCHAR(20) = 0,
@@ -27,8 +26,7 @@ AS
       IF @StatementType = 'INSERT'  
         BEGIN  
             INSERT INTO SUCURSAL
-							   (id_administrador, 
-								nombre, 
+							   (nombre, 
 								capacidad,
 								provincia, 
 								canton, 
@@ -38,8 +36,7 @@ AS
 								fecha_apertura, 
 								estado_spa, 
 								estado_tienda)
-			VALUES			   (@id_administrador, 
-								@nombre, 
+			VALUES			   (@nombre, 
 								@capacidad,
 								@provincia, 
 								@canton, 
@@ -54,8 +51,7 @@ AS
       ELSE IF @StatementType = 'UPDATE'  
         BEGIN  
             UPDATE SUCURSAL  
-            SET	id_administrador = @id_administrador,
-				nombre = @nombre,
+            SET	nombre = @nombre,
 				capacidad = @capacidad,
 				provincia = @provincia,
 				canton = @canton, 
