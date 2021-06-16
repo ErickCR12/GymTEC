@@ -57,9 +57,14 @@
            [ngModel]="sucursalSeleccionada.closingTime" #inputCloTime>
 
     <a>Administrador </a>
-    <label for="inputadministrador" class="visually-hidden">Administrador</label>
-    <input type = "administrador" id="inputadministrador" class="form-control" placeholder="Administrador" name="Administrador"
-           [ngModel]="sucursalSeleccionada.idAdmin" #inputAdmin>
+    <select name="empleados" type = "sedes" id="empleados" #empleado (change)="onChangeE(empleado.value)">
+
+      <option value="" selected>Administrador</option>
+
+      <option *ngFor="let empleado of empleadoS" [value]="empleado.id">ID: {{empleado.id}}</option>
+    </select>
+
+    <a> </a>
 
     <a>Capacidad </a>
     <label for="inputcapacidad" class="visually-hidden">Capacidad</label>
@@ -78,7 +83,7 @@
     <!--Upload data to loging with this button -->
     <button class="w-100 btn btn-lg btn-primary mb-2"
             (click)="crearSucursal(inputNombre.value, inputProvincia.value, inputCanton.value, inputDistrict.value,
-                                   inputDate.value, inputOpTime.value, inputCloTime.value, inputAdmin.value, inputCapacity.value)">
+                                   inputDate.value, inputOpTime.value, inputCloTime.value, empleado.value, inputCapacity.value)">
       Registrar</button>
 
     <button class="w-100 btn btn-lg btn-primary mb-2"
@@ -86,7 +91,7 @@
 
     <button class="w-100 btn btn-lg btn-primary mb-2"
             (click)="modificarSucursal(sucursal.value, inputNombre.value, inputProvincia.value, inputCanton.value, inputDistrict.value,
-                                   inputDate.value, inputOpTime.value, inputCloTime.value, inputAdmin.value, inputCapacity.value)">Actualizar</button>
+                                   inputDate.value, inputOpTime.value, inputCloTime.value, empleado.value, inputCapacity.value)">Actualizar</button>
 
   </form>
 

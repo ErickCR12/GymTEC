@@ -65,21 +65,24 @@
 
     <a>Puesto </a>
     <!--input puesto del empleado-->
-    <label for="inputpuesto" class="visually-hidden">Puesto desempeñado</label>
-    <input id="inputpuesto" class="form-control" placeholder="Puesto desempeñado" name="Puesto desempeñado"
-           [ngModel]="empleadoSeleccionado.idJobPosition" #inputpuesto>
+    <select name="puesto" id="puesto" #puestos (change)="onChangeP(puestos.value)">
+      <option value="" selected>Puesto</option>
+      <option *ngFor="let puesto of puestoS" [value]="puesto.id">Cédula: {{empleado.id}}</option>
+    </select>
 
     <a>Sucursal </a>
     <!--input sucursal empleado-->
-    <label for="inputsucursal" class="visually-hidden">Sucursal</label>
-    <input id="inputsucursal" class="form-control" placeholder="Sucursal" name="Sucursal"
-           [ngModel]="empleadoSeleccionado.idGym" #inputsucursal>
+    <select name="sucursal" id="sucursal" #sucursales (change)="onChangeS(sucursales.value)">
+      <option value="" selected>Sucursal</option>
+      <option *ngFor="let sucursall of sucursalS" [value]="sucursall.id">Cédula: {{sucursall.id}}</option>
+    </select>
 
     <a>Planilla </a>
     <!--input tipo de planilla empleado-->
-    <label for="inputplanilla" class="visually-hidden">Planilla</label>
-    <input id="inputplanilla" class="form-control" placeholder="Planilla" name="Planilla"
-           [ngModel]="empleadoSeleccionado.idPayroll" #inputplanilla>
+    <select name="planilla" id="planilla" #planillas (change)="onChangePL(planillas.value)">
+      <option value="" selected>Planilla</option>
+      <option *ngFor="let plnilla of planillaS" [value]="plnilla.id">Cédula: {{plnilla.id}}</option>
+    </select>
 
     <a>Salario </a>
     <!--input salario empleado empleado-->
@@ -102,21 +105,19 @@
     <a>Empleados: </a>
 
     <select name="empleados" id="empleados" #empleado (change)="onChange(empleado.value)">
-
       <option value="" selected>Seleccione un empleado</option>
-
       <option *ngFor="let empleado of empleadosDisp" [value]="empleado.idCard">Cédula: {{empleado.idCard}}</option>
     </select>
 
     <!--Upload data to loging with this button -->
     <button class="w-100 btn btn-lg btn-primary mb-2"  type="Registrar"
-           (click)="crearEmpleado(inputcedula.value, inputsucursal.value, inputpuesto.value, inputplanilla.value,
+           (click)="crearEmpleado(inputcedula.value, sucursales.value, puestos.value, planillas.value,
            inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
            inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">
       Registrar</button>
 
     <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar"
-            (click)="modificarEmpleado(empleado.value, inputsucursal.value, inputpuesto.value, inputplanilla.value,
+            (click)="modificarEmpleado(empleado.value, sucursales.value, puestos.value, planillas.value,
            inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
            inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">Actualizar</button>
 

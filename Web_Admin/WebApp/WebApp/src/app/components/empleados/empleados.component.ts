@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Empleado} from '../../models/empleado';
 import {DataService} from '../../data.service';
 import {Sucursal} from '../../models/sucursal';
+import {Planilla} from '../../models/planilla';
+import {Puesto} from '../../models/puesto';
 
 @Component({
   selector: 'app-empleados',
@@ -13,18 +15,54 @@ export class EmpleadosComponent implements OnInit {
   empleadosDisp: Empleado[] = [];
   empleadoSeleccionado = {} as Empleado;
 
+  sucursales: Sucursal[] = [];
+  sucursalS = {} as Sucursal;
+
+  planilla: Planilla[] = [];
+  planillaS: Planilla = new Planilla();
+
+  puesto: Puesto[] = [];
+  puestoS: Puesto = new Puesto();
+
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getEmpleados();
+    this.getSucursale();
+    this.getPlanilla();
+    this.getPuesto();
   }
 
   onChange(idSucursal: string): void{
     this.empleadoSeleccionado = this.empleadosDisp.find(x => x.idCard === Number(idSucursal));
   }
 
+  onChangeS(idS: string): void{
+    this.sucursalS = this.sucursales.find(x => x.id === Number(idS));
+  }
+
+  onChangePL(idpl: string): void{
+    this.planillaS = this.planilla.find(x => x.id === Number(idpl));
+  }
+
+  onChangeP(idp: string): void{
+    this.puestoS = this.puesto.find(x => x.id === Number(idp));
+  }
+
   getEmpleados(): void{
     this.dataService.getAllEmpleados().subscribe(data => this.empleadosDisp = data);
+  }
+
+  getSucursale(): void{
+    this.dataService.getAllSucursales().subscribe(data => this.sucursales = data);
+  }
+
+  getPlanilla(): void{
+    this.dataService.getAllPlanillas().subscribe(data => this.planilla = data);
+  }
+
+  getPuesto(): void{
+    this.dataService.getAllPuestos().subscribe(data => this.puesto = data);
   }
 
   crearEmpleado(idCardStr: string,
