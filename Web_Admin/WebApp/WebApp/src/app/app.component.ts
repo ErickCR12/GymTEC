@@ -15,78 +15,25 @@ export class AppComponent {
 
   constructor(public usersService: UsersService) { }
 
-  // ________/Cliente\_______
-  isEditProf = false;
-  isShop = false;
-  isReport = false;
 
-  // ________/Admin \_______
-  isDeviceType = false;
-  isDevices = false;
-  isDashboard = false;
-  isUploadDoc = false;
 
-  // ____________________/Cliente Tabs\_____________________
-  clickProfEdit() {
-    this.isEditProf = !this.isEditProf;
-    this.isShop = false;
-    this.isReport = false;
+  // ________/Super User\_______
+  SwitchSUser() {
+    this.usersService.isAdmin = !this.usersService.isAdmin;
   }
 
-  clickShop() {
-    this.isShop = !this.isShop;
-    this.isEditProf = false;
-    this.isReport = false;
-  }
-
-  clickReports() {
-    this.isReport = !this.isReport;
-    this.isEditProf = false;
-    this.isShop = false;
+  LogSUser() {
+    this.usersService.isLogged = !this.usersService.isLogged;
   }
 
   // ___________________/No User Tabs\______________________
   clickBack() {
     this.usersService.isLogged = false;
-    this.isReg = false;
-    this.isEditProf = false;
-    this.isShop = false;
-    this.isReport = false;
-
-    this.isDeviceType = false;
-    this.isDevices  = false;
-    this.isUploadDoc = false;
-    this.isDashboard = false;
   }
 
 
   clickReg() {
     this.isReg = !this.isReg;
-  }
-
-  // ____________________/Admin Tabs\______________________
-
-  clickDashboard() {
-    this.isDashboard = !this.isDashboard;
-  }
-
-  clickUploadDoc() {
-    this.isUploadDoc = !this.isUploadDoc;
-    this.isDevices = false;
-    this.isDeviceType = false;
-  }
-
-  // type devices
-  clickDeviceManager() {
-    this.isDeviceType = !this.isDeviceType;
-    this.isDevices = false;
-    this.isUploadDoc = false;
-  }
-
-  clickDevices() {
-    this.isDevices = !this.isDevices;
-    this.isDeviceType = false;
-    this.isUploadDoc = false;
   }
 
 }

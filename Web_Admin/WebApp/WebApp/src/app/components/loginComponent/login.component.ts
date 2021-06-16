@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-//import {DataService} from '../../data.service';
-//import {Login} from '../../models/login';
-//import {UsersService} from '../../users.service';
-//import {Client} from '../../models/client';
-//import {Admin} from '../../models/admin';
+import {DataService} from '../../data.service';
+import {Login} from '../../models/login';
+import {UsersService} from '../../users.service';
+import {Cliente} from '../../models/cliente';
+import {Empleado} from '../../models/empleado';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,8 +28,8 @@ export class LoginScreen {
             this.usersService.isAdmin = false;
             this.usersService.isLogged = true;
             break;
-          case 'Admin':
-            this.usersService.admin = { username, password } as Admin;
+          case 'Empleado':
+            this.usersService.empleado = { username, password } as Empleado;
             this.usersService.isAdmin = true;
             this.usersService.isLogged = true;
             break;

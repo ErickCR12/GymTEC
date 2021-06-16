@@ -2,114 +2,120 @@
   <div class="container-fluid">
     <div class="navbar">
 
-      <!-- NAVIGATION BAR -->
-
+      <!-- NAVIGATION BARS -->
       <!--Título de la página principal de la web-->
-      <a class="navbar-brand" href="#">GymTEC</a>
-
+      <a class="navbar-brand" href="">GymTEC</a>
 
       <!--Botón del navigation bar con el título de Registrar-->
-
       <!--Tiene la función regresar-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isLogged || isReg">
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!this.usersService.isLogged || !isReg">
+
+        <!--Super User Tools-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="clickBack()">Regresar</a>
+          <a class="nav-link active" aria-current="page" (click)="SwitchSUser()">{{this.usersService.isAdmin? "Admin":"Client"}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" (click)="LogSUser()">{{this.usersService.isLogged? "Super Log":"S-Log Out"}}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/register">Register</a>
         </li>
       </ul>
 
-      <!--Botón del navigation bar con el título de Sucursales-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+      <!-- Navigation Bar for Admin -->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isAdmin && this.usersService.isLogged">
+        
+        <!--Botón del navigation bar con el título de Sucursales-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/sucursales" >Sucursales</a>
+          <a class="nav-link active" aria-current="page" href="/sucursales">Sucursales</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de Tratamientos de Spa-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Tratamientos de Spa-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/tratamientos">Tratamientos de Spa</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de Puestos-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Puestos-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/puestos">Puestos</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de PLanilla-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+
+        <!--Botón del navigation bar con el título de (Creacion) PLanilla-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/planilla">Planilla</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de Empleados-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Empleados-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/empleados">Empleados</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de Servicios-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Servicios-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/servicios"  >Servicios</a>
+          <a class="nav-link active" aria-current="page" href="/servicios">Servicios</a>
         </li>
-      </ul>
 
-      <!--Botón del navigation bar con el título de Tipos de Equipos-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Tipos de Equipos-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/tipos">Tipos de Equipos</a>
         </li>
-      </ul>
 
-
-      <!--Botón del navigation bar con el título de Tipos de Equipos-->
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!isReg && !this.usersService.isLogged">
+        <!--Botón del navigation bar con el título de Tipos de Equipos-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/inventario">Inventario</a>
         </li>
+        
+
+        <!--Botón del navigation bar con el título de Crear Clase-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/cClase">CrearClase</a>
+        </li>
+
+        <!--Botón del navigation bar con el título de Agregar Producto-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/cProducto">Agregar Producto</a>
+        </li>
+
+        <!--Botón del navigation bar con el título de Agregar Producto-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/configGym">Config Gym</a>
+        </li>
+
+        <!--Botón del navigation bar con el título de Copiar Semana-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/copiarSem">Copiar Semana</a>
+        </li>
+        <!--Botón del navigation bar con el título de Copiar Gym-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/copiarGym">Copiar Gym</a>
+        </li>
+
+        <!--Botón del navigation bar con el título de Copiar Gym-->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/vPlanilla">Ver Planilla</a>
+        </li>
+
       </ul>
 
+      <!-- Navigation Bar for Client -->
+      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="!this.usersService.isAdmin && this.usersService.isLogged">
 
-
-
-      <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="(this.usersService.isAdmin && this.usersService.isLogged);
-      else elseClient">
-
+        <!--Registro de clases -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="clickDeviceManager()">{{isDeviceType? "Hide DeviceType":"DeviceType"}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="clickDevices()">{{isDevices? "Hide Devices":"Devices"}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="clickDashboard()">{{isDashboard? "Hide Dashboard":"Dashboard"}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" (click)="clickUploadDoc()">{{isUploadDoc? "Hide Excel Tab":"Excel Table"}}</a>
+          <a class="nav-link active" aria-current="page" href="/clases">Registrar Clases</a>
         </li>
       </ul>
 
-      <ng-template #elseClient>
-        <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isLogged">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="clickProfEdit()">{{isEditProf? "Hide Edit Profile":"EditProfile"}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="clickShop()">{{isShop? "Hide Shop":"Shop"}}</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="clickReports()">{{isReport? "Hide Report":"Report"}}</a>
-          </li>
-        </ul>
-      </ng-template>
 
     </div>
   </div>
 </nav>
+
+<app-calendar></app-calendar>
 
 <router-outlet></router-outlet>

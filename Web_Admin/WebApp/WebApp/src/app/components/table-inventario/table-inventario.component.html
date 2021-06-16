@@ -1,0 +1,36 @@
+<h4>Inventario</h4>
+<p>Inventario de equipos de entrenamiento</p>
+<div class="overflow-auto">
+  <table class="table table-responsive-sm table-hover table-striped" cellspacing="0"
+         width="100%">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Sucursal</th>
+        <th scope="col">Profesor</th>
+        <th scope="col">Sucursal</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--For cuando se sepa que reciba-->
+      <tr>
+
+        <td>Dato de DB</td>
+        <td>Dato de DB</td>
+        <td>Dato de DB</td>
+        <td>
+          <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+
+            <option value="" selected>Seleccionar Sucursal</option>
+
+            <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
+          </select>
+        </td>
+        <td><button type="submit" class="btn btn-success mb-2">Asociar</button></td>
+        <td><button type="submit" class="btn btn-danger mb-2">Remover</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--indica que es html5-->
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+
+
+</head>
+
+<body class="text-center">
+
+  <main class="form-signin">
+
+    <form>
+      <!--Revisar esta parte-->
+      <h1 class="h3 mb-3 fw-normal">Copiar Gimnasio</h1>
+
+      <!--Seleccionar Sucursal-->
+      <h5>Sucursal origen: </h5>
+
+      <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+
+        <option value="" selected>Seleccionar Sucursal</option>
+
+        <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
+      </select>
+
+      <!--Seleccionar Sucursal a Copiar-->
+      <h5>Sucursal destino: </h5>
+
+      <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+
+        <option value="" selected>Seleccionar Sucursal</option>
+
+        <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
+      </select>
+
+      <!--Upload data to loging with this button -->
+      <button class="w-100 btn btn-lg btn-primary mb-2">
+        Realizar
+      </button>
+
+      <button class="w-100 btn btn-lg btn-primary mb-2">
+        Cancelar
+      </button>
+
+    </form>
+
+  </main>
+
+</body>
+
+</html>
+

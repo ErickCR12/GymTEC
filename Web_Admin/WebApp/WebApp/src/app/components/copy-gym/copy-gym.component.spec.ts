@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanlendarComponent } from './canlendar.component';
+import { CopyGymComponent } from './copy-gym.component';
 
-describe('CanlendarComponent', () => {
-  let component: CanlendarComponent;
-  let fixture: ComponentFixture<CanlendarComponent>;
+describe('CopyGymComponent', () => {
+  let component: CopyGymComponent;
+  let fixture: ComponentFixture<CopyGymComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CanlendarComponent ]
+      declarations: [ CopyGymComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CanlendarComponent);
+    fixture = TestBed.createComponent(CopyGymComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
