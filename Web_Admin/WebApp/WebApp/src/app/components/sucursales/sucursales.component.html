@@ -56,26 +56,27 @@
     <input type = "time" id="inputhorario" class="form-control" placeholder="Horario" name="Hora cierre"
            [ngModel]="sucursalSeleccionada.closingTime" #inputCloTime>
 
-    <a>Administrador </a>
-    <select name="empleados" type = "sedes" id="empleados" #empleado (change)="onChangeE(empleado.value)">
+    <br>
+    <a>Administrador: </a>
+    <select name="empleados" id="empleados" #empleado (change)="onChangeE(empleado.value)">
 
       <option value="" selected>Administrador</option>
 
-      <option *ngFor="let empleado of empleadoS" [value]="empleado.id">ID: {{empleado.id}}</option>
+      <option *ngFor="let empleado of empleados" [value]="empleado.idCard">ID: {{empleado.idCard}}</option>
     </select>
 
-    <a> </a>
-
-    <a>Capacidad </a>
+    <br>
+    <br>
+    <a>Capacidad</a>
     <label for="inputcapacidad" class="visually-hidden">Capacidad</label>
-    <input type = "number" id="inputcapacidad" class="form-control" placeholder="Capacidad" name="Capacidad"
+    <input id="inputcapacidad" class="form-control" placeholder="Capacidad" name="Capacidad"
            [ngModel]="sucursalSeleccionada.capacity" #inputCapacity>
 
     <a>Sucursales Disponibles: </a>
 
-    <select name="sedes" type = "sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+    <select name="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
 
-      <option value="" selected>Seleccionar tratamiento existente</option>
+      <option value="" selected>Seleccionar sucursal existente</option>
 
       <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
     </select>

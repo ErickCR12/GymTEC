@@ -16,13 +16,13 @@ export class EmpleadosComponent implements OnInit {
   empleadoSeleccionado = {} as Empleado;
 
   sucursales: Sucursal[] = [];
-  sucursalS = {} as Sucursal;
+  sucursalSeleccionada = {} as Sucursal;
 
-  planilla: Planilla[] = [];
-  planillaS: Planilla = new Planilla();
+  planillas: Planilla[] = [];
+  planillaSeleccionada: Planilla = new Planilla();
 
-  puesto: Puesto[] = [];
-  puestoS: Puesto = new Puesto();
+  puestos: Puesto[] = [];
+  puestoSeleccionado: Puesto = new Puesto();
 
   constructor(private dataService: DataService) { }
 
@@ -38,15 +38,15 @@ export class EmpleadosComponent implements OnInit {
   }
 
   onChangeS(idS: string): void{
-    this.sucursalS = this.sucursales.find(x => x.id === Number(idS));
+    this.sucursalSeleccionada = this.sucursales.find(x => x.id === Number(idS));
   }
 
   onChangePL(idpl: string): void{
-    this.planillaS = this.planilla.find(x => x.id === Number(idpl));
+    this.planillaSeleccionada = this.planillas.find(x => x.id === Number(idpl));
   }
 
   onChangeP(idp: string): void{
-    this.puestoS = this.puesto.find(x => x.id === Number(idp));
+    this.puestoSeleccionado = this.puestos.find(x => x.id === Number(idp));
   }
 
   getEmpleados(): void{
@@ -58,11 +58,11 @@ export class EmpleadosComponent implements OnInit {
   }
 
   getPlanilla(): void{
-    this.dataService.getAllPlanillas().subscribe(data => this.planilla = data);
+    this.dataService.getAllPlanillas().subscribe(data => this.planillas = data);
   }
 
   getPuesto(): void{
-    this.dataService.getAllPuestos().subscribe(data => this.puesto = data);
+    this.dataService.getAllPuestos().subscribe(data => this.puestos = data);
   }
 
   crearEmpleado(idCardStr: string,

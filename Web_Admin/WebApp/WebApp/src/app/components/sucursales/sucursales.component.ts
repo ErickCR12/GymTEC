@@ -15,8 +15,8 @@ export class SucursalesComponent implements OnInit {
   sucursalesDisp: Sucursal[] = [];
   sucursalSeleccionada = {} as Sucursal;
 
-  empleado: Empleado[] = [];
-  empleadoS = {} as Empleado;
+  empleados: Empleado[] = [];
+  empleadoSeleccionado = {} as Empleado;
 
   constructor(private dataService: DataService) { }
 
@@ -30,7 +30,7 @@ export class SucursalesComponent implements OnInit {
   }
 
   onChangeE(idEmpleado: string): void{
-    this.empleadoS = this.empleado.find(x => x.idCard === Number(idEmpleado));
+    this.empleadoSeleccionado = this.empleados.find(x => x.idCard === Number(idEmpleado));
   }
 
   getSucursales(): void{
@@ -38,7 +38,7 @@ export class SucursalesComponent implements OnInit {
   }
 
   getEmpleados(): void{
-    this.dataService.getAllEmpleados().subscribe(data => this.empleado = data);
+    this.dataService.getAllEmpleados().subscribe(data => this.empleados = data);
   }
 
   crearSucursal(name: string, province: string, canton: string, district: string,

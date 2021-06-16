@@ -63,28 +63,31 @@
     <input id="inputdistrito" class="form-control" placeholder="Distrito" name="Distrito"
            [ngModel]="empleadoSeleccionado.district" #inputdistrito>
 
+
     <a>Puesto </a>
     <!--input puesto del empleado-->
-    <select name="puesto" id="puesto" #puestos (change)="onChangeP(puestos.value)">
+    <select name="puesto" id="puesto" #puestosSelect (change)="onChangeP(puestosSelect.value)">
       <option value="" selected>Puesto</option>
-      <option *ngFor="let puesto of puestoS" [value]="puesto.id">Cédula: {{empleado.id}}</option>
+      <option *ngFor="let puesto of puestos" [value]="puesto.id">ID: {{puesto.id}}</option>
     </select>
 
+    <br>
     <a>Sucursal </a>
     <!--input sucursal empleado-->
-    <select name="sucursal" id="sucursal" #sucursales (change)="onChangeS(sucursales.value)">
+    <select name="sucursal" id="sucursal" #SucursalSelect (change)="onChangeS(SucursalSelect.value)">
       <option value="" selected>Sucursal</option>
-      <option *ngFor="let sucursall of sucursalS" [value]="sucursall.id">Cédula: {{sucursall.id}}</option>
+      <option *ngFor="let sucursal of sucursales" [value]="sucursal.id">ID: {{sucursal.id}}</option>
     </select>
 
+    <br>
     <a>Planilla </a>
     <!--input tipo de planilla empleado-->
-    <select name="planilla" id="planilla" #planillas (change)="onChangePL(planillas.value)">
+    <select name="planilla" id="planilla" #planillaSelect (change)="onChangePL(planillaSelect.value)">
       <option value="" selected>Planilla</option>
-      <option *ngFor="let plnilla of planillaS" [value]="plnilla.id">Cédula: {{plnilla.id}}</option>
+      <option *ngFor="let planilla of planillas" [value]="planilla.id">ID: {{planilla.id}}</option>
     </select>
 
-    <a>Salario </a>
+    <br>Salario
     <!--input salario empleado empleado-->
     <label for="inputsalario" class="visually-hidden">Salario</label>
     <input id="inputsalario" class="form-control" placeholder="Salario" name="Salario"
@@ -110,18 +113,18 @@
     </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2"  type="Registrar"
-           (click)="crearEmpleado(inputcedula.value, sucursales.value, puestos.value, planillas.value,
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+           (click)="crearEmpleado(inputcedula.value, SucursalSelect.value, puestosSelect.value, planillaSelect.value,
            inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
            inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">
       Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar"
-            (click)="modificarEmpleado(empleado.value, sucursales.value, puestos.value, planillas.value,
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+            (click)="modificarEmpleado(empleado.value, SucursalSelect.value, puestosSelect.value, planillaSelect.value,
            inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
            inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">Actualizar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar"
+    <button class="w-100 btn btn-lg btn-primary mb-2"
            (click)="eliminarEmpleado(empleado.value)">Eliminar</button>
 
   </form>
