@@ -11,15 +11,13 @@ namespace WebServiceResTEC.Profiles
     {
         public DataProfile()
         {
-            CreateMap<Client, ClientDto>()
-            .ForMember(x => x.birthday,
-                    opt => opt.MapFrom(src => ((DateTime)src.birthday).ToShortDateString()))
-            .ReverseMap();
+            
             CreateMap<GymService, GymServiceDto>().ReverseMap();
             CreateMap<Employee, EmployeeDto>().ReverseMap();
             CreateMap<Payroll, PayrollDto>().ReverseMap();
             CreateMap<ExcerciseMachine, ExcerciseMachineDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<LoginProfile, LoginProfileDto>().ReverseMap();
             CreateMap<GymClass, GymClassDto>().ForMember(x => x.date,
                     opt => opt.MapFrom(src => ((DateTime)src.date).ToShortDateString()))
                 .ForMember(x => x.startTime,
@@ -38,6 +36,10 @@ namespace WebServiceResTEC.Profiles
                     opt=> opt.MapFrom(src => ((DateTime)src.openingTime).ToShortTimeString()))
                 .ForMember(x => x.closingTime,
                     opt=> opt.MapFrom(src => ((DateTime)src.closingTime).ToShortTimeString()))
+            .ReverseMap();
+            CreateMap<Client, ClientDto>()
+            .ForMember(x => x.birthday,
+                    opt => opt.MapFrom(src => ((DateTime)src.birthday).ToShortDateString()))
             .ReverseMap();
         }
     }
