@@ -68,7 +68,7 @@
     <!--input puesto del empleado-->
     <select name="puesto" id="puesto" #puestosSelect (change)="onChangeP(puestosSelect.value)">
       <option value="" selected>Puesto</option>
-      <option *ngFor="let puesto of puestos" [value]="puesto.id">ID: {{puesto.id}}</option>
+      <option *ngFor="let puesto of puestos" [value]="puesto.id">{{puesto.name}}</option>
     </select>
 
     <br>

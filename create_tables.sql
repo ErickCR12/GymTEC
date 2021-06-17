@@ -35,7 +35,7 @@ CREATE TABLE CLASE (
 
 CREATE TABLE EMPLEADO (
 	numero_cedula		DECIMAL		NOT NULL,
-	id_sucursal			INT		NOT NULL,
+	id_sucursal			INT,
 	id_puesto			INT		NOT NULL,
 	id_planilla			INT		NOT NULL,
 	correo				VARCHAR(50) NOT NULL,

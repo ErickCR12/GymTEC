@@ -45,7 +45,7 @@
     <a>Fecha de Apertura </a>
     <label for="inputfecha" class="visually-hidden">Fecha de Apertura</label>
     <input type = "date" id="inputfecha" class="form-control" placeholder="Fecha de Apertura" name="Fecha de apertura"
-           [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #inputDate>
+           [ngModel]="sucursalSeleccionada.openingDate" #inputDate>
 
     <a>Hora de apertura </a>
     <label for="inputhorario" class="visually-hidden">Horario</label>
@@ -60,7 +60,7 @@
     <a>Administrador: </a>
     <select name="empleados" id="empleados" #empleado (change)="onChangeE(empleado.value)">
 
-      <option value="" selected>Administrador</option>
+      <option value=-1 selected>Administrador</option>
 
       <option *ngFor="let empleado of empleados" [value]="empleado.idCard">ID: {{empleado.idCard}}</option>
     </select>

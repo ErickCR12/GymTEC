@@ -49,6 +49,7 @@ namespace GymTEC_API.Data
                 gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
                 gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
                 gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
+                gym.idAdmin = (dataReader.GetValue(11) == DBNull.Value) ? -1 : Int32.Parse(dataReader.GetValue(11).ToString());
 
                 gyms.Add(gym);
             }
@@ -77,7 +78,8 @@ namespace GymTEC_API.Data
                 gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
                 gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
                 gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
-                
+                gym.idAdmin = (dataReader.GetValue(11) == DBNull.Value) ? -1 : Int32.Parse(dataReader.GetValue(11).ToString());
+   
                 connection.Close();
                 return gym;
             }

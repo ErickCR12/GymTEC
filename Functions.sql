@@ -8,10 +8,12 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_administrador, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda
-	FROM SUCURSAL
+	SELECT id, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda, id_admin
+	FROM (SUCURSAL LEFT JOIN ADMINISTRADOR_SUCURSAL ON id = id_sucursal)
 );
 GO
+
+SELECT * FROM GetAllGyms();
 
 GO
 CREATE FUNCTION GetGymById(@storedId int)
@@ -19,8 +21,8 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_administrador, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda
-	FROM SUCURSAL
+	SELECT id, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda, id_admin
+	FROM (SUCURSAL LEFT JOIN ADMINISTRADOR_SUCURSAL ON id = id_sucursal)
 	WHERE id = @storedId
 );
 GO
@@ -131,7 +133,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_sucursal, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 );
 GO
@@ -142,7 +144,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_sucursal, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 	WHERE id = @storedId
 );

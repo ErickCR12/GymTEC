@@ -18,6 +18,7 @@ CREATE PROCEDURE CreateUpdateDelete_Gym
 	@fecha_apertura	DATE = '',
 	@estado_spa	INT = 0,
 	@estado_tienda	INT = 0,
+	@id_admin DECIMAL = -1,
 	@StatementType VARCHAR(20)
 )
 
@@ -62,11 +63,21 @@ AS
 				estado_spa = @estado_spa, 
 				estado_tienda = @estado_tienda 
             WHERE  id = @id  
+
+			UPDATE ADMINISTRADOR_SUCURSAL
+			SET id_admin = @id_admin
+			WHERE id_sucursal = @id
+
         END  
       ELSE IF @StatementType = 'DELETE'  
         BEGIN  
+			DELETE FROM ADMINISTRADOR_SUCURSAL
+			WHERE id_sucursal = @id
+
             DELETE FROM SUCURSAL  
-            WHERE  id = @id  
+            WHERE  id = @id 
+			
+			
         END  
   END    
 GO
