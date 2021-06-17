@@ -188,6 +188,33 @@ body {
   background-color: white;
 }
 
+.form-signin select[type="puesto"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: white;
+}
+
+.form-signin select[type="sucursal"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: white;
+}
+
+.form-signin select[type="sedes"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: white;
+}
+
+.form-signin select[type="planilla"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: white;
+}
 
 
 

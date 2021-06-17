@@ -1,11 +1,14 @@
 export class Sucursal{
-  sede: string;
-  telefono: string;
-  provincia: string;
+  id: number;
+  idAdmin: number;
+  name: string;
+  capacity: number;
+  province: string;
   canton: string;
-  distrito: string;
-  fecha: string;
-  horario: string;
-  adminsitrador: string;
-  capacidad: number;
+  district: string;
+  openingTime: string;
+  closingTime: string;
+  openingDate: string;
+  spaState: boolean;
+  storeState: boolean;
 }

@@ -1,4 +1,4 @@
-export class Tratamiento {
+export class Servicio {
   id: number;
   name: string;
 }

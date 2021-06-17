@@ -28,6 +28,7 @@ namespace GymTEC_API.DTOs
         public bool spaState {get; set;}
         [Required]
         public bool storeState {get; set;}
+        public int idAdmin{get; set;}
         
     }
 

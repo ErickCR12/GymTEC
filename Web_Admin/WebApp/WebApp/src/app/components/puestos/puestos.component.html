@@ -18,33 +18,25 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputtipopuesto" class="visually-hidden">Tipo de Puesto</label>
-    <input type = "puesto" id="inputtipopuesto" [(ngModel)]= "puestosD.nombrePuesto" class="form-control" placeholder="Tipo de puesto" name="Tipo de puesto" >
-
-    <!-- Input para solicitar el nombre del serivicio -->
-    <label for="inputIdpuesto" class="visually-hidden">IdPuesto</label>
-    <input type = "idPuesto" id="inputIdpuesto" [(ngModel)]= "puestosD.idPuesto" class="form-control" placeholder="Id Puesto"  name="Id Puesto">
-
+    <input type = "puesto" id="inputtipopuesto" [ngModel]= "puestoSeleccionado.name"
+           class="form-control" placeholder="Tipo de puesto" name="Tipo de puesto" #inputPuesto >
 
     <a>Puestos Disponibles: </a>
 
     <!-- List para agregar los servicios registrados en la página  -->
 
-    <select name="puestos" type = "puestos" id="puestos">
-      <option value="Administrador">Administrador</option>
-      <option value="Instructor">Instructor</option>
-      <option value="Dependiente de Spa">Dependiente de Spa</option>
-      <option value="Dependiente de Tienda">Dependiente de Tienda</option>
-      <option  *ngFor="let puestosDD of puestosDisp">{{puestosD.nombrePuesto}}</option>
-      <!-- <option value="audi">Audi</option> -->
+    <select name="puestos" type = "puestos" id="puestos" #Puesto (change)="onChange(Puesto.value)">
+      <option value="">Seleccione un puesto disponible</option>
+      <option  *ngFor="let puesto of puestosDisp" [value]="puesto.id">ID: {{puesto.id}}</option>
     </select>
 
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Agregar" (click)="agregarPuesto()" >Agregar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="crearPuesto(inputPuesto.value)" >Agregar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="modificarPuesto(Puesto.value, inputPuesto.value)">Actualizar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" (click)="eliminarPuesto(Puesto.value)">Eliminar</button>
 
   </form>
 </main>

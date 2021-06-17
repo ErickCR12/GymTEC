@@ -20,69 +20,112 @@
 
     <!--Sección de inputs para ingresar la diferente información-->
 
+
+    <a>Nombre de empleado </a>
     <!--input nombre del empleado-->
     <label for="inputnombre" class="visually-hidden">Nombre</label>
-    <input type = "nombre" id="inputnombre" class="form-control" placeholder="Nombre">
+    <input id="inputnombre" class="form-control" placeholder="Nombre" name="Nombre"
+           [ngModel]="empleadoSeleccionado.name" #inputEmpleado>
 
+    <a>Primer Apellido </a>
     <!--input primer apellido del empleado-->
     <label for="inputpapellido" class="visually-hidden">Primer Apellido</label>
-    <input type = "papellido" id="inputpapellido" class="form-control" placeholder="Primer Apellido">
+    <input id="inputpapellido" class="form-control" placeholder="Primer Apellido" name="Primer Apellido"
+           [ngModel]="empleadoSeleccionado.last_name1" #inputprimerapellido>
 
+    <a>Segundo Apellido </a>
     <!--input  segundo apellido del empleado-->
     <label for="inputsapellido" class="visually-hidden">Segundo Apellido</label>
-    <input type = "sapellido" id="inputsapellido" class="form-control" placeholder="Segundo Apellido">
+    <input id="inputsapellido" class="form-control" placeholder="Segundo Apellido" name="Segundo Apellido"
+           [ngModel]="empleadoSeleccionado.last_name2" #inputsegundoapellido>
 
+    <a>Cédula </a>
     <!--input cedula del empleado-->
     <label for="inputcedula" class="visually-hidden">Cedula</label>
-    <input type = "cedula" id="inputcedula" class="form-control" placeholder="Cédula">
+    <input id="inputcedula" class="form-control" placeholder="Cédula" name="Cédula"
+           [ngModel]="empleadoSeleccionado.idCard" #inputcedula>
 
-    <!--input del telefono del empleado-->
-    <label for="inputelefono" class="visually-hidden">Cédula</label>
-    <input type='telefono' id="inputelefono" class="form-control" placeholder="Teléfono">
-
+    <a>Provincia </a>
     <!--input provincia del empleado-->
     <label for="inputprovincia" class="visually-hidden">Provincia</label>
-    <input type = "provincia" id="inputprovincia" class="form-control" placeholder="Provincia">
+    <input id="inputprovincia" class="form-control" placeholder="Provincia" name="Provincia"
+           [ngModel]="empleadoSeleccionado.province" #inputprovincia>
 
+    <a>Cantón </a>
     <!--input canton del empleado-->
     <label for="inputcanton" class="visually-hidden">Canton</label>
-    <input type = "canton" id="inputcanton" class="form-control" placeholder="Canton">
+    <input id="inputcanton" class="form-control" placeholder="Canton" name="Canton"
+           [ngModel]="empleadoSeleccionado.canton" #inputcanton>
 
+    <a>Distrito </a>
     <!--input distrito del empleado-->
     <label for="inputdistrito" class="visually-hidden">Distrito</label>
-    <input type = "distrito" id="inputdistrito" class="form-control" placeholder="Distrito">
+    <input id="inputdistrito" class="form-control" placeholder="Distrito" name="Distrito"
+           [ngModel]="empleadoSeleccionado.district" #inputdistrito>
 
+
+    <a>Puesto </a>
     <!--input puesto del empleado-->
-    <label for="inputpuesto" class="visually-hidden">Puesto desempeñado</label>
-    <input type = "puesto" id="inputpuesto" class="form-control" placeholder="Puesto desempeñado">
+    <select name="puesto" id="puesto" #puestosSelect (change)="onChangeP(puestosSelect.value)">
+      <option value="" selected>Puesto</option>
+      <option *ngFor="let puesto of puestos" [value]="puesto.id">{{puesto.name}}</option>
+    </select>
 
-
+    <br>
+    <a>Sucursal </a>
     <!--input sucursal empleado-->
-    <label for="inputsucursal" class="visually-hidden">Sucursal</label>
-    <input type = "sucursal" id="inputsucursal" class="form-control" placeholder="Sucursal">
+    <select name="sucursal" id="sucursal" #SucursalSelect (change)="onChangeS(SucursalSelect.value)">
+      <option value="" selected>Sucursal</option>
+      <option *ngFor="let sucursal of sucursales" [value]="sucursal.id">ID: {{sucursal.id}}</option>
+    </select>
 
+    <br>
+    <a>Planilla </a>
     <!--input tipo de planilla empleado-->
-    <label for="inputplanilla" class="visually-hidden">Planilla</label>
-    <input type = "planilla" id="inputplanilla" class="form-control" placeholder="Planilla">
+    <select name="planilla" id="planilla" #planillaSelect (change)="onChangePL(planillaSelect.value)">
+      <option value="" selected>Planilla</option>
+      <option *ngFor="let planilla of planillas" [value]="planilla.id">ID: {{planilla.id}}</option>
+    </select>
 
+    <br>Salario
     <!--input salario empleado empleado-->
     <label for="inputsalario" class="visually-hidden">Salario</label>
-    <input type = "salario" id="inputsalario" class="form-control" placeholder="Salario">
+    <input id="inputsalario" class="form-control" placeholder="Salario" name="Salario"
+           [ngModel]="empleadoSeleccionado.salary" #inputsalario>
 
+    <a>Correo </a>
     <!--input correo electrónico empleado-->
     <label for="inputcorreo" class="visually-hidden">Correo</label>
-    <input type = "correo" id="inputcorreo" class="form-control" placeholder="Correo Electrónico">
+    <input id="inputcorreo" class="form-control" placeholder="Correo Electrónico" name="Correo Electrónico"
+           [ngModel]="empleadoSeleccionado.email" #inputcorreo>
 
+    <a>Contraseña </a>
     <!--input contraseña empleado-->
     <label for="inputcontrasena" class="visually-hidden">Contrasena</label>
-    <input type = "contrasena" id="inputcontrasena" class="form-control" placeholder="Contraseña">
+    <input id="inputcontrasena" class="form-control" placeholder="Contraseña" name="Contraseña"
+           [ngModel]="empleadoSeleccionado.password" #inputcontrasena>
+
+    <a>Empleados: </a>
+
+    <select name="empleados" id="empleados" #empleado (change)="onChange(empleado.value)">
+      <option value="" selected>Seleccione un empleado</option>
+      <option *ngFor="let empleado of empleadosDisp" [value]="empleado.idCard">Cédula: {{empleado.idCard}}</option>
+    </select>
 
     <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2"  type="Registrar" href="welcome!">Registrar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+           (click)="crearEmpleado(inputcedula.value, SucursalSelect.value, puestosSelect.value, planillaSelect.value,
+           inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
+           inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">
+      Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+            (click)="modificarEmpleado(empleado.value, SucursalSelect.value, puestosSelect.value, planillaSelect.value,
+           inputcorreo.value, inputcontrasena.value, inputEmpleado.value,inputprimerapellido.value, inputsegundoapellido.value,
+           inputprovincia.value, inputcanton.value, inputdistrito.value, inputsalario.value)">Actualizar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+           (click)="eliminarEmpleado(empleado.value)">Eliminar</button>
 
   </form>
 

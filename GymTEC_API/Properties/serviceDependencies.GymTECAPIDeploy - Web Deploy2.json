@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/GymTEC-api/apis/gymtec",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/gymtec-apidbserver/databases/gymTEC_DB",
+      "type": "mssql.azure",
+      "connectionId": "SQL_uri",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

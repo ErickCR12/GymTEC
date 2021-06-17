@@ -3,208 +3,376 @@ import {Observable, of} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from './message.service';
-import {DeviceType} from './models/device-type';
-import {Device} from './models/device';
-import {Login} from './models/login';
-import {Client} from './models/client';
-import {Distributor} from './models/distributor';
-import {Region} from './models/region';
-import {DirectionClient} from './models/direction-client';
-import {DevicesPerUser} from './models/devices-per-user';
-import {Order} from './models/order';
-import {NumberDto} from './models/number-dto';
-import {Report} from './models/report';
+import {Sucursal} from './models/sucursal';
+import {Maquina} from './models/maquina';
+import {Producto} from './models/producto';
+import {Servicio} from './models/servicio';
+import {Planilla} from './models/planilla';
+import {Empleado} from './models/empleado';
+import {Cliente} from './models/cliente';
+import {Puesto} from './models/puesto';
+import {Equipo} from './models/equipo';
+import {Tratamiento} from './models/tratamiento';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private deviceTypesUrl = 'api/devicetypes/';
-  private devicesUrl = 'api/devices/';
-  private clientsUrl = 'api/clients/';
-  private onlineStoreUrl = 'api/onlinestore/';
-  private dashboardUrl = 'api/dashboard/';
-  private loginUrl = 'api/login/';
-  private regionsUrl = 'api/regions/';
-  private orderUrl = 'api/orders/';
-  private reportsUrl = 'api/reports/';
+  private sucursalesUrl = 'api/gyms/';
+  private maquinasUrl = 'api/machines/';
+  private productosUrl = 'api/productos/';
+  private tratamientosUrl = 'api/spas/';
+  private serviciosUrl = 'api/services/';
+  private equiposUrl = 'api/equipmentTypes/';
+  private planillasUrl = 'api/payrolls/';
+  private puestosUrl = 'api/positions/';
+  private empleadosUrl = 'api/employees/';
+  private clientesUrl = 'api/clients/';
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   constructor(private http: HttpClient, private  messageService: MessageService) { }
 
-  getAllDeviceTypes(): Observable<DeviceType[]> {
-    this.messageService.add('DataService: fetched deviceTypes');
-    return this.http.get<DeviceType[]>(this.deviceTypesUrl)
+
+  // ---------------------------------GESTION DE SUCURSALES-------------------------------------
+  getAllSucursales(): Observable<Sucursal[]> {
+    this.messageService.add('DataService: fetched Sucursals');
+    return this.http.get<Sucursal[]>(this.sucursalesUrl)
       .pipe(
-        catchError(this.handleError<DeviceType[]>('getAllDeviceTypes', []))
+        catchError(this.handleError<Sucursal[]>('getAllSucursals', []))
       );
   }
 
-  addDeviceType(deviceType: DeviceType): Observable<DeviceType> {
-    return this.http.post<DeviceType>(this.deviceTypesUrl, deviceType, this.httpOptions).pipe(
-      tap((newDeviceType: DeviceType) => this.log(`added deviceType w/ name=${newDeviceType.name}`)),
-      catchError(this.handleError<DeviceType>('addDeviceType'))
+  addSucursal(sucursal: Sucursal): Observable<Sucursal> {
+    return this.http.post<Sucursal>(this.sucursalesUrl, sucursal, this.httpOptions).pipe(
+      tap((newSucursal: Sucursal) => this.log(`added sucursal w/ name=${newSucursal.name}`)),
+      catchError(this.handleError<Sucursal>('addSucursal'))
     );
   }
 
-  updateDeviceType(deviceType: DeviceType): Observable<DeviceType> {
-    return this.http.put<DeviceType>(this.deviceTypesUrl + deviceType.name, deviceType, this.httpOptions).pipe(
-      catchError(this.handleError<DeviceType>('updateDish'))
+  updateSucursal(sucursal: Sucursal): Observable<Sucursal> {
+    return this.http.put<Sucursal>(this.sucursalesUrl + sucursal.id, sucursal, this.httpOptions).pipe(
+      catchError(this.handleError<Sucursal>('updateDish'))
     );
   }
 
-  deleteDeviceType(deviceTypeName: string): Observable<{}> {
-    return this.http.delete(this.deviceTypesUrl + deviceTypeName, this.httpOptions).pipe(
-      catchError(this.handleError('deleteDeviceType'))
+  deleteSucursal(sucursalId: number): Observable<{}> {
+    return this.http.delete(this.sucursalesUrl + sucursalId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteSucursal'))
     );
   }
 
-  getAllDevices(): Observable<Device[]> {
-    this.messageService.add('DataService: fetched devices');
-    return this.http.get<Device[]>(this.devicesUrl)
+  // ---------------------------------GESTION DE MAQUINAS-------------------------------------
+
+  getAllMaquinas(): Observable<Maquina[]> {
+    this.messageService.add('DataService: fetched maquinas');
+    return this.http.get<Maquina[]>(this.maquinasUrl)
       .pipe(
-        catchError(this.handleError<Device[]>('getAllDevices', []))
+        catchError(this.handleError<Maquina[]>('getAllMaquinas', []))
       );
   }
 
-  addDevice(device: Device): Observable<Device> {
-    return this.http.post<Device>(this.devicesUrl, device, this.httpOptions).pipe(
-      tap((newDevice: Device) => this.log(`added device w/ serial_number=${newDevice.serial_number}`)),
-      catchError(this.handleError<Device>('addDevice'))
+  addMaquina(maquina: Maquina): Observable<Maquina> {
+    return this.http.post<Maquina>(this.maquinasUrl, maquina, this.httpOptions).pipe(
+      tap((newMaquina: Maquina) => this.log(`added maquina w/ serial_number=${newMaquina.serialNumber}`)),
+      catchError(this.handleError<Maquina>('addMaquina'))
     );
   }
 
-  updateDevice(device: Device): Observable<Device> {
-    return this.http.put<Device>(this.devicesUrl + device.serial_number, device, this.httpOptions).pipe(
-      catchError(this.handleError<Device>('updateDevice'))
+  updateMaquina(maquina: Maquina): Observable<Maquina> {
+    return this.http.put<Maquina>(this.maquinasUrl + maquina.serialNumber, maquina, this.httpOptions).pipe(
+      catchError(this.handleError<Maquina>('updateMaquina'))
     );
   }
 
-  deleteDevice(deviceSerialNumber: number): Observable<{}> {
-    return this.http.delete(this.devicesUrl + deviceSerialNumber, this.httpOptions).pipe(
-      catchError(this.handleError('deleteDevice'))
+  deleteMaquina(maquinaSerialNumber: number): Observable<{}> {
+    return this.http.delete(this.maquinasUrl + maquinaSerialNumber, this.httpOptions).pipe(
+      catchError(this.handleError('deleteMaquina'))
     );
   }
 
-  getClientByEmail(email: string): Observable<Client> {
-    this.messageService.add('DataService: fetched deviceTypes');
-    return this.http.get<Client>(this.clientsUrl + email)
+  // ---------------------------------GESTION DE PRODUCTOS-------------------------------------
+
+  getAllProductos(): Observable<Producto[]> {
+    this.messageService.add('DataService: fetched productos');
+    return this.http.get<Producto[]>(this.productosUrl)
       .pipe(
-        catchError(this.handleError<Client>('getClientByEmail', null))
+        catchError(this.handleError<Producto[]>('getAllProductos', []))
       );
   }
 
-  addClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.clientsUrl, client, this.httpOptions).pipe(
-      tap((newClient: Client) => this.log(`added client w/ email=${newClient.email}`)),
-      catchError(this.handleError<Client>('addClient'))
+  addProducto(producto: Producto): Observable<Producto> {
+    return this.http.post<Producto>(this.productosUrl, producto, this.httpOptions).pipe(
+      tap((newProducto: Producto) => this.log(`added producto w/ barCode=${newProducto.barCode}`)),
+      catchError(this.handleError<Producto>('addProducto'))
     );
   }
 
-  updateClient(client: Client): Observable<Client> {
-    return this.http.put<Client>(this.clientsUrl + client.email, client, this.httpOptions).pipe(
-      catchError(this.handleError<Client>('updateClient'))
+  updateProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(this.productosUrl + producto.barCode, producto, this.httpOptions).pipe(
+      catchError(this.handleError<Producto>('updateProducto'))
     );
   }
 
-  addDirectionClient(directionClient: DirectionClient): Observable<DirectionClient> {
-    return this.http.post<DirectionClient>(this.clientsUrl + 'direction', directionClient, this.httpOptions).pipe(
-      tap((newDirectionClient: DirectionClient) => this.log(`added directionClient w/ email=${newDirectionClient.client_email}`)),
-      catchError(this.handleError<DirectionClient>('addDirectionClient'))
+  deleteProducto(productoBarCode: number): Observable<{}> {
+    return this.http.delete(this.productosUrl + productoBarCode, this.httpOptions).pipe(
+      catchError(this.handleError('deleteProducto'))
     );
   }
 
-  getLoginCredentials(loginCred: Login): Observable<Login>
-  {
-    return this.http.post<Login>(this.loginUrl, loginCred, this.httpOptions).pipe(
-      tap((logCredentials: Login) => this.log(`usertype logged: ${logCredentials.userType}`)),
-      catchError(this.handleError<Login>('getLoginCredentials'))
+  // ---------------------------------GESTION DE TRATAMIENTOS-------------------------------------
+
+  getAllTratamientos(): Observable<Tratamiento[]> {
+    this.messageService.add('DataService: fetched tratamientos');
+    return this.http.get<Tratamiento[]>(this.tratamientosUrl)
+      .pipe(
+        catchError(this.handleError<Tratamiento[]>('getAllTratamientos', []))
+      );
+  }
+
+  crearTratamiento(tratamiento: Tratamiento): Observable<Servicio> {
+    return this.http.post<Tratamiento>(this.tratamientosUrl, tratamiento, this.httpOptions).pipe(
+      tap((newTratamiento: Tratamiento) => this.log(`added tratamiento w/ id=${newTratamiento.id}`)),
+      catchError(this.handleError<Tratamiento>('addTratamiento'))
     );
   }
 
-  getOnlineStore(region: Region): Observable<Distributor[]> {
-    return this.http.post<Distributor[]>(this.onlineStoreUrl + 'distributors', region, this.httpOptions).pipe(
-      tap((newOnlineStore: Distributor[]) => this.log(`obtained online store`)),
-      catchError(this.handleError<Distributor[]>('getOnlineStore'))
+  updateTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
+    return this.http.put<Tratamiento>(this.tratamientosUrl + tratamiento.id, tratamiento, this.httpOptions).pipe(
+      catchError(this.handleError<Tratamiento>('updateTratamiento'))
     );
   }
 
-  addOnlineStore(distributors: Distributor[]): Observable<Distributor[]> {
-    return this.http.post<Distributor[]>(this.onlineStoreUrl, distributors, this.httpOptions).pipe(
-      tap((newOnlineStore: Distributor[]) => this.log(`created new online store`)),
-      catchError(this.handleError<Distributor[]>('addClient'))
+  deleteTratamiento(tratamientoId: number): Observable<{}> {
+    return this.http.delete(this.tratamientosUrl + tratamientoId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteTratamiento'))
     );
   }
 
-  addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.orderUrl, order, this.httpOptions).pipe(
-      tap((newOrder: Order) => this.log(`added order w/ consecutive=${order.consecutive} and bill_number=${order.bill_number}`)),
-      catchError(this.handleError<Order>('addClient'))
+  // ---------------------------------GESTION DE SERVICIOS-------------------------------------
+
+  getAllServicios(): Observable<Servicio[]> {
+    this.messageService.add('DataService: fetched servicios');
+    return this.http.get<Servicio[]>(this.serviciosUrl)
+      .pipe(
+        catchError(this.handleError<Servicio[]>('getAllServicios', []))
+      );
+  }
+
+
+  crearServicio(servicio: Servicio): Observable<Servicio> {
+    return this.http.post<Servicio>(this.serviciosUrl, servicio, this.httpOptions).pipe(
+      tap((newServicio: Servicio) => this.log(`added servicio w/ id=${newServicio.id}`)),
+      catchError(this.handleError<Servicio>('addServicio'))
     );
   }
 
-  getAllContinents(): Observable<Region[]> {
-    this.messageService.add('DataService: fetched continents');
-    return this.http.get<Region[]>(this.regionsUrl + 'continents')
+  updateServicio(servicio: Servicio): Observable<Servicio> {
+    return this.http.put<Servicio>(this.serviciosUrl + servicio.id, servicio, this.httpOptions).pipe(
+      catchError(this.handleError<Servicio>('updateServicio'))
+    );
+  }
+
+  deleteServicio(servicioId: number): Observable<{}> {
+    return this.http.delete(this.serviciosUrl + servicioId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteServicio'))
+    );
+  }
+
+  // ---------------------------------GESTION DE TIPOS DE EQUIPO-------------------------------------
+
+  getAllEquipos(): Observable<Equipo[]> {
+    this.messageService.add('DataService: fetched equipos');
+    return this.http.get<Equipo[]>(this.equiposUrl)
       .pipe(
-        catchError(this.handleError<Region[]>('getAllContinents', []))
+        catchError(this.handleError<Equipo[]>('getAllEquipos', []))
       );
   }
 
-  getCountriesByContinent(continent: string): Observable<Region[]> {
-    this.messageService.add('DataService: fetched countriesByContinent');
-    return this.http.get<Region[]>(this.regionsUrl + 'countries/' + continent)
+  addEquipo(equipo: Equipo): Observable<Equipo> {
+    return this.http.post<Equipo>(this.equiposUrl, equipo, this.httpOptions).pipe(
+      tap((newEquipo: Equipo) => this.log(`added equipo w/ id=${newEquipo.id}`)),
+      catchError(this.handleError<Equipo>('addEquipo'))
+    );
+  }
+
+  updateEquipo(equipo: Equipo): Observable<Equipo> {
+    return this.http.put<Equipo>(this.equiposUrl + equipo.id, equipo, this.httpOptions).pipe(
+      catchError(this.handleError<Equipo>('updateEquipo'))
+    );
+  }
+
+  deleteEquipo(equipoId: number): Observable<{}> {
+    return this.http.delete(this.equiposUrl + equipoId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteEquipo'))
+    );
+  }
+
+  // ---------------------------------GESTION DE PLANILLA-------------------------------------
+
+  getAllPlanillas(): Observable<Planilla[]> {
+    this.messageService.add('DataService: fetched planillas');
+    return this.http.get<Planilla[]>(this.planillasUrl)
       .pipe(
-        catchError(this.handleError<Region[]>('getAllContinents', []))
+        catchError(this.handleError<Planilla[]>('getAllPlanillas', []))
       );
   }
 
-  getActiveDevices(): Observable<NumberDto> {
-    this.messageService.add('DataService: fetched ActiveDevices');
-    return this.http.get<NumberDto>(this.dashboardUrl + 'activeDevices')
+  addPlanilla(planilla: Planilla): Observable<Planilla> {
+    return this.http.post<Planilla>(this.planillasUrl, planilla, this.httpOptions).pipe(
+      tap((newPlanilla: Planilla) => this.log(`added planilla w/ id=${newPlanilla.id}`)),
+      catchError(this.handleError<Planilla>('addPlanilla'))
+    );
+  }
+
+  updatePlanilla(planilla: Planilla): Observable<Planilla> {
+    return this.http.put<Planilla>(this.planillasUrl + planilla.id, planilla, this.httpOptions).pipe(
+      catchError(this.handleError<Planilla>('updatePlanilla'))
+    );
+  }
+
+  deletePlanilla(planillaId: number): Observable<{}> {
+    return this.http.delete(this.planillasUrl + planillaId, this.httpOptions).pipe(
+      catchError(this.handleError('deletePlanilla'))
+    );
+  }
+
+  // ---------------------------------GESTION DE PUESTOS-------------------------------------
+
+  getAllPuestos(): Observable<Puesto[]> {
+    this.messageService.add('DataService: fetched puestos');
+    return this.http.get<Puesto[]>(this.puestosUrl)
       .pipe(
-        catchError(this.handleError<NumberDto>('getActiveDevices', null))
+        catchError(this.handleError<Puesto[]>('getAllPuestos', []))
       );
   }
 
-  getDevicesPerUser(): Observable<DevicesPerUser> {
-    this.messageService.add('DataService: fetched DevicesPerUser');
-    return this.http.get<DevicesPerUser>(this.dashboardUrl + 'devicesPerUser')
+  addPuesto(puesto: Puesto): Observable<Puesto> {
+    return this.http.post<Puesto>(this.puestosUrl, puesto, this.httpOptions).pipe(
+      tap((newPuesto: Puesto) => this.log(`added puesto w/ id=${newPuesto.id}`)),
+      catchError(this.handleError<Puesto>('addPuesto'))
+    );
+  }
+
+  updatePuesto(puesto: Puesto): Observable<Puesto> {
+    return this.http.put<Puesto>(this.puestosUrl + puesto.id, puesto, this.httpOptions).pipe(
+      catchError(this.handleError<Puesto>('updatePuesto'))
+    );
+  }
+
+  deletePuesto(puestoId: number): Observable<{}> {
+    return this.http.delete(this.puestosUrl + puestoId, this.httpOptions).pipe(
+      catchError(this.handleError('deletePuesto'))
+    );
+  }
+
+  // ---------------------------------GESTION DE EMPLEADOS-------------------------------------
+
+  getAllEmpleados(): Observable<Empleado[]> {
+    this.messageService.add('DataService: fetched empleados');
+    return this.http.get<Empleado[]>(this.empleadosUrl)
       .pipe(
-        catchError(this.handleError<DevicesPerUser>('getDevicesPerUser', null))
+        catchError(this.handleError<Empleado[]>('getAllEmpleados', []))
       );
   }
 
-  getDevicesPerRegion(): Observable<Region[]> {
-    this.messageService.add('DataService: fetched DevicesPerRegion');
-    return this.http.get<Region[]>(this.dashboardUrl + 'DevicesPerRegion')
+  addEmpleado(empleado: Empleado): Observable<Empleado> {
+    return this.http.post<Empleado>(this.empleadosUrl, empleado, this.httpOptions).pipe(
+      tap((newEmpleado: Empleado) => this.log(`added empleado w/ id=${newEmpleado.idCard}`)),
+      catchError(this.handleError<Empleado>('addEmpleado'))
+    );
+  }
+
+  updateEmpleado(empleado: Empleado): Observable<Empleado> {
+    return this.http.put<Empleado>(this.empleadosUrl + empleado.idCard, empleado, this.httpOptions).pipe(
+      catchError(this.handleError<Empleado>('updateEmpleado'))
+    );
+  }
+
+  deleteEmpleado(empleadoId: number): Observable<{}> {
+    return this.http.delete(this.empleadosUrl + empleadoId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteEmpleado'))
+    );
+  }
+
+  // ---------------------------------GESTION DE CLIENTES-------------------------------------
+
+  getAllClientes(): Observable<Cliente[]> {
+    this.messageService.add('DataService: fetched clientes');
+    return this.http.get<Cliente[]>(this.clientesUrl)
       .pipe(
-        catchError(this.handleError<Region[]>('DevicesPerRegion', null))
+        catchError(this.handleError<Cliente[]>('getAllClientes', []))
       );
   }
 
-  getMonthlyUsage(email: string): Observable<NumberDto> {
-    this.messageService.add('DataService: fetched MonthlyUsage');
-    return this.http.get<NumberDto>(this.reportsUrl + 'monthlyUsage/' + email)
-      .pipe(
-        catchError(this.handleError<NumberDto>('MonthlyUsage', null))
-      );
+  addCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.clientesUrl, cliente, this.httpOptions).pipe(
+      tap((newCliente: Cliente) => this.log(`added cliente w/ id=${newCliente.idCard}`)),
+      catchError(this.handleError<Cliente>('addCliente'))
+    );
   }
 
-  getDeviceTypesUsage(email: string): Observable<Report[]> {
-    return this.http.get<Report[]>(this.reportsUrl + 'deviceTypesUsage/' + email)
-      .pipe(
-        catchError(this.handleError<Report[]>('DeviceTypesUsage', null))
-      );
+  updateCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(this.clientesUrl + cliente.idCard, cliente, this.httpOptions).pipe(
+      catchError(this.handleError<Cliente>('updateCliente'))
+    );
   }
 
-  getDailyUsage(email: string): Observable<Report[]> {
-    return this.http.get<Report[]>(this.reportsUrl + 'dailyUsage/' + email)
-      .pipe(
-        catchError(this.handleError<Report[]>('DailyUsage', null))
-      );
+  deleteCliente(clienteId: number): Observable<{}> {
+    return this.http.delete(this.clientesUrl + clienteId, this.httpOptions).pipe(
+      catchError(this.handleError('deleteCliente'))
+    );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // getLoginCredentials(loginCred: Login): Observable<Login>
+  // {
+  //   return this.http.post<Login>(this.loginUrl, loginCred, this.httpOptions).pipe(
+  //     tap((logCredentials: Login) => this.log(`usertype logged: ${logCredentials.userType}`)),
+  //     catchError(this.handleError<Login>('getLoginCredentials'))
+  //   );
+  // }
+  //
+
+  // getAllContinents(): Observable<Region[]> {
+  //   this.messageService.add('DataService: fetched continents');
+  //   return this.http.get<Region[]>(this.regionsUrl + 'continents')
+  //     .pipe(
+  //       catchError(this.handleError<Region[]>('getAllContinents', []))
+  //     );
+  // }
+  //
+  // getCountriesByContinent(continent: string): Observable<Region[]> {
+  //   this.messageService.add('DataService: fetched countriesByContinent');
+  //   return this.http.get<Region[]>(this.regionsUrl + 'countries/' + continent)
+  //     .pipe(
+  //       catchError(this.handleError<Region[]>('getAllContinents', []))
+  //     );
+  // }
+  //
+
 
   // tslint:disable-next-line:typedef
   private handleError<T>(operation = 'operation', result?: T) {

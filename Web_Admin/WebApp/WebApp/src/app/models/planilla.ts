@@ -1,4 +1,7 @@
 export class Planilla{
-  tipoPlanilla: string;
-  idPlanilla: string;
+  id: number;
+  description: string;
+  hourlyPay: number;
+  monthlyPay: number;
+  payPerClass: number;
 }

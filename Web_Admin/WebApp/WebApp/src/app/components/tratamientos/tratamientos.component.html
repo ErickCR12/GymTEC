@@ -18,36 +18,24 @@
 
     <!-- Input para solicitar el nombre del serivicio -->
     <label for="inputiposer" class="visually-hidden">TipoServicio</label>
-    <input type = "solservicio"  id="inputiposer"  [(ngModel)]= "tratamientos.nombreTratamiento"  class="form-control" placeholder="Tratamiento de spa"  name="Tratamiento de spa">
-
-    <!-- Input para solicitar el nombre del serivicio -->
-    <label for="inputIdServicio" class="visually-hidden">IdServicio</label>
-    <input type = "idservcio" id="inputIdServicio"  [(ngModel)]= "tratamientos.iDTtratamiento" class="form-control" placeholder="Id Tratamiento" name="Id Tratamiento">
+    <input type = "solservicio"  id="inputiposer"  [ngModel]= "tratamientoSeleccionado.name"
+           class="form-control" placeholder="Servicio de spa"  name="Tratamiento de spa" #inputServicio>
 
 
     <a>Tratamientos Disponibles: </a>
 
-    <label for="tratamientos">Choose a car:</label>
-
-    <select name="tratamientos" type = "tratamientos" id="tratamientos">
-      <option value="Masaje relajante">Masaje relajante</option>
-      <option value="Masaje descarga muscular">Masaje descarga muscular</option>
-      <option value="Baños a vapor">Baños a vapor</option>
-      <option  *ngFor="let tratamiento of tratamientosDisp">{{tratamiento.nombreTratamiento}}</option>
+    <select name="tratamientos" type = "tratamientos" id="tratamientos" #tratamiento (change)="onChange(tratamiento.value)">
+      <option value="">Seleccionar tratamiento existente</option>
+      <option  *ngFor="let tratamiento of tratamientosDisp" [value]="tratamiento.id">ID: {{tratamiento.id}}</option>
       <!-- <option value="audi">Audi</option> -->
     </select>
 
-
-    <!-- List para agregar los servicios registrados en la página  -->
-
-
     <!--Upload data to loging with this button -->
-    <!--Upload data to loging with this button -->
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="agregarTratamientos()">Registrar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Registrar" (click)="crearTratamiento(inputServicio.value)">Registrar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" href="welcome!">Eliminar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar" (click)= "eliminarTratamiento(tratamiento.value)">Eliminar</button>
 
-    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" href="welcome!">Actualizar</button>
+    <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar" (click)="modificarTratamiento(tratamiento.value, inputServicio.value)">Actualizar</button>
 
   </form>
 </main>

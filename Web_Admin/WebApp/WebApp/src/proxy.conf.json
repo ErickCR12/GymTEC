@@ -1,6 +1,6 @@
 {
   "/api/": {
-    "target": "http://localhost/API_Service",
+    "target": "https://gymtecapideploy.azurewebsites.net/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
