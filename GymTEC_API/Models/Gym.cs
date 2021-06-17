@@ -10,8 +10,6 @@ namespace GymTEC_API.Models
         [Key]
         public int id {get; set;}
         [Required]
-        public int idAdmin {get; set;}
-        [Required]
         public string name {get; set;}
         [Required]
         public int capacity {get; set;}

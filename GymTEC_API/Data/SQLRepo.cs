@@ -20,6 +20,13 @@ namespace GymTEC_API.Data
             connection = new SqlConnection(connectionString);
         }
 
+        public LoginProfile CheckCredentials(LoginProfile loginProfile)
+        {
+            Employee employee = GetEmployeeByIdCard(loginProfile.Username);
+            loginProfile.UserType = (employee != null) ? GetPositionById(employee.idJobPosition).name:"Invalid";
+            return loginProfile;
+        }
+
         public IEnumerable<Gym> GetAllGyms()
         {
             List<Gym> gyms = new List<Gym>();
@@ -32,17 +39,16 @@ namespace GymTEC_API.Data
             {
                 Gym gym = new Gym();
                 gym.id = Int32.Parse(dataReader.GetValue(0).ToString());
-                gym.idAdmin = Int32.Parse(dataReader.GetValue(1).ToString());
-                gym.name = dataReader.GetValue(2).ToString();
-                gym.capacity = Int32.Parse(dataReader.GetValue(3).ToString());
-                gym.province = dataReader.GetValue(4).ToString();
-                gym.canton = dataReader.GetValue(5).ToString();
-                gym.district = dataReader.GetValue(6).ToString();
-                gym.openingTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
-                gym.closingTime = Convert.ToDateTime(dataReader.GetValue(8).ToString());
-                gym.openingDate = Convert.ToDateTime(dataReader.GetValue(9).ToString());
-                gym.spaState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0; 
-                gym.storeState = Int32.Parse(dataReader.GetValue(11).ToString()) != 0;
+                gym.name = dataReader.GetValue(1).ToString();
+                gym.capacity = Int32.Parse(dataReader.GetValue(2).ToString());
+                gym.province = dataReader.GetValue(3).ToString();
+                gym.canton = dataReader.GetValue(4).ToString();
+                gym.district = dataReader.GetValue(5).ToString();
+                gym.openingTime = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gym.closingTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
+                gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
+                gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
+                gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
 
                 gyms.Add(gym);
             }
@@ -61,17 +67,16 @@ namespace GymTEC_API.Data
             while(dataReader.Read())
             {
                 gym.id = Int32.Parse(dataReader.GetValue(0).ToString());
-                gym.idAdmin = Int32.Parse(dataReader.GetValue(1).ToString());
-                gym.name = dataReader.GetValue(2).ToString();
-                gym.capacity = Int32.Parse(dataReader.GetValue(3).ToString());
-                gym.province = dataReader.GetValue(4).ToString();
-                gym.canton = dataReader.GetValue(5).ToString();
-                gym.district = dataReader.GetValue(6).ToString();
-                gym.openingTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
-                gym.closingTime = Convert.ToDateTime(dataReader.GetValue(8).ToString());
-                gym.openingDate = Convert.ToDateTime(dataReader.GetValue(9).ToString());
-                gym.spaState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0; 
-                gym.storeState = Int32.Parse(dataReader.GetValue(11).ToString()) != 0;
+                gym.name = dataReader.GetValue(1).ToString();
+                gym.capacity = Int32.Parse(dataReader.GetValue(2).ToString());
+                gym.province = dataReader.GetValue(3).ToString();
+                gym.canton = dataReader.GetValue(4).ToString();
+                gym.district = dataReader.GetValue(5).ToString();
+                gym.openingTime = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gym.closingTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
+                gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
+                gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
+                gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
                 
                 connection.Close();
                 return gym;
@@ -87,7 +92,6 @@ namespace GymTEC_API.Data
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@id", gym.id);
-            command.Parameters.AddWithValue("@id_administrador", gym.idAdmin);
             command.Parameters.AddWithValue("@nombre", gym.name);
             command.Parameters.AddWithValue("@capacidad", gym.capacity);
             command.Parameters.AddWithValue("@provincia", gym.province);
@@ -728,5 +732,6 @@ public IEnumerable<GymService> GetAllServices()
 
             connection.Close();
         }
+
     }
 }
