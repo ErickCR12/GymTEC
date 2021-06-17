@@ -285,6 +285,77 @@ public IEnumerable<GymService> GetAllServices()
             connection.Close();
         }
 
+        public IEnumerable<PayrollGeneration> GetMonthlyPayroll(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetMonthlyPayroll()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(4).ToString());
+
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+        public IEnumerable<PayrollGeneration> GetPayrollPerClass(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPayrollPerClass()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(5).ToString());
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+        public IEnumerable<PayrollGeneration> GetPayrollPerHours(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPayrollPerHours()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(5).ToString());
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+
         public IEnumerable<GymService> GetAllPositions()
         {
             List<GymService> positions = new List<GymService>();
@@ -733,5 +804,37 @@ public IEnumerable<GymService> GetAllServices()
             connection.Close();
         }
 
+        public void CopyGymWeek(GymWeek week, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CopyGymWeek", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@sucursal", gymId);
+                command.Parameters.AddWithValue("@fechaInicioOriginal", week.startingDate);
+                command.Parameters.AddWithValue("@fechaFinalOriginal", week.finishingDate);
+                command.Parameters.AddWithValue("@fechaInicioNueva", week.startingDateToCopy);
+                command.Parameters.AddWithValue("@fechaFinalNueva", week.finishingDateToCopy);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+
+            connection.Close();
+        }
+
+        public void CopyGym(Gym originalGym, int newGymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CopyGym", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@idSucursalOriginal", originalGym.id);
+                command.Parameters.AddWithValue("@idSucursalNueva", newGymId);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+
+            connection.Close();
+        }
+
+    
     }
 }

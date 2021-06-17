@@ -98,6 +98,41 @@ RETURN
 );
 GO
 
+GO
+CREATE FUNCTION	GetMonthlyPayroll(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, salario
+	FROM PagoMensual
+	WHERE id_sucursal = @gymId
+);
+GO
+
+GO
+CREATE FUNCTION	GetPayrollPerClass(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, cantidadClases, monto
+	FROM PagoPorClase
+	WHERE id_sucursal = @gymId
+);
+GO
+
+GO
+CREATE FUNCTION	GetPayrollPerHours(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, horasTrabajadas, monto
+	FROM PagoPorHoras
+	WHERE id_sucursal = @gymId
+);
+GO
 
 ---------------------------------GESTION DE PUESTOS-----------------------------------------
 GO

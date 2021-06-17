@@ -56,5 +56,27 @@ namespace API_Service.Controllers
 
             return Ok(_mapper.Map<IEnumerable<ExcerciseMachineDto>>(machines));
         }
+
+        //POST api/gymConfig/copyWeeks/{gymId}
+        //This request receives a week to be copied to another week of the specified gym
+        [HttpPost("copyWeeks/{gymId}", Name = "CopyGymWeek")]
+        public ActionResult <GymWeekDto> CopyGymWeek(GymWeekDto weekDto, int gymId)
+        {
+            var week = _mapper.Map<GymWeek>(weekDto);
+            _repository.CopyGymWeek(week, gymId);
+
+            return Ok(_mapper.Map<GymWeekDto>(week));
+        }
+
+        //POST api/gymConfig/copyGym/{gymId}
+        //This request receives a week to be copied to another week of the specified gym
+        [HttpPost("copyWeeks/{gymId}", Name = "CopyGymWeek")]
+        public ActionResult <Gym> CopyGymWeek(Gym originalGymDto, int newGymId)
+        {
+            var originalGym = _mapper.Map<Gym>(originalGymDto);
+            _repository.CopyGym(originalGym, newGymId);
+
+            return Ok(_mapper.Map<Gym>(originalGym));
+        }
     }   
 }

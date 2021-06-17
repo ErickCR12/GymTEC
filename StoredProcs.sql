@@ -456,12 +456,6 @@ AS
   END    
 GO
 
-  EXEC CreateUpdateDelete_Employee @numero_cedula = 70580214, @id_sucursal = 1, 
-  @id_puesto = 2, @id_planilla = 3, @correo = 'empleado1@gymtec.com', 
-  @contraseña = 'empleado123', @nombre = 'Jarod', @apellido1 = 'De la O', @apellido2 = 'Segura',
-  @provincia = 'Cartago', @canton = 'Paraiso', @distrito = 'Paraiso',
-  @salario = '520000',	@StatementType = 'INSERT';
-
 
 -----------------------------------CONFIG GYM------------------------------------
 
@@ -505,4 +499,49 @@ AS
 	INSERT INTO SUCURSAL_MAQUINA(id_sucursal, numero_maquina)
 	VALUES (@id_sucursal, @numero_maquina)
   END    
+GO
+
+GO
+CREATE PROCEDURE CopyGym
+(
+	@idSucursalOriginal INT,
+	@idSucursalNueva INT
+)
+
+AS
+	BEGIN
+		INSERT INTO SUCURSAL_TRATAMIENTO(id_sucursal, id_tratamiento)
+		SELECT @idSucursalNueva, id_tratamiento
+		FROM SUCURSAL_TRATAMIENTO
+		WHERE id_sucursal = @idSucursalOriginal AND id_tratamiento > 4
+
+		INSERT INTO SUCURSAL_PRODUCTO(id_sucursal, codigo_producto)
+		SELECT @idSucursalNueva, codigo_producto
+		FROM SUCURSAL_PRODUCTO
+		WHERE id_sucursal = @idSucursalOriginal
+
+		INSERT INTO CLASE(id_sucursal, id_servicio, fecha, hora_inicio, hora_fin, capacidad, es_grupal)
+		SELECT @idSucursalNueva, id_servicio, fecha, hora_inicio, hora_fin, capacidad, es_grupal
+		FROM CLASE
+		WHERE id_sucursal = @idSucursalOriginal
+	END
+GO
+
+GO
+CREATE PROCEDURE CopyGymWeek
+(
+	@sucursal INT,
+	@fechaInicioOriginal DATE,
+	@fechaFinalOriginal DATE,
+	@fechaInicioNueva DATE,
+	@fechaFinalNueva DATE
+)
+
+AS
+	BEGIN
+		INSERT INTO CLASE(id_servicio, id_sucursal, cedula_instructor, fecha, hora_inicio, hora_fin, capacidad, es_grupal)
+		SELECT id_servicio, id_sucursal, cedula_instructor, DATEADD(DD, DATEDIFF(DD, @fechaInicioOriginal, @fechaInicioNueva), fecha), hora_inicio, hora_fin, capacidad, es_grupal
+		FROM CLASE
+		WHERE id_sucursal = @sucursal AND fecha >= @fechaInicioOriginal AND	fecha <= @fechaFinalOriginal
+	END
 GO

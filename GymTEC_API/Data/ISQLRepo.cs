@@ -46,7 +46,12 @@ namespace GymTEC_API.Data
         Payroll GetPayrollById(int id);
         //Calls the stored SQL Procedure that inserts, updates or deletes a Payroll Entity in the database..
         void CreateUpdateDeletePayroll(Payroll payroll, string statementType);
-
+        //Calls the stored SQL Function that returns the monthly payroll from the specified gym.
+        IEnumerable<PayrollGeneration> GetMonthlyPayroll(int gymId);
+        //Calls the stored SQL Function that returns the payroll per class from the specified gym.
+        IEnumerable<PayrollGeneration> GetPayrollPerClass(int gymId);
+        //Calls the stored SQL Function that returns the hourly payroll from the specified gym.
+        IEnumerable<PayrollGeneration> GetPayrollPerHours(int gymId);
 
         //---------------POSITION ENTITIES MANAGMENT------------------//
 
@@ -117,6 +122,9 @@ namespace GymTEC_API.Data
         void SetProductsToGym(IEnumerable<Product> spaTreatments, int gymId);
         //Calls the SQL Procedure that creates the asociation between machines and the specified gym entity.
         void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId);
+
+        void CopyGymWeek(GymWeek week, int gymId);
+        void CopyGym(Gym originalGym, int newGymId);
     
     }
 
