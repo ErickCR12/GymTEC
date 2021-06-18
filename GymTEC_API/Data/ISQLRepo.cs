@@ -117,11 +117,11 @@ namespace GymTEC_API.Data
         //-----------GYM CONFIGURATIONS------------//
 
         //Calls the SQL Procedure that creates the asociation between spa treatments and the specified gym entity.
-        void SetSpaTreatmentsToGym(IEnumerable<GymService> spaTreatments, int gymId);
+        void SetSpaTreatmentToGym(GymService spaTreatment, int gymId);
         //Calls the SQL Procedure that creates the asociation between products and the specified gym entity.
-        void SetProductsToGym(IEnumerable<Product> spaTreatments, int gymId);
+        void SetProductToGym(Product spaTreatment, int gymId);
         //Calls the SQL Procedure that creates the asociation between machines and the specified gym entity.
-        void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId);
+        void SetMachineToGym(ExcerciseMachine machine, int gymId);
 
         void CopyGymWeek(GymWeek week, int gymId);
         void CopyGym(Gym originalGym, int newGymId);

@@ -13,6 +13,9 @@ import {Cliente} from './models/cliente';
 import {Puesto} from './models/puesto';
 import {Equipo} from './models/equipo';
 import {Tratamiento} from './models/tratamiento';
+import {SemanasGym} from './models/SemanasGym';
+import {Login} from './models/login';
+import {GeneracionPlanilla} from './models/generacionPlanilla';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +32,8 @@ export class DataService {
   private puestosUrl = 'api/positions/';
   private empleadosUrl = 'api/employees/';
   private clientesUrl = 'api/clients/';
+  private gymConfigUrl = 'api/gymConfig/';
+  private loginUrl = 'api/login/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -239,6 +244,31 @@ export class DataService {
     );
   }
 
+  pagoMensual(sucursalId: number): Observable<GeneracionPlanilla[]> {
+    this.messageService.add('DataService: fetched pagoMensual');
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generateMonthly' + sucursalId)
+      .pipe(
+        catchError(this.handleError<GeneracionPlanilla[]>('pagoMensual', []))
+      );
+  }
+
+  pagoPorClase(sucursalId: number): Observable<GeneracionPlanilla[]> {
+    this.messageService.add('DataService: fetched pagoPorClase');
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerClass' + sucursalId)
+      .pipe(
+        catchError(this.handleError<GeneracionPlanilla[]>('pagoPorClase', []))
+      );
+  }
+
+  pagoPorHora(sucursalId: number): Observable<GeneracionPlanilla[]> {
+    this.messageService.add('DataService: fetched pagoPorHora');
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerHour' + sucursalId)
+      .pipe(
+        catchError(this.handleError<GeneracionPlanilla[]>('pagoPorHora', []))
+      );
+  }
+
+
   // ---------------------------------GESTION DE PUESTOS-------------------------------------
 
   getAllPuestos(): Observable<Puesto[]> {
@@ -326,52 +356,50 @@ export class DataService {
     );
   }
 
+  // ----------------------------CONFIGURACION DE GYM-----------------------------------
 
+  asociarSpa(spa: Tratamiento, gymId: number): Observable<Tratamiento> {
+    return this.http.post<Tratamiento>(this.gymConfigUrl + 'spaTreatments/' + gymId, spa, this.httpOptions).pipe(
+      tap((newTratamiento: Tratamiento) => this.log(`added tratamiento w/ id=${newTratamiento.id}`)),
+      catchError(this.handleError<Tratamiento>('asociarSpa'))
+    );
+  }
 
+  asociarProducto(producto: Producto, gymId: number): Observable<Producto> {
+    return this.http.post<Producto>(this.gymConfigUrl + 'products/' + gymId, producto, this.httpOptions).pipe(
+      tap((newProducto: Producto) => this.log(`added producto w/ id=${newProducto.barCode}`)),
+      catchError(this.handleError<Producto>('asociarProducto'))
+    );
+  }
 
+  asociarMaquina(maquina: Maquina, gymId: number): Observable<Maquina> {
+    return this.http.post<Maquina>(this.gymConfigUrl + 'machines/' + gymId, maquina, this.httpOptions).pipe(
+      tap((newMaquina: Maquina) => this.log(`added machine w/ id=${newMaquina.serialNumber}`)),
+      catchError(this.handleError<Maquina>('asociarMaquina'))
+    );
+  }
 
+  copiarSemanasGym(semanas: SemanasGym, gymId: number): Observable<SemanasGym> {
+    return this.http.post<SemanasGym>(this.gymConfigUrl + 'copyWeeks/' + gymId, semanas, this.httpOptions).pipe(
+      tap((copiedWeeks: SemanasGym) => catchError(this.handleError<SemanasGym>('copiarSemanasGym')))
+    );
+  }
 
+  copiarGym(sucursal: Sucursal, newGymId: number): Observable<Sucursal> {
+    return this.http.post<Sucursal>(this.gymConfigUrl + 'copyGym/' + newGymId, sucursal, this.httpOptions).pipe(
+      tap((copiedWeeks: Sucursal) => catchError(this.handleError<Sucursal>('copiarGym')))
+    );
+  }
 
+  // ----------------------------LOGIN-----------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // getLoginCredentials(loginCred: Login): Observable<Login>
-  // {
-  //   return this.http.post<Login>(this.loginUrl, loginCred, this.httpOptions).pipe(
-  //     tap((logCredentials: Login) => this.log(`usertype logged: ${logCredentials.userType}`)),
-  //     catchError(this.handleError<Login>('getLoginCredentials'))
-  //   );
-  // }
-  //
-
-  // getAllContinents(): Observable<Region[]> {
-  //   this.messageService.add('DataService: fetched continents');
-  //   return this.http.get<Region[]>(this.regionsUrl + 'continents')
-  //     .pipe(
-  //       catchError(this.handleError<Region[]>('getAllContinents', []))
-  //     );
-  // }
-  //
-  // getCountriesByContinent(continent: string): Observable<Region[]> {
-  //   this.messageService.add('DataService: fetched countriesByContinent');
-  //   return this.http.get<Region[]>(this.regionsUrl + 'countries/' + continent)
-  //     .pipe(
-  //       catchError(this.handleError<Region[]>('getAllContinents', []))
-  //     );
-  // }
-  //
+  getLoginCredentials(loginCred: Login): Observable<Login>
+  {
+    return this.http.post<Login>(this.loginUrl, loginCred, this.httpOptions).pipe(
+      tap((logCredentials: Login) => this.log(`usertype logged: ${logCredentials.userType}`)),
+      catchError(this.handleError<Login>('getLoginCredentials'))
+    );
+  }
 
 
   // tslint:disable-next-line:typedef

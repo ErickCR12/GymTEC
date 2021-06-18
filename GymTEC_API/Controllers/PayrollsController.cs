@@ -100,7 +100,7 @@ namespace API_Service.Controllers
             return Ok(_mapper.Map<IEnumerable<PayrollGenerationDto>>(payrollsItem));
         }
 
-        //GET api/payrolls
+        //GET api/payrolls/generatePerClass/{id}
         //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per class for a Gym.
         [HttpGet("generatePerClass/{id}")]
         public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerClass(int gymId)
@@ -109,7 +109,7 @@ namespace API_Service.Controllers
             return Ok(_mapper.Map<IEnumerable<PayrollDto>>(payrollsItem));
         }
 
-        //GET api/payrolls
+        //GET api/payrolls/generatePerHour/{id}
         //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per hour for a Gym.
         [HttpGet("generatePerHour/{id}")]
         public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerHours(int gymId)

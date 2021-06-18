@@ -758,50 +758,44 @@ public IEnumerable<GymService> GetAllServices()
 
         }
 
-        public void SetSpaTreatmentsToGym(IEnumerable<GymService> spaTreatments, int gymId)
+        public void SetSpaTreatmentToGym(GymService spaTreatment, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetSpaTreatmentsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(GymService spaTreatment in spaTreatments){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@id_tratamiento", spaTreatment.id);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@id_tratamiento", spaTreatment.id);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
 
-        public void SetProductsToGym(IEnumerable<Product> products, int gymId)
+        public void SetProductToGym(Product product, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetProductsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(Product product in products){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@codigo_producto", product.barCode);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@codigo_producto", product.barCode);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
 
-        public void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId)
+        public void SetMachineToGym(ExcerciseMachine machine, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetMachinesToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(ExcerciseMachine machine in machines){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@numero_maquina", machine.serialNumber);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@numero_maquina", machine.serialNumber);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
