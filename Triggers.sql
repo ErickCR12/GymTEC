@@ -108,7 +108,7 @@ AS
 	DECLARE @nombre VARCHAR(50)
 	SELECT @servicioId = id, @nombre = nombre FROM inserted
 
-	IF @servicioId > 4
+	IF @servicioId > 5
 		BEGIN
 			UPDATE SERVICIO
 			SET nombre = @nombre
@@ -124,7 +124,7 @@ AS
 	DECLARE @servicioId int
 	SELECT @servicioId = id FROM deleted
 
-	IF @servicioId > 4
+	IF @servicioId > 5
 		BEGIN
 			DELETE SERVICIO
 			WHERE id = @servicioId
@@ -140,7 +140,7 @@ AS
 	DECLARE @nombre VARCHAR(50)
 	SELECT @equipoId = id, @nombre = nombre FROM inserted
 
-	IF @equipoId > 4
+	IF @equipoId > 5
 		BEGIN
 			UPDATE TIPO_EQUIPO
 			SET nombre = @nombre
@@ -156,7 +156,7 @@ AS
 	DECLARE @equipoId int
 	SELECT @equipoId = id FROM deleted
 
-	IF @equipoId > 4
+	IF @equipoId > 5
 		BEGIN
 			DELETE TIPO_EQUIPO
 			WHERE id = @equipoId
