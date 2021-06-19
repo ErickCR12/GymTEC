@@ -16,6 +16,8 @@ import {Tratamiento} from './models/tratamiento';
 import {SemanasGym} from './models/SemanasGym';
 import {Login} from './models/login';
 import {GeneracionPlanilla} from './models/generacionPlanilla';
+import {FiltrosBusqueda} from './models/filtrosBusqueda';
+import {Clase} from './models/clase';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,7 @@ export class DataService {
   private clientesUrl = 'api/clients/';
   private gymConfigUrl = 'api/gymConfig/';
   private loginUrl = 'api/login/';
+  private classesUrl = 'api/classes/';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -401,6 +404,23 @@ export class DataService {
     );
   }
 
+  // ---------------------------------GESTION DE CLASES-------------------------------------
+
+  getClasesFiltradas(filtros: FiltrosBusqueda): Observable<Clase>
+  {
+    return this.http.post<Clase>(this.classesUrl + 'filtered', filtros, this.httpOptions).pipe(
+      tap((clases: Clase) => this.log('classes received')),
+      catchError(this.handleError<Clase>('getClasesFiltradas'))
+    );
+  }
+
+  crearClase(clase: Clase): Observable<Clase>
+  {
+    return this.http.post<Clase>(this.classesUrl, clase, this.httpOptions).pipe(
+      tap((nuevaClase: Clase) => this.log(`clase creada con id: ${nuevaClase.id}`)),
+      catchError(this.handleError<Clase>('crearClase'))
+    );
+  }
 
   // tslint:disable-next-line:typedef
   private handleError<T>(operation = 'operation', result?: T) {
@@ -416,6 +436,8 @@ export class DataService {
       return of(result as T);
     };
   }
+
+
 
   // tslint:disable-next-line:typedef
   private log(message: string) {
