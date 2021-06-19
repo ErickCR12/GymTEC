@@ -12,8 +12,10 @@ namespace GymTEC_API.DTOs
         public int idGym {get; set;}
         [Required]
         public int idService {get; set;}
+        public string serviceName {get; set;}
         [Required]
         public int idInstructor {get; set;}
+        public string instructorName {get; set;}
         [Required]
         public string startTime {get; set;}
         [Required]
@@ -24,6 +26,7 @@ namespace GymTEC_API.DTOs
         public int capacity {get; set;}
         [Required]
         public bool isGroup {get; set;}
+        public int availability {get; set;}
         
     }
 

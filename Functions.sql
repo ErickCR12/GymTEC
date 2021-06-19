@@ -185,7 +185,22 @@ RETURN
 );
 GO
 
+GO
+CREATE FUNCTION GetFilteredClasses(@sucursalId INT, @servicioId INT = NULL, @fecha DATE = NULL, @horaInicio TIME = NULL, @horaFin TIME = NULL)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT clase_id, sucursal_id, servicio_id, numero_cedula, nombre_servicio, fecha, hora_inicio, hora_fin, nombre_instructor + ' ' + apellido1 + ' ' + apellido2 AS instructor, cupos_disponibles
+	FROM InfoClases
+	WHERE sucursal_id = @sucursalId AND
+		  (@servicioId IS NULL OR servicio_id = @servicioId) AND
+		  (@fecha IS NULL OR fecha = @fecha) AND
+		  (@horaInicio IS NULL OR hora_inicio >= @horaInicio) AND
+		  (@horaFin IS NULL OR hora_fin <= @horaFin)
 
+);
+GO
 
 --------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
 GO

@@ -490,6 +490,41 @@ public IEnumerable<GymService> GetAllServices()
 
         }
 
+        public IEnumerable<GymClass> GetFilteredClasses(ClassFilter filters)
+        {
+            Console.WriteLine(filters.startTime);
+            List<GymClass> gymClasses = new List<GymClass>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetFilteredClasses(@sucursalId, @servicioId, @fecha, @horaInicio, @horaFin)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@sucursalId", filters.idGym);
+            command.Parameters.AddWithValue("@servicioId", (filters.idService == -1) ? DBNull.Value: filters.idService);
+            command.Parameters.AddWithValue("@fecha", (filters.date == null) ? DBNull.Value: filters.date);
+            command.Parameters.AddWithValue("@horaInicio", (filters.startTime == null) ? DBNull.Value: filters.startTime);
+            command.Parameters.AddWithValue("@horaFin", (filters.endTime == null) ? DBNull.Value: filters.endTime);
+
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymClass gymClass = new GymClass();
+                gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                gymClass.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(3).ToString());
+                gymClass.serviceName = dataReader.GetValue(4).ToString();
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
+                gymClass.instructorName = dataReader.GetValue(8).ToString();
+                gymClass.availability = Int32.Parse(dataReader.GetValue(9).ToString());
+
+                gymClasses.Add(gymClass);
+            }
+            connection.Close();
+            return gymClasses;
+        }
+
         public IEnumerable<GymService> GetAllEquipmentTypes()
         {
             List<GymService> equipmentTypes = new List<GymService>();

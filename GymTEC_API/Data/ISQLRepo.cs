@@ -71,7 +71,7 @@ namespace GymTEC_API.Data
         GymClass GetClassById(int id);
         //Calls the stored SQL Procedure that inserts, updates or deletes a Class Entity in the database..
         void CreateUpdateDeleteClass(GymClass gymClass, string statementType);
-
+        IEnumerable<GymClass> GetFilteredClasses(ClassFilter filters);
 
         
         //-----------EQUIPMENT TYPES ENTITIES MANAGMENT------------//
