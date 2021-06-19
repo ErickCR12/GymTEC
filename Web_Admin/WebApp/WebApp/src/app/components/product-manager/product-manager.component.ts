@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Producto } from '../../models/producto';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-product-manager',
@@ -7,36 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductManagerComponent implements OnInit {
 
-  //deviceTypes: DeviceType[];
+  //deviceTypes: Productos[];
   //private dataService: DataService
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    //this.getAllDeviceTypes();
+    //this.getProductos();
   }
 
-  getAllDeviceTypes(): void {
-    //this.dataService.getAllDeviceTypes().subscribe( data => this.deviceTypes = data);
+  getProductos(): void {
+    //this.dataService.getAllProductos().subscribe( data => this.Productos = data);
   }
 
-  addDeviceType(name: string, description: string, warranty_months_str: string): void {
-    //let warranty_months = Number(warranty_months_str);
-    //let new_device_type = {name, description, warranty_months} as DeviceType;
-    /**this.dataService.addDeviceType(new_device_type).subscribe(data => {
-      if (data){
-        this.deviceTypes.push(new_device_type);
+  addProduct(name: string, description:string , barCode: number, price: number): void {
+    
+    const newProd = { barCode, name, description, price } as Producto;
+
+    this.dataService.addProducto(newProd).subscribe(data => {
+      if (data) {
+        this.getProductos
       }
-    });**/
+    });
+
   }
 
-  deleteDeviceType(name: string, index: number): void {
-    //this.deviceTypes.splice(index, 1);
-    //this.dataService.deleteDeviceType(name).subscribe();
-  }
-
-  updateDeviceType(name: string, description: string, warranty_months_str: string): void {
-    //let warranty_months = Number(warranty_months_str);
-    //let updated_device_type = {name, description, warranty_months} as DeviceType;
-    //this.dataService.updateDeviceType(updated_device_type).subscribe();
-  }
 }

@@ -7,8 +7,8 @@ import {Cliente} from './models/cliente';
 export class UsersService {
   public client: Cliente;
   public userType: string;
-  public isAdmin: boolean;
-  public isLogged: boolean;
+  public isAdmin = true;
+  public isLogged = true;
   constructor() { }
 
 

@@ -77,11 +77,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'cClase',
-    component: CreateClassComponent,
-  },
-
-  {
     path: 'copiarGym',
     component: CopyGymComponent,
   },

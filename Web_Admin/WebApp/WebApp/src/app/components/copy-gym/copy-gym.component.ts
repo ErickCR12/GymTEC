@@ -26,19 +26,5 @@ export class CopyGymComponent implements OnInit {
     //this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
-  crearSucursal(name: string, province: string, canton: string, district: string,
-    openingDate: string, openingTime: string, closingTime: string,
-    idAdminStr: string, capacityStr: string) {
-  }
-
-  modificarSucursal(idStr: string, name: string, province: string, canton: string, district: string,
-    openingDate: string, openingTime: string, closingTime: string,
-    idAdminStr: string, capacityStr: string): void {
-
-  }
-
-  eliminarSucursal(idStr: string): void {
-
-  }
 
 }

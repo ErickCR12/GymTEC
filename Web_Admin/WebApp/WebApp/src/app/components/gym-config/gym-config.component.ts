@@ -19,21 +19,29 @@ export class GymConfigComponent implements OnInit {
 
   clickAso() {
     this.Asosiacion = true;
-    this.Inventario, this.tratamientos, this.createClass = false;
+    this.Inventario = false;
+    this.tratamientos = false;
+    this.createClass = false;
   }
 
   clickInventario() {
     this.Inventario = true;
-    this.Asosiacion, this.tratamientos, this.createClass = false;
+    this.Asosiacion = false;
+    this.tratamientos = false;
+    this.createClass = false;
   }
 
   clickTramiento() {
     this.tratamientos = true;
-    this.Asosiacion, this.Inventario, this.createClass = false;
+    this.Asosiacion = false;
+    this.Inventario = false;
+    this.createClass = false;
   }
 
   clickCreateClass() {
     this.createClass = true;
-    this.Asosiacion, this.Inventario, this.tratamientos = false;
+    this.Asosiacion = false;
+    this.Inventario = false;
+    this.tratamientos = false;
   }
 }

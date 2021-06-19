@@ -26,9 +26,11 @@
         </li>
       </ul>
 
+      
+
       <!-- Navigation Bar for Admin -->
       <ul class="navbar-nav me-auto mb-1 mb-sm-0" *ngIf="this.usersService.isAdmin && this.usersService.isLogged">
-        
+
         <!--Botón del navigation bar con el título de Sucursales-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/sucursales">Sucursales</a>
@@ -68,12 +70,6 @@
         <!--Botón del navigation bar con el título de Tipos de Equipos-->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/inventario">Inventario</a>
-        </li>
-        
-
-        <!--Botón del navigation bar con el título de Crear Clase-->
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/cClase">CrearClase</a>
         </li>
 
         <!--Botón del navigation bar con el título de Agregar Producto-->
@@ -116,6 +112,5 @@
   </div>
 </nav>
 
-<app-calendar></app-calendar>
 
 <router-outlet></router-outlet>

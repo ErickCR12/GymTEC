@@ -11,25 +11,25 @@
           </h6>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" (click)="clickAso()">
                 <span data-feather="file-text"></span>
                 Asosiacion de productos de la tienda
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
-                <span data-feather="file-text"></span>
+              <a class="nav-link" (click)="clickTramiento()">
+                <span data-feather="file-text" ></span>
                 Tratamientos de spa
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" (click)="clickInventario()">
                 <span data-feather="file-text"></span>
                 Inventario Gym haciendo uso de las máquinas
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
+              <a class="nav-link" (click)="clickCreateClass()">
                 <span data-feather="file-text"></span>
                 Creacion de clases haciendo uso de los servicios
               </a>
@@ -37,16 +37,11 @@
           </ul>
         </div>
       </nav>
-      <!--
-        click()="clickAso()"
-        click()="clickTramiento()"
-        click()="clickInventario()"
-        click()="clickCreateClass()"
-       -->
+
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
         <app-create-class *ngIf="createClass"></app-create-class>
-        <app-table-inventario></app-table-inventario>
+        <app-table-inventario *ngIf="Inventario"></app-table-inventario>
         <app-table-productos *ngIf="Asosiacion"></app-table-productos>
         <app-table-tratamientos *ngIf="tratamientos"></app-table-tratamientos>
       </main>
