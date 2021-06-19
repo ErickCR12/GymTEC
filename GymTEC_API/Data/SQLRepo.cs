@@ -49,6 +49,7 @@ namespace GymTEC_API.Data
                 gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
                 gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
                 gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
+                gym.idAdmin = (dataReader.GetValue(11) == DBNull.Value) ? -1 : Int32.Parse(dataReader.GetValue(11).ToString());
 
                 gyms.Add(gym);
             }
@@ -77,7 +78,8 @@ namespace GymTEC_API.Data
                 gym.openingDate = Convert.ToDateTime(dataReader.GetValue(8).ToString());
                 gym.spaState = Int32.Parse(dataReader.GetValue(9).ToString()) != 0; 
                 gym.storeState = Int32.Parse(dataReader.GetValue(10).ToString()) != 0;
-                
+                gym.idAdmin = (dataReader.GetValue(11) == DBNull.Value) ? -1 : Int32.Parse(dataReader.GetValue(11).ToString());
+   
                 connection.Close();
                 return gym;
             }
@@ -285,6 +287,77 @@ public IEnumerable<GymService> GetAllServices()
             connection.Close();
         }
 
+        public IEnumerable<PayrollGeneration> GetMonthlyPayroll(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetMonthlyPayroll()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(4).ToString());
+
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+        public IEnumerable<PayrollGeneration> GetPayrollPerClass(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPayrollPerClass()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(5).ToString());
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+        public IEnumerable<PayrollGeneration> GetPayrollPerHours(int gymId)
+        {
+            List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetPayrollPerHours()"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Payroll entity
+            {
+                PayrollGeneration payroll = new PayrollGeneration();
+                payroll.idCard = Int32.Parse(dataReader.GetValue(0).ToString());
+                payroll.name = dataReader.GetValue(1).ToString();
+                payroll.last_name1 = dataReader.GetValue(2).ToString();
+                payroll.last_name2 = dataReader.GetValue(3).ToString();
+                payroll.classesHours = Int32.Parse(dataReader.GetValue(4).ToString());
+                payroll.salary = Int32.Parse(dataReader.GetValue(5).ToString());
+                payrolls.Add(payroll);
+            }
+            connection.Close();
+            return payrolls;
+        }
+
+
         public IEnumerable<GymService> GetAllPositions()
         {
             List<GymService> positions = new List<GymService>();
@@ -415,6 +488,41 @@ public IEnumerable<GymService> GetAllServices()
 
             connection.Close();
 
+        }
+
+        public IEnumerable<GymClass> GetFilteredClasses(ClassFilter filters)
+        {
+            Console.WriteLine(filters.startTime);
+            List<GymClass> gymClasses = new List<GymClass>();
+            
+            connection.Open();
+            var sql = "SELECT * FROM dbo.GetFilteredClasses(@sucursalId, @servicioId, @fecha, @horaInicio, @horaFin)"; //Stored Function
+            SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@sucursalId", filters.idGym);
+            command.Parameters.AddWithValue("@servicioId", (filters.idService == -1) ? DBNull.Value: filters.idService);
+            command.Parameters.AddWithValue("@fecha", (filters.date == null) ? DBNull.Value: filters.date);
+            command.Parameters.AddWithValue("@horaInicio", (filters.startTime == null) ? DBNull.Value: filters.startTime);
+            command.Parameters.AddWithValue("@horaFin", (filters.endTime == null) ? DBNull.Value: filters.endTime);
+
+            SqlDataReader dataReader = command.ExecuteReader();
+            while(dataReader.Read()) //Loads all the atributes for each Gym entity
+            {
+                GymClass gymClass = new GymClass();
+                gymClass.id = Int32.Parse(dataReader.GetValue(0).ToString());
+                gymClass.idGym = Int32.Parse(dataReader.GetValue(1).ToString());
+                gymClass.idService = Int32.Parse(dataReader.GetValue(2).ToString());
+                gymClass.idInstructor = Int32.Parse(dataReader.GetValue(3).ToString());
+                gymClass.serviceName = dataReader.GetValue(4).ToString();
+                gymClass.date = Convert.ToDateTime(dataReader.GetValue(5).ToString());
+                gymClass.startTime = Convert.ToDateTime(dataReader.GetValue(6).ToString());
+                gymClass.endTime = Convert.ToDateTime(dataReader.GetValue(7).ToString());
+                gymClass.instructorName = dataReader.GetValue(8).ToString();
+                gymClass.availability = Int32.Parse(dataReader.GetValue(9).ToString());
+
+                gymClasses.Add(gymClass);
+            }
+            connection.Close();
+            return gymClasses;
         }
 
         public IEnumerable<GymService> GetAllEquipmentTypes()
@@ -685,53 +793,79 @@ public IEnumerable<GymService> GetAllServices()
 
         }
 
-        public void SetSpaTreatmentsToGym(IEnumerable<GymService> spaTreatments, int gymId)
+        public void SetSpaTreatmentToGym(GymService spaTreatment, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetSpaTreatmentsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(GymService spaTreatment in spaTreatments){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@id_tratamiento", spaTreatment.id);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@id_tratamiento", spaTreatment.id);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
 
-        public void SetProductsToGym(IEnumerable<Product> products, int gymId)
+        public void SetProductToGym(Product product, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetProductsToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(Product product in products){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@codigo_producto", product.barCode);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@codigo_producto", product.barCode);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
 
-        public void SetMachinesToGym(IEnumerable<ExcerciseMachine> machines, int gymId)
+        public void SetMachineToGym(ExcerciseMachine machine, int gymId)
         {
             connection.Open();
             SqlCommand command = new SqlCommand("SetMachinesToGym", connection); //Stored Procedure that can insert, update or delete Gym entity
             command.CommandType = CommandType.StoredProcedure;
 
-            foreach(ExcerciseMachine machine in machines){
-                command.Parameters.AddWithValue("@id_sucursal", gymId);
-                command.Parameters.AddWithValue("@numero_maquina", machine.serialNumber);
-                command.ExecuteNonQuery();
-                command.Parameters.Clear();
-            }
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.Parameters.AddWithValue("@numero_maquina", machine.serialNumber);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
 
             connection.Close();
         }
 
+        public void CopyGymWeek(GymWeek week, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CopyGymWeek", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@sucursal", gymId);
+                command.Parameters.AddWithValue("@fechaInicioOriginal", week.startingDate);
+                command.Parameters.AddWithValue("@fechaFinalOriginal", week.finishingDate);
+                command.Parameters.AddWithValue("@fechaInicioNueva", week.startingDateToCopy);
+                command.Parameters.AddWithValue("@fechaFinalNueva", week.finishingDateToCopy);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+
+            connection.Close();
+        }
+
+        public void CopyGym(Gym originalGym, int newGymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("CopyGym", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@idSucursalOriginal", originalGym.id);
+                command.Parameters.AddWithValue("@idSucursalNueva", newGymId);
+                command.ExecuteNonQuery();
+                command.Parameters.Clear();
+
+            connection.Close();
+        }
+
+    
     }
 }

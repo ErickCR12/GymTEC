@@ -8,10 +8,12 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_administrador, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda
-	FROM SUCURSAL
+	SELECT id, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda, id_admin
+	FROM (SUCURSAL LEFT JOIN ADMINISTRADOR_SUCURSAL ON id = id_sucursal)
 );
 GO
+
+SELECT * FROM GetAllGyms();
 
 GO
 CREATE FUNCTION GetGymById(@storedId int)
@@ -19,8 +21,8 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_administrador, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda
-	FROM SUCURSAL
+	SELECT id, nombre, capacidad,provincia, canton, distrito, hora_apertura, hora_cierre, fecha_apertura, estado_spa, estado_tienda, id_admin
+	FROM (SUCURSAL LEFT JOIN ADMINISTRADOR_SUCURSAL ON id = id_sucursal)
 	WHERE id = @storedId
 );
 GO
@@ -98,6 +100,41 @@ RETURN
 );
 GO
 
+GO
+CREATE FUNCTION	GetMonthlyPayroll(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, salario
+	FROM PagoMensual
+	WHERE id_sucursal = @gymId
+);
+GO
+
+GO
+CREATE FUNCTION	GetPayrollPerClass(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, cantidadClases, monto
+	FROM PagoPorClase
+	WHERE id_sucursal = @gymId
+);
+GO
+
+GO
+CREATE FUNCTION	GetPayrollPerHours(@gymId int)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT numero_cedula, nombre, apellido1, apellido2, horasTrabajadas, monto
+	FROM PagoPorHoras
+	WHERE id_sucursal = @gymId
+);
+GO
 
 ---------------------------------GESTION DE PUESTOS-----------------------------------------
 GO
@@ -131,7 +168,7 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_sucursal, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_servicio, cedula_instructor,hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 );
 GO
@@ -142,13 +179,28 @@ RETURNS TABLE
 AS
 RETURN
 (
-	SELECT id, id_sucursal, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
+	SELECT id, id_servicio, cedula_instructor, hora_inicio, hora_fin, fecha, capacidad, es_grupal
 	FROM CLASE
 	WHERE id = @storedId
 );
 GO
 
+GO
+CREATE FUNCTION GetFilteredClasses(@sucursalId INT, @servicioId INT = NULL, @fecha DATE = NULL, @horaInicio TIME = NULL, @horaFin TIME = NULL)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT clase_id, sucursal_id, servicio_id, numero_cedula, nombre_servicio, fecha, hora_inicio, hora_fin, nombre_instructor + ' ' + apellido1 + ' ' + apellido2 AS instructor, cupos_disponibles
+	FROM InfoClases
+	WHERE sucursal_id = @sucursalId AND
+		  (@servicioId IS NULL OR servicio_id = @servicioId) AND
+		  (@fecha IS NULL OR fecha = @fecha) AND
+		  (@horaInicio IS NULL OR hora_inicio >= @horaInicio) AND
+		  (@horaFin IS NULL OR hora_fin <= @horaFin)
 
+);
+GO
 
 --------------------GESTION DE TIPOS DE EQUIPO-----------------------------------------
 GO

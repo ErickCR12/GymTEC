@@ -77,7 +77,7 @@ namespace API_Service.Controllers
             return NoContent();
         }
 
-        //DELETE api/spas/{id}
+        //DELETE api/payrolls/{id}
         //This request deletes the Payroll entity with the id received in the request header.
         [HttpDelete("{id}")]
         public ActionResult DeletePayroll(int id)
@@ -89,6 +89,33 @@ namespace API_Service.Controllers
             }
             _repository.CreateUpdateDeletePayroll(payrollFromRepo, "DELETE");
             return NoContent();
+        }
+
+        //GET api/payrolls/generateMonthly/{id}
+        //This request returns a list of PayrollGeneration entities in a JSON format showing the monthly payroll for a Gym.
+        [HttpGet("generateMonthly/{id}")]
+        public ActionResult <IEnumerable<PayrollGenerationDto>> GetMonthlyPayroll(int gymId)
+        {
+            var payrollsItem = _repository.GetMonthlyPayroll(gymId);
+            return Ok(_mapper.Map<IEnumerable<PayrollGenerationDto>>(payrollsItem));
+        }
+
+        //GET api/payrolls/generatePerClass/{id}
+        //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per class for a Gym.
+        [HttpGet("generatePerClass/{id}")]
+        public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerClass(int gymId)
+        {
+            var payrollsItem = _repository.GetPayrollPerClass(gymId);
+            return Ok(_mapper.Map<IEnumerable<PayrollDto>>(payrollsItem));
+        }
+
+        //GET api/payrolls/generatePerHour/{id}
+        //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per hour for a Gym.
+        [HttpGet("generatePerHour/{id}")]
+        public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerHours(int gymId)
+        {
+            var payrollsItem = _repository.GetPayrollPerHours(gymId);
+            return Ok(_mapper.Map<IEnumerable<PayrollDto>>(payrollsItem));
         }
 
     }

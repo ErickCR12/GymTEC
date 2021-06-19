@@ -18,7 +18,25 @@ namespace WebServiceResTEC.Profiles
             CreateMap<ExcerciseMachine, ExcerciseMachineDto>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<LoginProfile, LoginProfileDto>().ReverseMap();
+            CreateMap<GymWeek, GymWeekDto>().ForMember(x => x.startingDate,
+                    opt => opt.MapFrom(src => ((DateTime)src.startingDate).ToShortDateString()))
+                                            .ForMember(x => x.finishingDate,
+                    opt => opt.MapFrom(src => ((DateTime)src.finishingDate).ToShortDateString()))
+                                            .ForMember(x => x.startingDateToCopy,
+                    opt => opt.MapFrom(src => ((DateTime)src.startingDateToCopy).ToShortDateString()))
+                                            .ForMember(x => x.finishingDateToCopy,
+                    opt => opt.MapFrom(src => ((DateTime)src.finishingDateToCopy).ToShortDateString()))
+                    .ReverseMap();
+            
             CreateMap<GymClass, GymClassDto>().ForMember(x => x.date,
+                    opt => opt.MapFrom(src => ((DateTime)src.date).ToShortDateString()))
+                .ForMember(x => x.startTime,
+                    opt=> opt.MapFrom(src => ((DateTime)src.startTime).ToShortTimeString()))
+                .ForMember(x => x.endTime,
+                    opt=> opt.MapFrom(src => ((DateTime)src.endTime).ToShortTimeString()))
+                    .ReverseMap();
+
+            CreateMap<ClassFilter, ClassFilterDto>().ForMember(x => x.date,
                     opt => opt.MapFrom(src => ((DateTime)src.date).ToShortDateString()))
                 .ForMember(x => x.startTime,
                     opt=> opt.MapFrom(src => ((DateTime)src.startTime).ToShortTimeString()))

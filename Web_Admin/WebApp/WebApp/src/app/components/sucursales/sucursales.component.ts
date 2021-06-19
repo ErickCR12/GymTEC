@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Sucursal} from '../../models/sucursal';
 import {DataService} from '../../data.service';
+import {Empleado} from '../../models/empleado';
 // @ts-ignore
 
 
@@ -14,18 +15,30 @@ export class SucursalesComponent implements OnInit {
   sucursalesDisp: Sucursal[] = [];
   sucursalSeleccionada = {} as Sucursal;
 
+  empleados: Empleado[] = [];
+  empleadoSeleccionado = {} as Empleado;
+
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getSucursales();
+    this.getEmpleados();
   }
 
   onChange(idSucursal: string): void{
      this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
   }
 
+  onChangeE(idEmpleado: string): void{
+    this.empleadoSeleccionado = this.empleados.find(x => x.idCard === Number(idEmpleado));
+  }
+
   getSucursales(): void{
     this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
+  }
+
+  getEmpleados(): void{
+    this.dataService.getAllEmpleados().subscribe(data => this.empleados = data);
   }
 
   crearSucursal(name: string, province: string, canton: string, district: string,

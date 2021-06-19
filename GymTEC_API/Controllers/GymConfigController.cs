@@ -25,36 +25,58 @@ namespace API_Service.Controllers
 
 
         //POST api/gymConfig/spaTreatments/{gymId}
-        //This request a list of spa treatment (GymService) to create a relation with the specified gym.
-        [HttpPost("spaTreatments/{gymId}", Name = "SetSpaTreatmentsToGym")]
-        public ActionResult <IEnumerable<GymServiceDto>> SetSpaTreatmentsToGym(IEnumerable<GymServiceDto> spaTreatmentDto, int gymId)
+        //This request receives a spa treatment (GymService) to create a relation with the specified gym.
+        [HttpPost("spaTreatments/{gymId}", Name = "SetSpaTreatmentToGym")]
+        public ActionResult <GymServiceDto> SetSpaTreatmentToGym(GymServiceDto spaTreatmentDto, int gymId)
         {
-            var spaTreatments = _mapper.Map<IEnumerable<GymService>>(spaTreatmentDto);
-            _repository.SetSpaTreatmentsToGym(spaTreatments, gymId);
+            var spaTreatment = _mapper.Map<GymService>(spaTreatmentDto);
+            _repository.SetSpaTreatmentToGym(spaTreatment, gymId);
 
-            return Ok(_mapper.Map<IEnumerable<GymServiceDto>>(spaTreatments));
+            return Ok(_mapper.Map<GymServiceDto>(spaTreatment));
         }
 
         //POST api/gymConfig/products/{gymId}
-        //This request a list of products to create a relation with the specified gym.
-        [HttpPost("products/{gymId}", Name = "SetProductsToGym")]
-        public ActionResult <IEnumerable<ProductDto>> SetProductsToGym(IEnumerable<ProductDto> productDtos, int gymId)
+        //This request receives a product to create a relation with the specified gym.
+        [HttpPost("products/{gymId}", Name = "SetProductToGym")]
+        public ActionResult <ProductDto> SetProductToGym(ProductDto productDto, int gymId)
         {
-            var products = _mapper.Map<IEnumerable<Product>>(productDtos);
-            _repository.SetProductsToGym(products, gymId);
+            var product = _mapper.Map<Product>(productDto);
+            _repository.SetProductToGym(product, gymId);
 
-            return Ok(_mapper.Map<IEnumerable<ProductDto>>(products));
+            return Ok(_mapper.Map<ProductDto>(product));
         }
 
         //POST api/gymConfig/machines/{gymId}
-        //This request a list of machines to create a relation with the specified gym.
-        [HttpPost("machines/{gymId}", Name = "SetMachinesToGym")]
-        public ActionResult <IEnumerable<ExcerciseMachineDto>> SetMachinesToGym(IEnumerable<ExcerciseMachineDto> machineDtos, int gymId)
+        //This request receives a machine to create a relation with the specified gym.
+        [HttpPost("machines/{gymId}", Name = "SetMachineToGym")]
+        public ActionResult <ExcerciseMachineDto> SetMachineToGym(ExcerciseMachineDto machineDto, int gymId)
         {
-            var machines = _mapper.Map<IEnumerable<ExcerciseMachine>>(machineDtos);
-            _repository.SetMachinesToGym(machines, gymId);
+            var machine = _mapper.Map<ExcerciseMachine>(machineDto);
+            _repository.SetMachineToGym(machine, gymId);
 
-            return Ok(_mapper.Map<IEnumerable<ExcerciseMachineDto>>(machines));
+            return Ok(_mapper.Map<ExcerciseMachineDto>(machine));
+        }
+
+        //POST api/gymConfig/copyWeeks/{gymId}
+        //This request receives a week to be copied to another week of the specified gym
+        [HttpPost("copyWeeks/{gymId}", Name = "CopyGymWeek")]
+        public ActionResult <GymWeekDto> CopyGymWeek(GymWeekDto weekDto, int gymId)
+        {
+            var week = _mapper.Map<GymWeek>(weekDto);
+            _repository.CopyGymWeek(week, gymId);
+
+            return Ok(_mapper.Map<GymWeekDto>(week));
+        }
+
+        //POST api/gymConfig/copyGym/{gymId}
+        //This request receives a week to be copied to another week of the specified gym
+        [HttpPost("copyGym/{gymId}", Name = "CopyGym")]
+        public ActionResult <Gym> CopyGym(Gym originalGymDto, int newGymId)
+        {
+            var originalGym = _mapper.Map<Gym>(originalGymDto);
+            _repository.CopyGym(originalGym, newGymId);
+
+            return Ok(_mapper.Map<Gym>(originalGym));
         }
     }   
 }

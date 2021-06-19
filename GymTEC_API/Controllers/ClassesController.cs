@@ -58,5 +58,15 @@ namespace API_Service.Controllers
                                 newClassDto);
         }
 
+        //POST api/classes/filtered
+        //This request returns a list of filtered GymClass entities in a JSON.
+        [HttpPost("filtered")]
+        public ActionResult <IEnumerable<GymClassDto>> GetFilteredClasses(ClassFilterDto filters)
+        {
+            var filtersModel = _mapper.Map<ClassFilter>(filters);
+            var classesItem = _repository.GetFilteredClasses(filtersModel);
+           return Ok(_mapper.Map<IEnumerable<GymClassDto>>(classesItem));
+        }
+
     }
 }
