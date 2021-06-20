@@ -556,3 +556,17 @@ AS
 		WHERE id_sucursal = @sucursal AND fecha >= @fechaInicioOriginal AND	fecha <= @fechaFinalOriginal
 	END
 GO
+
+GO
+CREATE PROCEDURE RegisterClient
+(
+	@id_clase	INT,
+	@id_cliente	INT
+)
+
+AS  
+  BEGIN  
+	INSERT INTO CLASE_CLIENTE(id_clase, cedula_cliente)
+	VALUES (@id_clase, @id_cliente)
+  END    
+GO

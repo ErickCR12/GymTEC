@@ -492,7 +492,6 @@ public IEnumerable<GymService> GetAllServices()
 
         public IEnumerable<GymClass> GetFilteredClasses(ClassFilter filters)
         {
-            Console.WriteLine(filters.startTime);
             List<GymClass> gymClasses = new List<GymClass>();
             
             connection.Open();
@@ -523,6 +522,20 @@ public IEnumerable<GymService> GetAllServices()
             }
             connection.Close();
             return gymClasses;
+        }
+
+        public void RegisterToClass(Client client, int classId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("RegisterClientToClass", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id_clase", classId);
+            command.Parameters.AddWithValue("@id_cliente", client.Id);
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         public IEnumerable<GymService> GetAllEquipmentTypes()
@@ -866,6 +879,6 @@ public IEnumerable<GymService> GetAllServices()
             connection.Close();
         }
 
-    
+        
     }
 }

@@ -359,6 +359,13 @@ export class DataService {
     );
   }
 
+  registrarClienteAClase(cliente: Cliente, clase: number): Observable<Cliente> {
+    return this.http.post<Cliente>(this.clientesUrl + 'registerToClass/' + clase, cliente, this.httpOptions).pipe(
+      tap((cliente1: Cliente) => this.log('registrado')),
+      catchError(this.handleError<Cliente>('registrarClienteAClase'))
+    );
+  }
+
   // ----------------------------CONFIGURACION DE GYM-----------------------------------
 
   asociarSpa(spa: Tratamiento, gymId: number): Observable<Tratamiento> {

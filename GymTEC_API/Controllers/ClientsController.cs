@@ -14,12 +14,14 @@ namespace API_Service.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly IMongoRepo _repository;
+        private readonly IMongoRepo _mongoRepo;
+        private readonly ISQLRepo _sqlRepo;
         private readonly IMapper _mapper;
 
-        public ClientsController (IMongoRepo repository, IMapper mapper)
+        public ClientsController (IMongoRepo mongoRepo, ISQLRepo sqlRepo, IMapper mapper)
         {
-            _repository = repository;
+            _mongoRepo = mongoRepo;
+            _sqlRepo = sqlRepo;
             _mapper = mapper;
         }        
 
@@ -28,7 +30,7 @@ namespace API_Service.Controllers
         [HttpGet]
         public ActionResult <IEnumerable<ClientDto>> GetAllClients()
         {
-            var clientsItem = _repository.GetAllClients();
+            var clientsItem = _mongoRepo.GetAllClients();
             return Ok(_mapper.Map<IEnumerable<ClientDto>>(clientsItem));
         }
 
@@ -38,7 +40,7 @@ namespace API_Service.Controllers
         [HttpGet("{idCard}", Name = "GetClientByIdCard")]
         public ActionResult <ClientDto> GetClientByIdCard(int idCard)
         {
-            var clientModel = _repository.GetClientByIdCard(idCard);
+            var clientModel = _mongoRepo.GetClientByIdCard(idCard);
             if(clientModel != null){
                 return Ok(_mapper.Map<ClientDto>(clientModel));
             }
@@ -51,7 +53,20 @@ namespace API_Service.Controllers
         public ActionResult <ClientDto> CreateClient(ClientDto clientDto)
         {
             var clientModel = _mapper.Map<Client>(clientDto);
-            _repository.CreateClient(clientModel);
+            _mongoRepo.CreateClient(clientModel);
+            var newClientDto = _mapper.Map<ClientDto>(clientModel);
+
+            return CreatedAtRoute(nameof(GetClientByIdCard), new {idCard = newClientDto.idCard}, 
+                                newClientDto);
+        }
+
+        //POST api/clients/registerToClass
+        //This request receives all the needed info to create a new Client in the clients database.
+        [HttpPost("registerToClass/{id}")]
+        public ActionResult <ClientDto> RegisterToClass(ClientDto clientDto, int classId)
+        {
+            var clientModel = _mapper.Map<Client>(clientDto);
+            _sqlRepo.RegisterToClass(clientModel,classId);
             var newClientDto = _mapper.Map<ClientDto>(clientModel);
 
             return CreatedAtRoute(nameof(GetClientByIdCard), new {idCard = newClientDto.idCard}, 
@@ -64,7 +79,7 @@ namespace API_Service.Controllers
         [HttpPut("{idCard}")]
         public ActionResult UpdateClient(int idCard, ClientDto clientDto)
         {
-            var clientFromRepo = _repository.GetClientByIdCard(idCard);
+            var clientFromRepo = _mongoRepo.GetClientByIdCard(idCard);
             clientDto.idCard = clientFromRepo.idCard;
             if(clientFromRepo == null)
             {
@@ -72,7 +87,7 @@ namespace API_Service.Controllers
             }
 
             _mapper.Map(clientDto, clientFromRepo);
-            _repository.UpdateClient(clientFromRepo);
+            _mongoRepo.UpdateClient(clientFromRepo);
 
             return NoContent();
         }
@@ -82,12 +97,12 @@ namespace API_Service.Controllers
         [HttpDelete("{idCard}")]
         public ActionResult DeleteClient(int idCard)
         {
-            var clientFromRepo = _repository.GetClientByIdCard(idCard);
+            var clientFromRepo = _mongoRepo.GetClientByIdCard(idCard);
             if(clientFromRepo == null)
             {
                 return NotFound();
             }
-            _repository.DeleteClient(clientFromRepo);
+            _mongoRepo.DeleteClient(clientFromRepo);
             return NoContent();
         }
 

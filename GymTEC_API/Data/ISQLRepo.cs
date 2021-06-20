@@ -73,6 +73,7 @@ namespace GymTEC_API.Data
         void CreateUpdateDeleteClass(GymClass gymClass, string statementType);
         IEnumerable<GymClass> GetFilteredClasses(ClassFilter filters);
 
+        void RegisterToClass(Client client, int classId);
         
         //-----------EQUIPMENT TYPES ENTITIES MANAGMENT------------//
 
