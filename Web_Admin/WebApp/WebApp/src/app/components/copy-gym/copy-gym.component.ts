@@ -12,19 +12,25 @@ export class CopyGymComponent implements OnInit {
   sucursalesDisp: Sucursal[] = [];
   sucursalSeleccionada = {} as Sucursal;
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getSucursales();
   }
 
   onChange(idSucursal: string): void {
-    //this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
   }
 
   getSucursales(): void {
-    //this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
+    this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
+  copyGym(GymO: string, GymC: string): void {
+    const id = +GymO;
+    const sucursal = { id } as Sucursal; //???
+    this.dataService.copiarGym(sucursal, +GymC).subscribe();
+    this.getSucursales();
+  }
 
 }

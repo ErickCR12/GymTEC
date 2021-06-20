@@ -14,12 +14,11 @@ import {Empleado} from '../../models/empleado';
 // tslint:disable-next-line:component-class-suffix
 export class LoginScreen {
 
-  constructor() { }
-  //private dataService: DataService, private usersService: UsersService
+  constructor(private dataService: DataService, private usersService: UsersService ) { }
 
 
   checkCredentials(username: string, password: string): void{
-    /**this.dataService.getLoginCredentials({username, password} as Login).subscribe(
+    this.dataService.getLoginCredentials({username, password} as Login).subscribe(
       data =>
       {
         switch (data.userType) {
@@ -29,7 +28,6 @@ export class LoginScreen {
             this.usersService.isLogged = true;
             break;
           case 'Empleado':
-            this.usersService.empleado = { username, password } as Empleado;
             this.usersService.isAdmin = true;
             this.usersService.isLogged = true;
             break;
@@ -37,7 +35,7 @@ export class LoginScreen {
             this.usersService.isLogged = false;
             break;
         }
-      });**/
+      });
   }
 
   getClientByEmail(email: string): void{

@@ -32,36 +32,21 @@
       <a>Semana por copiar </a>
       <label for="inputfecha" class="visually-hidden">Fecha de Apertura</label>
       <input type="week" id="inputfecha" class="form-control" placeholder="Fecha de Apertura" name="Fecha de apertura"
-             [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #inputDate>
-
-
-      <!--Seleccionar Sucursal a Copiar-->
-      <h5>Sucursal destino: </h5>
-
-      <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
-
-        <option value="" selected>Seleccionar Sucursal</option>
-
-        <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
-      </select>
+             [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #inputfecha>
 
 
       <!--Seleccion de Semna a pegar-->
 
       <a>Semana Destino </a>
-      <label for="inputfecha" class="visually-hidden">Fecha de Apertura</label>
-      <input type="week" id="inputfecha" class="form-control" placeholder="Fecha de Apertura" name="Fecha de apertura"
-             [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #inputDate>
+      <label for="outputfecha" class="visually-hidden">Fecha de copiado</label>
+      <input type="week" id="outputfecha" class="form-control" placeholder="Fecha de Copiado" name="Fecha de copiada"
+             [ngModel]="sucursalSeleccionada.openingDate | date:'yyyy-MM-dd'" #outputfecha>
 
       <a>-</a>
 
       <!--Upload data to loging with this button -->
-      <button class="w-100 btn btn-lg btn-primary mb-2">
+      <button class="w-100 btn btn-lg btn-primary mb-2" (click)="getDates(inputfecha.value, outputfecha.value, sucursal.value)">
         Realizar
-      </button>
-
-      <button class="w-100 btn btn-lg btn-primary mb-2" >
-        Cancelar
       </button>
 
     </form>

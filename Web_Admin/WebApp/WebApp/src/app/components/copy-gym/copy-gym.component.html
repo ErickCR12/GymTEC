@@ -19,7 +19,7 @@
       <!--Seleccionar Sucursal-->
       <h5>Sucursal origen: </h5>
 
-      <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+      <select name="sedes" type="sedes" id="sedes" #sucursalOrigen (change)="onChange(sucursalOrigen.value)">
 
         <option value="" selected>Seleccionar Sucursal</option>
 
@@ -29,7 +29,7 @@
       <!--Seleccionar Sucursal a Copiar-->
       <h5>Sucursal destino: </h5>
 
-      <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+      <select name="sedes" type="sedes" id="sedes" #sucursalDestino (change)="onChange(sucursalDestino.value)">
 
         <option value="" selected>Seleccionar Sucursal</option>
 
@@ -37,13 +37,10 @@
       </select>
 
       <!--Upload data to loging with this button -->
-      <button class="w-100 btn btn-lg btn-primary mb-2">
+      <button class="w-100 btn btn-lg btn-primary mb-2" (click)="copyGym(sucursalOrigen.value, sucursalDestino.value)">
         Realizar
       </button>
 
-      <button class="w-100 btn btn-lg btn-primary mb-2">
-        Cancelar
-      </button>
 
     </form>
 

@@ -4,27 +4,25 @@
     <div class="row">
       <main class="form-DeviceType">
         <form>
-          <h1 class="h3 mb-3 fw-normal">Add new Product</h1>
+          <h1 class="h3 mb-3 fw-normal">Agregar Producto </h1>
 
           <label for="inputName" class="visually-hidden">Name</label>
-          <input id="inputName" class="form-control" placeholder="Name" #name>
+          <input id="inputName" class="form-control" placeholder="Nombre" #name>
 
           <label for="BarCode" class="visually-hidden">BarCode</label>
           <input id="BarCode" class="form-control" placeholder="Bar Code" #BarCode>
 
           <label for="Description" class="visually-hidden">Description</label>
-          <input id="Description" class="form-control" placeholder="Description" #description>
+          <input id="Description" class="form-control" placeholder="Descripcion" #description>
 
           <label for="Price" class="visually-hidden">Price</label>
-          <input id="Price" class="form-control" placeholder="Price" #Price>
+          <input id="Price" class="form-control" placeholder="Precio" #Price>
 
           <!--Upload data to loging with this button -->
           <button class="w-100 btn btn-lg btn-primary" type="submit"
                   (click)="addProduct(name.value, description.value, BarCode.value, Price.value)">
             Create
           </button>
-          <a>-or-</a>
-          <button class="w-100 btn btn-lg btn-primary" type="submit" href="cProducto">Clear</button>
         </form>
       </main>
     </div>
