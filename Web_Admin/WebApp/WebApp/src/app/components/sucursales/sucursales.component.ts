@@ -73,4 +73,29 @@ export class SucursalesComponent implements OnInit {
     this.sucursalesDisp = this.sucursalesDisp.filter(x => x.id !== id);
   }
 
+  agregarAdministrador(sucursalStr: string, idAdminStr: string): void{
+    const idCard = Number(idAdminStr);
+    const sucursalId = Number(sucursalStr);
+    console.log(sucursalId);
+    const idGym = 1;
+    const idJobPosition = -1;
+    const idPayroll = -1;
+    const email = 'default';
+    const password = 'default';
+    const name = 'default';
+    const last_name1 = 'default';
+    const last_name2 = 'default';
+    const province = 'default';
+    const canton = 'default';
+    const district = 'default';
+    const salary = -1;
+    const empleado = {idCard, idGym, idJobPosition, idPayroll, email, password, name, last_name1, last_name2,
+      province, canton, district, salary} as Empleado;
+    this.dataService.addAdministrador(empleado, sucursalId).subscribe(data => {
+      if (data){
+        this.getSucursales();
+      }
+    });
+  }
+
 }

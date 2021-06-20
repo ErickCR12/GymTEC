@@ -564,3 +564,24 @@ AS
 	VALUES (@id_clase, @id_cliente)
   END    
 GO
+
+GO
+CREATE PROCEDURE AddAdmin
+(
+	@id_empleado INT,
+	@id_sucursal INT
+)
+
+AS  
+  BEGIN  
+	IF EXISTS (SELECT 1 FROM ADMINISTRADOR_SUCURSAL WHERE id_sucursal = @id_sucursal)
+	BEGIN
+		DELETE FROM ADMINISTRADOR_SUCURSAL WHERE id_sucursal = @id_sucursal
+	END
+
+	INSERT INTO ADMINISTRADOR_SUCURSAL(id_admin, id_sucursal)
+	VALUES (@id_empleado, @id_sucursal)
+  END    
+GO
+
+SELECT * FROM ADMINISTRADOR_SUCURSAL

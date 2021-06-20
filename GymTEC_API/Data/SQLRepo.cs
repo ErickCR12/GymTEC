@@ -879,6 +879,18 @@ public IEnumerable<GymService> GetAllServices()
             connection.Close();
         }
 
-        
+        public void AddAdmin(Employee employee, int gymId)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("AddAdmin", connection); //Stored Procedure that can insert, update or delete Gym entity
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@id_empleado", employee.idCard);
+            command.Parameters.AddWithValue("@id_sucursal", gymId);
+            command.ExecuteNonQuery();
+            command.Parameters.Clear();
+
+            connection.Close();
+        }
     }
 }

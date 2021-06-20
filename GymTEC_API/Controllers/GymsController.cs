@@ -91,5 +91,16 @@ namespace API_Service.Controllers
             return NoContent();
         }
 
+        //POST api/gyms/admin/{id}
+        //This request receives all the needed info to create a new Gym in the gyms database.
+        [HttpPost("admin/{gymId}")]
+        public ActionResult AddAdmin(EmployeeDto employeeDto, int gymId)
+        {
+            Console.WriteLine(gymId);
+            var employeeModel = _mapper.Map<Employee>(employeeDto);
+            _repository.AddAdmin(employeeModel, gymId);
+
+            return Ok();
+        }
     }
 }

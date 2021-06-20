@@ -56,17 +56,6 @@
     <input type = "time" id="inputhorario" class="form-control" placeholder="Horario" name="Hora cierre"
            [ngModel]="sucursalSeleccionada.closingTime" #inputCloTime>
 
-    <br>
-    <a>Administrador: </a>
-    <select name="empleados" id="empleados" #empleado (change)="onChangeE(empleado.value)">
-
-      <option value=-1 selected>Administrador</option>
-
-      <option *ngFor="let empleado of empleados" [value]="empleado.idCard">ID: {{empleado.idCard}}</option>
-    </select>
-
-    <br>
-    <br>
     <a>Capacidad</a>
     <label for="inputcapacidad" class="visually-hidden">Capacidad</label>
     <input id="inputcapacidad" class="form-control" placeholder="Capacidad" name="Capacidad"
@@ -94,6 +83,19 @@
             (click)="modificarSucursal(sucursal.value, inputNombre.value, inputProvincia.value, inputCanton.value, inputDistrict.value,
                                    inputDate.value, inputOpTime.value, inputCloTime.value, empleado.value, inputCapacity.value)">Actualizar</button>
 
+    <br>
+    <br>
+    <a>Para agregar un administrador a la sucursal: </a>
+    <select name="empleados" id="empleados" #empleado (change)="onChangeE(empleado.value)">
+
+      <option value=-1 selected>Administrador</option>
+
+      <option *ngFor="let empleado of empleados" [value]="empleado.idCard">ID: {{empleado.idCard}}</option>
+    </select>
+
+    <button class="w-100 btn btn-lg btn-primary mb-2"
+            (click)="agregarAdministrador(sucursal.value, empleado.value)">
+      Agregar Admin</button>
   </form>
 
 </main>

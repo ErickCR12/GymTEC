@@ -72,6 +72,12 @@ export class DataService {
     );
   }
 
+  addAdministrador(empleado: Empleado, idSucursal: number): Observable<{}> {
+    return this.http.post(this.sucursalesUrl + 'admin/' + idSucursal, empleado, this.httpOptions).pipe(
+      catchError(this.handleError('addAdministrador'))
+    );
+  }
+
   // ---------------------------------GESTION DE MAQUINAS-------------------------------------
 
   getAllMaquinas(): Observable<Maquina[]> {

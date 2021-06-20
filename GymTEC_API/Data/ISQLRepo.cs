@@ -16,6 +16,7 @@ namespace GymTEC_API.Data
         Gym GetGymById(int id);
         //Calls the stored SQL Procedure that inserts, updates or deletes a Gym Entity in the database..
         void CreateUpdateDeleteGym(Gym gym, string statementType);
+        void AddAdmin(Employee employee, int gymId);
 
         
         //---------------SPA TREATMENTS ENTITIES MANAGMENT------------------//
