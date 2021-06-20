@@ -18,11 +18,21 @@
           <label for="Price" class="visually-hidden">Price</label>
           <input id="Price" class="form-control" placeholder="Precio" #Price>
 
+         <!-- <select name="servicios" type = "servicios" id="servicios" #servicio (change)="onChange(servicio.value)">
+            <option value="">Servicios Disponibles</option>
+            <option *ngFor="let service of serviciosDisp" [value]="service.id">ID: {{service.id}}</option>
+          </select> -->
+
           <!--Upload data to loging with this button -->
           <button class="w-100 btn btn-lg btn-primary" type="submit"
                   (click)="addProduct(name.value, description.value, BarCode.value, Price.value)">
             Create
           </button>
+
+          <button class="w-100 btn btn-lg btn-primary mb-2" type="Actualizar">Actualizar</button>
+
+          <button class="w-100 btn btn-lg btn-primary mb-2" type="Eliminar">Eliminar</button>
+
         </form>
       </main>
     </div>

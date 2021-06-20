@@ -4,6 +4,7 @@ import { FiltrosBusqueda } from '../../models/filtrosBusqueda';
 import { Empleado } from '../../models/empleado';
 import { Clase } from '../../models/clase';
 import { Sucursal } from '../../models/sucursal';
+import {Servicio} from '../../models/servicio';
 @Component({
   selector: 'app-classes',
   templateUrl: './classes.component.html',
@@ -17,31 +18,33 @@ export class ClassesComponent implements OnInit {
   claseSeleccionado = {} as Clase;
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionado = {} as Sucursal;
+
+  servicios: Servicio[] = [];
 
 
   ngOnInit(): void {
-    this.getclases();
+    this.getServicios();
+    this.getSucursales();
   }
 
-  getclases() {
-    const idGym=0;
-    const idService=0;
-    const startTime="";
-    const endTime = "";
-    const date = "";
-    const filtro = { idGym, idService, startTime, endTime, date } as FiltrosBusqueda;
-    //this.dataService.getClasesFiltradas(filtro).subscribe(data => this.clasesDisp = data);
-  }
-
-  realizarBusqueda(idGym, date, startTime, endTime, idService ) {
-    const filtro = { idGym, idService, startTime, endTime, date } as FiltrosBusqueda;
-
-    this.dataService.getClasesFiltradas(filtro).subscribe();
-  }
-
-  getSucursales(): void {
+  getSucursales(): void{
     this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
+  }
+
+  getServicios(): void{
+    this.dataService.getAllServicios().subscribe(data => this.servicios = data);
+  }
+
+  realizarBusqueda(idGymStr, date, startTime, endTime, idServiceStr ): void {
+    const idGym = Number(idGymStr);
+    const idService = Number(idServiceStr);
+    const nullHolder = null;
+    date = (date === '') ? null : date;
+    startTime = (startTime === '') ? null : startTime;
+    endTime = (endTime === '') ? null : endTime;
+    const filtro = { idGym, idService, startTime, endTime, date } as FiltrosBusqueda;
+    console.log(filtro);
+    this.dataService.getClasesFiltradas(filtro).subscribe(data => this.clasesDisp = data);
   }
 
 }

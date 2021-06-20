@@ -16,7 +16,7 @@
               Tipo de clase:
               <select name="empleados" id="empleados" #tipoClase>
                 <option value=-1 selected>Tipo</option>
-                <option></option>
+                <option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.name}}</option>
               </select>
             </a>
           </li>
@@ -24,17 +24,17 @@
             <a class="nav-link">
               <span data-feather="file-text"></span>
 
-              <label for="fecha">Inicio de clase: </label>
+              <label for="fecha" >Inicio de clase: </label>
 
-              <input type="date" id="fecha" name="fecha" #fechainput required>
+              <input type="date" id="fecha" name="fecha" #fechainput required value=null>
 
               <label for="strtHour">Inicio de clase: .</label>
 
-              <input type="time" id="strtHour" name="strtHour" #strHour required>
+              <input type="time" id="strtHour" name="strtHour" #strHour required value=null>
 
               <label for="endHour">Final de clase: .</label>
 
-              <input type="time" id="endHour" name="endHour" #endHour required>
+              <input type="time" id="endHour" name="endHour" #endHour required value=null>
 
             </a>
           </li>
@@ -42,33 +42,20 @@
             <a class="nav-link">
               <span data-feather="file-text"></span>
               Instructor:
-              <select name="empleados" id="empleados" #instructor>
-                <option value=-1 selected>Administrador</option>
-                <option></option>
+              <select name="sucursales" id="sucursales" #sucursalSelect>
+                <option value=-1 selected>Sucursal</option>
+                <option *ngFor="let sucursal of sucursalesDisp" [value]="sucursal.id">{{sucursal.name}}</option>
               </select>
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link">
-              <button class="w-100 btn btn-sm btn-primary" (click)="realizarBusqueda(tipoClase.value, fechainput.value, strHour.value, endHour.value, instructor.value)" > Apply Filters</button>
+              <button class="w-100 btn btn-sm btn-primary" (click)="realizarBusqueda(sucursalSelect.value, fechainput.value, strHour.value, endHour.value, tipoClase.value)" > Apply Filters</button>
             </a>
           </li>
         </ul>
         <!-- _________________________________________________ -->
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Sucursales</span>
-            </h6>
-          </li>
-          <li class="nav-item" >
-            <a class="nav-link" >Sucursal A</a>
-          </li>
-          <li class="nav-item" *ngFor="let sucursal of sucursalesDisp">
-            <a class="nav-link" >{{sucursal.name}}</a>
-          </li>
-        </ul>
 
       </div>
     </nav>
@@ -82,6 +69,7 @@
           <thead>
             <tr>
               <th scope="col">Tipo de clase</th>
+              <th scope="col">Fecha</th>
               <th scope="col">Hora de inicio</th>
               <th scope="col">Hora de finalizacion</th>
               <th scope="col">Instructor</th>
@@ -92,14 +80,14 @@
           <tbody>
             <!--For cuando se sepa que reciba-->
             <tr *ngFor="let clase of clasesDisp">
-              <td>[(ngModel)]="clase.name"></td>
-              <td>[(ngModel)]="clase.startTime"></td>
-              <td>[(ngModel)]="clase.endTime"</td>
-              <td>[(ngModel)]="clase.date"</td>
-              <td>[(ngModel)]="clase.instructorName"</td>
-              <td>[(ngModel)]="capacity"</td>
-              <td><button type="submit" class="btn btn-outline-secondary mb-2">Register</button></td>
-              <!--*ngIf="{{clase.capacity}}>0"-->
+              <td>{{clase.serviceName}}</td>
+              <td>{{clase.date}}</td>
+              <td>{{clase.startTime}}</td>
+              <td>{{clase.endTime}}</td>
+              <td>{{clase.instructorName}}</td>
+              <td>{{clase.availability}}</td>
+              <td><button type="submit" class="btn btn-outline-secondary mb-2" *ngIf="clase.availability>0">Register</button></td>
+              <!---->
             </tr>
           </tbody>
         </table>

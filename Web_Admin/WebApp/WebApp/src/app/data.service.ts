@@ -26,7 +26,7 @@ export class DataService {
 
   private sucursalesUrl = 'api/gyms/';
   private maquinasUrl = 'api/machines/';
-  private productosUrl = 'api/productos/';
+  private productosUrl = 'api/products/';
   private tratamientosUrl = 'api/spas/';
   private serviciosUrl = 'api/services/';
   private equiposUrl = 'api/equipmentTypes/';
@@ -419,11 +419,11 @@ export class DataService {
 
   // ---------------------------------GESTION DE CLASES-------------------------------------
 
-  getClasesFiltradas(filtros: FiltrosBusqueda): Observable<Clase>
+  getClasesFiltradas(filtros: FiltrosBusqueda): Observable<Clase[]>
   {
-    return this.http.post<Clase>(this.classesUrl + 'filtered', filtros, this.httpOptions).pipe(
-      tap((clases: Clase) => this.log('classes received')),
-      catchError(this.handleError<Clase>('getClasesFiltradas'))
+    return this.http.post<Clase[]>(this.classesUrl + 'filtered', filtros, this.httpOptions).pipe(
+      tap((clases: Clase[]) => this.log('classes received')),
+      catchError(this.handleError<Clase[]>('getClasesFiltradas'))
     );
   }
 

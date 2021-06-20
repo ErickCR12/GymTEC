@@ -1,14 +1,14 @@
 export interface Clase {
-  id: number;
+  id: number; //automatico
   idGym: number;
   idService: number;
-  serviceName: string;
+  serviceName: string; //busqueda
   idInstructor: number;
-  intructorName: string;
+  instructorName: string; //busqueda
   startTime: string;
   endTime: string;
   date: string;
   capacity: number;
   isGroup: boolean;
-  availability: number;
+  availability: number; //Busqueda
 }

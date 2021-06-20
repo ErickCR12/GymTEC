@@ -44,7 +44,7 @@ export class CopySemComponent implements OnInit {
     var Cweek: string[];
 
     Oweek = this.getDatesAux(originalDate);
- 
+
     Cweek = this.getDatesAux(copyDate);
 
     var resDates: string[][] = [Oweek, Cweek];
@@ -52,13 +52,14 @@ export class CopySemComponent implements OnInit {
     //console.log(resDates[0][0]);
 
     var startingDate: string = resDates[0][0];
-    var finishingDate: string = resDates[0][0];
-    var startingDateToCopy: string = resDates[0][0];
-    var finishingDateToCopy: string = resDates[0][0];
+    var finishingDate: string = resDates[0][1];
+    var startingDateToCopy: string = resDates[1][0];
+    var finishingDateToCopy: string = resDates[1][1];
 
     const semanaPorCopiar = { startingDate, finishingDate, startingDateToCopy, finishingDateToCopy };
-    
-    this.dataService.copiarSemanasGym(semanaPorCopiar,+sucursalId).subscribe();
+    console.log(semanaPorCopiar);
+
+    this.dataService.copiarSemanasGym(semanaPorCopiar, +sucursalId).subscribe();
 
   }
 
