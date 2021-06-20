@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../data.service';
+import { Sucursal } from '../../models/sucursal';
+import { Planilla } from '../../models/planilla';
 
 @Component({
   selector: 'app-planilla',

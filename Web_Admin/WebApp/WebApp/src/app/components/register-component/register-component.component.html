@@ -26,9 +26,6 @@
         <label for="inputSLastName" class="visually-hidden">SLastName</label>
         <input id="inputSLastName" class="form-control" placeholder="Second Lastname" required #slastnameInput>
 
-        <label for="inputAge" class="visually-hidden">Age</label>
-        <input id="inputAge" class="form-control" placeholder="Age" required #inputAge>
-
         <label for="inputBD" class="visually-hidden">Date of Birth</label>
         <input id="inputBD" class="form-control" placeholder="Date of Birth dd/mm/yyyy" required #inputBD>
 
@@ -37,24 +34,6 @@
 
         <label for="inputIMC" class="visually-hidden">IMC</label>
         <input id="inputIMC" class="form-control" placeholder="IMC" required #inputIMC>
-
-
-        <a>De que region es?: </a>
-
-        <label for="inputContinent" class="visually-hidden">Continente</label>
-        <select #continentInput id="inputContinent" class="caja" (change)="getAllCountries(continentInput.value)">
-          <option value="" selected disabled hidden>Continente</option>
-          <!--<option [value]="continent.continent" *ngFor="let continent of continents">{{continent.continent}}</option>-->
-        </select>
-
-        <label for="inputCountry" class="visually-hidden">Pais</label>
-        <select #countryInput id="inputCountry" class="caja">
-          <option value="" selected disabled hidden>Pais</option>
-          <!--<option [value]="country.country" *ngFor="let country of countries">{{country.country}}</option>-->
-        </select>
-
-        <br><label for="inputDireccion" class="visually-hidden">Direccion</label>
-        <input id="inputDireccion" class="form-control" placeholder="Direccion de entrega" required #direccionInput>
 
         <a>Ingrese sus credenciales:</a>
 
@@ -65,21 +44,11 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required #passwordInput>
         <!--Upload data to loging with this button -->
         <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
-                (click)="addClient(usernameInput.value, nameInput.value, passwordInput.value, flastnameInput.value,
-        slastnameInput.value, countryInput.value, continentInput.value, direccionInput.value)">
+               (click)="addCliente( nameID.value, usernameInput.value, passwordInput.value, nameInput.value, flastnameInput.value, slastnameInput.value, inputBD.value, inputWeight.value, inputIMC.value)" >
           Registrarse
         </button>
 
-        <a>Si desea agregar más direcciones de entrega:</a>
-
-        <label for="inputAnotherDirection" class="visually-hidden"></label>
-        <input id="inputAnotherDirection" class="form-control" placeholder="Direccion"
-               required #anotherDirectionInput>
-        <!--Upload data to loging with this button -->
-        <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
-                (click)="addDirectionClient(anotherDirectionInput.value)">
-          Agregar dirección
-        </button>
+        
       </form>
     </main>
 

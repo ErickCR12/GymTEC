@@ -2,77 +2,74 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Filtros de Busqueda</span>
+          <a class="link-secondary" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link">
+              <span data-feather="file-text"></span>
+              Tipo de clase:
+              <select name="empleados" id="empleados" #tipoClase>
+                <option value=-1 selected>Tipo</option>
+                <option></option>
+              </select>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <span data-feather="file-text"></span>
+
+              <label for="fecha">Inicio de clase: </label>
+
+              <input type="date" id="fecha" name="fecha" #fechainput required>
+
+              <label for="strtHour">Inicio de clase: .</label>
+
+              <input type="time" id="strtHour" name="strtHour" #strHour required>
+
+              <label for="endHour">Final de clase: .</label>
+
+              <input type="time" id="endHour" name="endHour" #endHour required>
+
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              <span data-feather="file-text"></span>
+              Instructor:
+              <select name="empleados" id="empleados" #instructor>
+                <option value=-1 selected>Administrador</option>
+                <option></option>
+              </select>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link">
+              <button class="w-100 btn btn-sm btn-primary" (click)="realizarBusqueda(tipoClase.value, fechainput.value, strHour.value, endHour.value, instructor.value)" > Apply Filters</button>
+            </a>
+          </li>
+        </ul>
+        <!-- _________________________________________________ -->
         <ul class="nav flex-column">
           <li class="nav-item">
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Sucursales</span>
             </h6>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sucursal A</a>
+          <li class="nav-item" >
+            <a class="nav-link" >Sucursal A</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sucursal S</a>
+          <li class="nav-item" *ngFor="let sucursal of sucursalesDisp">
+            <a class="nav-link" >{{sucursal.name}}</a>
           </li>
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Filtros de Busqueda</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Tipo de clase:
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Tipo
-              </button>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Inicio y final de clase:
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Inicio
-              </button>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Final
-              </button>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Instructor:
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Instructor
-              </button>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Cupos disponibles:
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                Todos
-              </button>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <button class="w-100 btn btn-sm btn-primary"> Apply Filters</button>
-            </a>
-          </li>
-        </ul>
       </div>
     </nav>
 
@@ -94,13 +91,15 @@
           </thead>
           <tbody>
             <!--For cuando se sepa que reciba-->
-            <tr>
-              <td>turbosteps</td>
-              <td>4:20</td>
-              <td>4:50</td>
-              <td>yo jsjsjs</td>
-              <td>Siempre</td>
+            <tr *ngFor="let clase of clasesDisp">
+              <td>[(ngModel)]="clase.name"></td>
+              <td>[(ngModel)]="clase.startTime"></td>
+              <td>[(ngModel)]="clase.endTime"</td>
+              <td>[(ngModel)]="clase.date"</td>
+              <td>[(ngModel)]="clase.instructorName"</td>
+              <td>[(ngModel)]="capacity"</td>
               <td><button type="submit" class="btn btn-outline-secondary mb-2">Register</button></td>
+              <!--*ngIf="{{clase.capacity}}>0"-->
             </tr>
           </tbody>
         </table>

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 //import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NgClass } from '@angular/common';
 
-//import {DataService} from '../../data.service';
-//import {Client} from '../../models/client';
-//import {DirectionClient} from '../../models/direction-client';
-//import {Region} from '../../models/region';
+import {DataService} from '../../data.service';
+import { Cliente } from '../../models/cliente';
+import { Empleado } from '../../models/empleado';
+import {Region} from '../../models/region';
 
 
 @Component({
@@ -15,41 +15,20 @@ import { NgClass } from '@angular/common';
 })
 export class RegisterComponent implements OnInit {
 
-  //registeredClient: Client;
-  //continents: Region[];
-  //countries: Region[];
+  registeredClient: Cliente;
+  continents: Region[];
+  countries: Region[];
 
-  constructor() { }
-  //private dataService: DataService}
+  constructor(private dataService: DataService) { }
+ 
 
-  ngOnInit() {
-    //this.getAllContinents();
+  ngOnInit() {  }
+  
+
+  addCliente(idCar: string, email: string, password: string, name: string, last_name1: string, last_name2: string, birthday: string, weight: number, IMC: number): void {
+    const idCard = +idCar;
+    const tempClient = { idCard, email, password, name, last_name1, last_name2, birthday, weight, IMC } as Cliente;
+    this.dataService.addCliente(tempClient).subscribe();
+
   }
-
-
-  /**addClient(email: string, name: string, password: string, last_name1: string, last_name2: string, country: string,
-            continent: string, direction: string): void{
-    this.registeredClient = {email, name, password, last_name1, last_name2, country, continent, direction} as Client;
-    this.dataService.addClient(this.registeredClient)
-      .subscribe();
-  }
-
-  addDirectionClient(direction: string): void{
-    if (!this.registeredClient) { return; }
-    const client_email = this.registeredClient.email;
-    this.dataService.addDirectionClient({direction, client_email} as DirectionClient).subscribe();
-  }
-
-  getAllContinents(): void{
-    this.dataService.getAllContinents().subscribe(data => this.continents = data);
-  }
-
-  getAllCountries(continent: string): void{
-    this.dataService.getCountriesByContinent(continent).subscribe(data => this.countries = data);
-  }**/
-  getAllCountries(continent: string) { }
-  getAllContinents() { }
-  addDirectionClient(direction: string): void { }
-  addClient(email: string, name: string, password: string, last_name1: string, last_name2: string, country: string,
-    continent: string, direction: string) { }
 }
