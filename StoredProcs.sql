@@ -345,8 +345,6 @@ AS
   END    
 GO
 
-  EXEC CreateUpdateDelete_Machine @numero_serie = 411254, @tipo_equipo = 2, @marca = 'Adidas', @costo = 89000, @StatementType = 'INSERT';
-
 
 --------------------GESTION DE PRODUCTOS-----------------------------------------
 
@@ -381,10 +379,6 @@ AS
         END  
   END    
 GO
-
-EXEC CreateUpdateDelete_Product @codigo_barras = 90992942, @descripcion = 'Barra 300kcal sin azucar', @nombre = 'Barra energetica', @costo = 1300, @StatementType = 'INSERT';
-
-
 
 
 -----------------------------------GESTION DE EMPLEADOS-----------------------------
