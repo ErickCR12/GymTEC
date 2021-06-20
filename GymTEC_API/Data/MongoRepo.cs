@@ -18,8 +18,8 @@ namespace GymTEC_API.Data
         {
             var uri = config.GetValue<string>("MongoUri");
             var mongoConnection = new MongoClient(uri);
-            var mongoDB = mongoConnection.GetDatabase("GymTEC");
-            mongoClientCollection = mongoDB.GetCollection<Client>("EMPLEADOS");
+            var mongoDB = mongoConnection.GetDatabase("gymtecmongodb");
+            mongoClientCollection = mongoDB.GetCollection<Client>("Clients");
         }
 
         public IEnumerable<Client> GetAllClients()
