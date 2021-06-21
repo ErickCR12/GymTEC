@@ -35,6 +35,15 @@
         <label for="inputIMC" class="visually-hidden">IMC</label>
         <input id="inputIMC" class="form-control" placeholder="IMC" required #inputIMC>
 
+        <label for="inputProvince" class="visually-hidden">Province</label>
+        <input id="inputProvince" class="form-control" placeholder="Province" required #inputProvince>
+
+        <label for="inputCanton" class="visually-hidden">Canton</label>
+        <input id="inputCanton" class="form-control" placeholder="Province" required #inputCanton>
+
+        <label for="inputDistrict" class="visually-hidden">District</label>
+        <input id="inputDistrict" class="form-control" placeholder="District" required #inputDistrict>
+
         <a>Ingrese sus credenciales:</a>
 
         <label for="inputEmail" class="visually-hidden">Email</label>
@@ -44,11 +53,13 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required #passwordInput>
         <!--Upload data to loging with this button -->
         <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!"
-               (click)="addCliente( nameID.value, usernameInput.value, passwordInput.value, nameInput.value, flastnameInput.value, slastnameInput.value, inputBD.value, inputWeight.value, inputIMC.value)" >
+               (click)="addCliente( nameID.value, usernameInput.value, passwordInput.value, nameInput.value,
+               flastnameInput.value, slastnameInput.value, inputBD.value, inputWeight.value, inputIMC.value,
+               inputProvince.value, inputCanton.value, inputDistrict.value)" >
           Registrarse
         </button>
 
-        
+
       </form>
     </main>
 

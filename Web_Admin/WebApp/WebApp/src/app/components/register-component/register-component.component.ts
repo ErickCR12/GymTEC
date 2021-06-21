@@ -20,14 +20,17 @@ export class RegisterComponent implements OnInit {
   countries: Region[];
 
   constructor(private dataService: DataService) { }
- 
 
   ngOnInit() {  }
-  
 
-  addCliente(idCar: string, email: string, password: string, name: string, last_name1: string, last_name2: string, birthday: string, weight: number, IMC: number): void {
+  addCliente(idCar: string, email: string, password: string, name: string, last_name1: string, last_name2: string,
+             birthday: string, weightStr: string, IMCstr: string, province: string, canton: string, district: string): void {
     const idCard = +idCar;
-    const tempClient = { idCard, email, password, name, last_name1, last_name2, birthday, weight, IMC } as Cliente;
+    const IMC = +IMCstr;
+    const weight = +weightStr;
+    const tempClient = { idCard, email, password, name, last_name1, last_name2, birthday, weight, IMC,
+    province, canton, district} as Cliente;
+    console.log(tempClient);
     this.dataService.addCliente(tempClient).subscribe();
 
   }
