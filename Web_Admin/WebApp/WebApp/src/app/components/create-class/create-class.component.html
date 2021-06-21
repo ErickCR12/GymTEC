@@ -6,28 +6,31 @@
       <form>
         <h1 class="h3 mb-3 fw-normal">Create Class</h1>
         <div>
-          <select name="empl" type="empl" id="empl" #empl (change)="onChange(empl.value)" #emplSelect>
+          <select name="serv" type="serv" id="serv" #serv (change)="onChange(serv.value)" #servSelect>
 
             <option value="" selected>Seleccione Tipo </option>
 
-            <option *ngFor="let empl of empleadosDisp" [value]="empl.email">ID: {{empl.email}}</option>
+            <option *ngFor="let serv of servDisp" [value]="serv.id">ID: {{serv.name}}</option>
           </select>
         </div>
 
         <a>
           <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" (change)="onChangeIndv()">
             Individual
             <span class="slider round"></span>
           </label>
         </a>
+        <div *ngIf="!ind" >
         <label for="inputCapacidad" class="visually-hidden">Capacidad</label>
-        <input id="inputCapacidad" class="form-control" placeholder="Capacidad" #Capacidad>
+        <input id="inputCapacidad" class="form-control" placeholder="Capacidad" #capacidad>
+        </div>
 
-        <div >
+
+        <div>
           <select name="empl" type="empl" id="empl" #empl (change)="onChange(empl.value)" #emplSelect>
 
-            <option  selected>Seleccione correo del empleado</option>
+            <option selected>Seleccione correo del empleado</option>
 
             <option *ngFor="let empl of empleadosDisp" [value]="empl.email">ID: {{empl.email}}</option>
           </select>
@@ -47,22 +50,19 @@
           <input type="date" id="fecha" name="fecha" #fechainput required value=null>
         </div>
 
+        <label for="strtHour">Inicio de clase: .</label>
+
+        <input type="time" id="strtHour" name="strtHour" #strHour required value=null>
+
+        <label for="endHour">Final de clase: .</label>
+
+        <input type="time" id="endHour" name="endHour" #endHour required value=null>
+
 
         <!--Upload data to loging with this button -->
-        <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!">
+        <button class="w-100 btn btn-lg btn-primary" type="submit"  (click)="createClass(sedeSelect.value, servSelect.value, emplSelect.value, strHour.value, endHour.value, fechainput.value, capacidad.value)">
           Create
         </button>
-        <a>-or-</a>
-        <div style="text-align: center">
-          <select align="center" name="sedes" type="sedes" id="sedes" #sucursal (change)="onChangeClass(sucursal.value)" #sedeSelect>
-
-            <option value="" selected>Clase</option>
-
-            <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
-          </select>
-        </div>
-        <button class="w-100 btn btn-lg btn-secondary" type="submit" href="welcome!">Edit</button>
-        <button class="w-100 btn btn-lg " type="submit" href="welcome!">Delete</button>
       </form>
     </main>
   </div>

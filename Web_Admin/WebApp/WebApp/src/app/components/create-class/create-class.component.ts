@@ -3,6 +3,7 @@ import { Sucursal } from '../../models/sucursal';
 import { DataService } from '../../data.service';
 import { Empleado } from '../../models/empleado';
 import { Clase } from '../../models/clase';
+import { Servicio } from '../../models/servicio';
 
 @Component({
   selector: 'app-create-class',
@@ -11,11 +12,16 @@ import { Clase } from '../../models/clase';
 })
 export class CreateClassComponent implements OnInit {
 
+  ind: boolean = false;
+
   sucursalesDisp: Sucursal[] = [];
   sucursalSeleccionada = {} as Sucursal;
 
   empleadosDisp: Empleado[] = [];
   empleadoSeleccionada = {} as Empleado;
+
+  servDisp: Servicio[] = [];
+  servicioSeleccionada = {} as Servicio;
 
   clasesDisp: Clase[] = [];
   claseSeleccionada = {} as Clase;
@@ -24,6 +30,10 @@ export class CreateClassComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSucursales();
+  }
+
+  onChangeIndv(): void {
+    this.ind = !this.ind;
   }
 
   onChange(idSucursal: string): void {
@@ -42,6 +52,20 @@ export class CreateClassComponent implements OnInit {
 
   getEmpleados(): void {
     this.dataService.getAllEmpleados().subscribe(data => this.empleadosDisp = data);
+  }
+
+  getServicios(): void {
+    this.dataService.getAllServicios().subscribe(data => this.servDisp = data);
+  }
+
+  createClass(idGymIO, idServiceIO, idInstructorIO, startTime, endTime, date, capacityIO): void {
+    const isGroup = !this.ind;
+    const idGym = +idGymIO;
+    const idInstructor = +idInstructorIO;
+    const idService = +idServiceIO;
+    const capacity = +capacityIO;
+
+    const newClass = { idGym, idService, idInstructor, startTime, endTime, date, capacity, isGroup} as Clase;
   }
 
 }
