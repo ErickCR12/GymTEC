@@ -164,6 +164,38 @@ AS
 GO
 
 GO
+CREATE TRIGGER ModifyPayrolls
+ON TIPO_PLANILLA
+INSTEAD OF UPDATE
+AS
+	DECLARE @puestoId int
+	DECLARE @descripcion VARCHAR(50)
+	SELECT @puestoId = id, @descripcion = descripcion FROM inserted
+
+	IF @puestoId > 3
+		BEGIN
+			UPDATE TIPO_PLANILLA
+			SET descripcion = @descripcion
+			WHERE id = @puestoId
+		END
+GO
+
+GO
+CREATE TRIGGER DeletePayrolls
+ON TIPO_PLANILLA
+INSTEAD OF DELETE
+AS
+	DECLARE @puestoId int
+	SELECT @puestoId = id FROM deleted
+
+	IF @puestoId > 3
+		BEGIN
+			DELETE TIPO_PLANILLA
+			WHERE id = @puestoId
+		END
+GO
+
+GO
 CREATE TRIGGER DeleteDefaultServicesTrigger
 ON SUCURSAL
 INSTEAD OF DELETE

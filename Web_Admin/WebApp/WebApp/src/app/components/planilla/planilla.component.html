@@ -21,20 +21,6 @@
     <input id="inputDescripcion" [(ngModel)]= "planillaSeleccionada.description"
            class="form-control" placeholder="Tipo de planilla" name="Tipo de planilla" #inputdescripcion>
 
-    <!-- Input para solicitar el valor de pago por hora -->
-    <label for="inputPagoHoras" class="visually-hidden">pagoHorasPlanilla</label>
-    <input id="inputPagoHoras" [(ngModel)]= "planillaSeleccionada.hourlyPay"
-           class="form-control" placeholder="Pago por horas" name="Pago horas" #inputpagohoras>
-
-    <!-- Input para solicitar el valor de pago por mes -->
-    <label for="inputPagoMes" class="visually-hidden">pagoMesPlanilla</label>
-    <input id="inputPagoMes" [(ngModel)]= "planillaSeleccionada.monthlyPay"
-           class="form-control" placeholder="Pago por mes" name="Pago mes" #inputpagomes>
-
-    <!-- Input para solicitar el valor de pago por clase -->
-    <label for="inputPagoClases" class="visually-hidden">PagoClasesPlanilla</label>
-    <input id="inputPagoClases" [(ngModel)]= "planillaSeleccionada.payPerClass"
-           class="form-control" placeholder="Pago por clase" name="Pago clase" #inputpagoclase>
 
 
     <a>Planillas disponibles: </a>
@@ -49,14 +35,13 @@
 
     <!--Upload data to loging with this button -->
     <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
-            (click)="crearPlanilla(inputdescripcion.value, inputpagohoras.value, inputpagomes.value, inputpagoclase.value)">
+            (click)="crearPlanilla(inputdescripcion.value)">
       Agregar</button>
 
     <button class="w-100 btn btn-lg btn-primary mb-2" (click)="eliminarPlanilla(planilla.value)">Eliminar</button>
 
     <button class="w-100 btn btn-lg btn-primary mb-2"
-            (click)="modificarPlanilla(planilla.value, inputdescripcion.value,
-    inputpagohoras.value, inputpagomes.value, inputpagoclase.value)">
+            (click)="modificarPlanilla(planilla.value, inputdescripcion.value)">
       Modificar</button>
 
 

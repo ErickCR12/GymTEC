@@ -21,3 +21,7 @@ EXEC CreateUpdateDelete_EquipmentType @nombre = 'Bicicletas estacionarias', @Sta
 EXEC CreateUpdateDelete_EquipmentType @nombre = 'Multigimnasios', @StatementType = 'INSERT';
 EXEC CreateUpdateDelete_EquipmentType @nombre = 'Remos', @StatementType = 'INSERT';
 EXEC CreateUpdateDelete_EquipmentType @nombre = 'Pesas', @StatementType = 'INSERT';
+
+EXEC CreateUpdateDelete_Payroll @descripcion = 'Pago mensual', @StatementType = 'INSERT';
+EXEC CreateUpdateDelete_Payroll @descripcion = 'Pago por horas', @StatementType = 'INSERT';
+EXEC CreateUpdateDelete_Payroll @descripcion = 'Pago por clase', @StatementType = 'INSERT';

@@ -26,11 +26,8 @@ export class PlanillaComponent implements OnInit {
     this.dataService.getAllPlanillas().subscribe(data => this.planillaDisp = data);
   }
 
-  crearPlanilla(description: string, hourlyPayStr: string, monthlyPayStr: string, payPerClassStr: string): void{
-    const hourlyPay = Number(hourlyPayStr);
-    const monthlyPay = Number(monthlyPayStr);
-    const payPerClass = Number(payPerClassStr);
-    const nuevaPlanilla = {description, hourlyPay, monthlyPay, payPerClass} as Planilla;
+  crearPlanilla(description: string): void{
+    const nuevaPlanilla = {description} as Planilla;
     this.dataService.addPlanilla(nuevaPlanilla).subscribe(data => {
       if (data){
         this.getPlanilla();
@@ -38,13 +35,9 @@ export class PlanillaComponent implements OnInit {
     });
   }
 
-  modificarPlanilla(idStr: string, description: string, hourlyPayStr: string, monthlyPayStr: string,
-                    payPerClassStr: string): void{
+  modificarPlanilla(idStr: string, description: string): void{
     const id = Number(idStr);
-    const hourlyPay = Number(hourlyPayStr);
-    const monthlyPay = Number(monthlyPayStr);
-    const payPerClass = Number(payPerClassStr);
-    const PLanillaporModificar = {id, description, hourlyPay, monthlyPay, payPerClass} as Planilla;
+    const PLanillaporModificar = {id, description} as Planilla;
     this.dataService.updatePlanilla(PLanillaporModificar).subscribe(data => {
         this.getPlanilla();
       });
