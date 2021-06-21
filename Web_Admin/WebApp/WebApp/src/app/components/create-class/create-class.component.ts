@@ -15,35 +15,20 @@ export class CreateClassComponent implements OnInit {
   ind: boolean = false;
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionada = {} as Sucursal;
-
   empleadosDisp: Empleado[] = [];
-  empleadoSeleccionada = {} as Empleado;
-
   servDisp: Servicio[] = [];
-  servicioSeleccionada = {} as Servicio;
-
   clasesDisp: Clase[] = [];
-  claseSeleccionada = {} as Clase;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.getSucursales();
+    this.getServicios();
+    this.getEmpleados();
   }
 
   onChangeIndv(): void {
     this.ind = !this.ind;
-  }
-
-  onChange(idSucursal: string): void {
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
-  }
-  onChangeEmp(idEmpleado: string): void {
-    this.empleadoSeleccionada = this.empleadosDisp.find(x => x.email === idEmpleado);
-  }
-  onChangeClass(idEmpleado: string): void {
-    this.claseSeleccionada = this.clasesDisp.find(x => x.id === +idEmpleado);
   }
 
   getSucursales(): void {
@@ -63,9 +48,10 @@ export class CreateClassComponent implements OnInit {
     const idGym = +idGymIO;
     const idInstructor = +idInstructorIO;
     const idService = +idServiceIO;
-    const capacity = +capacityIO;
+    const capacity = (isGroup) ? +capacityIO : 1;
 
     const newClass = { idGym, idService, idInstructor, startTime, endTime, date, capacity, isGroup} as Clase;
+    this.dataService.crearClase(newClass).subscribe();
   }
 
 }

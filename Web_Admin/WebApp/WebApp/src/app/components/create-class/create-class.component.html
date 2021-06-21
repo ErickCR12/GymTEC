@@ -6,11 +6,11 @@
       <form>
         <h1 class="h3 mb-3 fw-normal">Create Class</h1>
         <div>
-          <select name="serv" type="serv" id="serv" #serv (change)="onChange(serv.value)" #servSelect>
+          <select name="serv" type="serv" id="serv" #servSelect>
 
             <option value="" selected>Seleccione Tipo </option>
 
-            <option *ngFor="let serv of servDisp" [value]="serv.id">ID: {{serv.name}}</option>
+            <option *ngFor="let serv of servDisp" [value]="serv.id">{{serv.name}}</option>
           </select>
         </div>
 
@@ -21,23 +21,20 @@
             <span class="slider round"></span>
           </label>
         </a>
-        <div *ngIf="!ind" >
         <label for="inputCapacidad" class="visually-hidden">Capacidad</label>
         <input id="inputCapacidad" class="form-control" placeholder="Capacidad" #capacidad>
-        </div>
-
 
         <div>
-          <select name="empl" type="empl" id="empl" #empl (change)="onChange(empl.value)" #emplSelect>
+          <select name="empl" type="empl" id="empl" #emplSelect>
 
-            <option selected>Seleccione correo del empleado</option>
+            <option selected>Seleccione el empleado instructor</option>
 
-            <option *ngFor="let empl of empleadosDisp" [value]="empl.email">ID: {{empl.email}}</option>
+            <option *ngFor="let empl of empleadosDisp" [value]="empl.idCard">ID: {{empl.idCard}}</option>
           </select>
         </div>
 
         <div>
-          <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)" #sedeSelect>
+          <select name="sedes" type="sedes" id="sedes" #sedeSelect>
 
             <option value="" selected>Seleccionar Sucursal</option>
 
@@ -67,6 +64,6 @@
     </main>
   </div>
 
-  
+
 </div>
 </body>
