@@ -13,8 +13,7 @@ export class VPlanillaComponent implements OnInit {
   planillasVisibles: GeneracionPlanilla[] = [];
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionada = {} as Sucursal;
-  modoEmpleo: string="";
+  modoEmpleo = '';
 
   constructor(private dataService: DataService) { }
 
@@ -22,28 +21,25 @@ export class VPlanillaComponent implements OnInit {
     this.getSucursales();
   }
 
-  onChange(idSucursal: string): void {
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
-  }
-
   getSucursales(): void {
     this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
-  planillaH(sedeId) {
-    this.planillasVisibles = [];
+  planillaH(sedeId): void {
     this.modoEmpleo = 'Horas Trabajadas';
     this.dataService.pagoPorHora(+sedeId).subscribe(data => this.planillasVisibles = data);
   }
 
-  planillaM(sedeId) {
-    this.planillasVisibles = [];
+  planillaM(sedeId): void {
     this.modoEmpleo = 'Salario Mensual';
-    this.dataService.pagoMensual(+sedeId).subscribe(data => this.planillasVisibles = data);
+    this.dataService.pagoMensual(+sedeId).subscribe(data => {
+      this.planillasVisibles = data;
+      console.log(this.planillasVisibles);
+      }
+    );
   }
 
-  planillaC(sedeId) {
-    this.planillasVisibles = [];
+  planillaC(sedeId): void {
     this.modoEmpleo = 'Clases Impartidas';
     this.dataService.pagoPorClase(+sedeId).subscribe(data => this.planillasVisibles = data);
   }

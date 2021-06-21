@@ -69,14 +69,14 @@ namespace API_Service.Controllers
         }
 
         //POST api/gymConfig/copyGym/{gymId}
-        //This request receives a week to be copied to another week of the specified gym
-        [HttpPost("copyGym/{gymId}", Name = "CopyGym")]
-        public ActionResult <Gym> CopyGym(Gym originalGymDto, int newGymId)
+        //This request receives a gym to be copied to another gym of the specified id
+        [HttpPost("copyGym/{newGymId}", Name = "CopyGym")]
+        public ActionResult <GymDto> CopyGym(GymDto originalGymDto, int newGymId)
         {
             var originalGym = _mapper.Map<Gym>(originalGymDto);
             _repository.CopyGym(originalGym, newGymId);
 
-            return Ok(_mapper.Map<Gym>(originalGym));
+            return Ok(_mapper.Map<GymDto>(originalGym));
         }
     }   
 }

@@ -28,7 +28,21 @@ export class CopyGymComponent implements OnInit {
 
   copyGym(GymO: string, GymC: string): void {
     const id = +GymO;
-    const sucursal = { id } as Sucursal; //???
+    const idAdmin = -1;
+    const name = 'default';
+    const capacity = -1;
+    const province = 'default';
+    const canton = 'default';
+    const district = 'default';
+    const openingTime = '8:00 AM';
+    const closingTime = '8:00 AM';
+    const openingDate = '2021/01/01';
+    const spaState = false;
+    const storeState = false;
+
+    const sucursal = {id, name, province, canton, district, openingDate, openingTime,
+      closingTime, idAdmin, capacity, spaState, storeState} as Sucursal; //???
+    console.log(sucursal);
     this.dataService.copiarGym(sucursal, +GymC).subscribe();
     this.getSucursales();
   }

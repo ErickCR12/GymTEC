@@ -4,14 +4,14 @@
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky">
 
-          
-            <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)">
+
+            <select name="sedes" type="sedes" id="sedes" #sucursal>
 
               <option value="" selected>Seleccionar Sucursal</option>
 
               <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
             </select>
-          
+
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>Planillas</span>
@@ -62,10 +62,10 @@
             <tr *ngFor="let planilla of planillasVisibles">
 
               <td>{{planilla.idCard}}</td>
-              <td>{{planilla.name}} + {{espacio}}+{{planilla.last_name1}} + {{espacio}}  + {{planilla.last_name2}}</td>
+              <td>{{planilla.name}} {{planilla.last_name1}} {{planilla.last_name2}}</td>
               <td>{{planilla.classesHours}}</td>
               <td>{{planilla.salary}}</td>
-              
+
             </tr>
 
           </tbody>

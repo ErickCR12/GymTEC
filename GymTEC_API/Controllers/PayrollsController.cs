@@ -93,29 +93,31 @@ namespace API_Service.Controllers
 
         //GET api/payrolls/generateMonthly/{id}
         //This request returns a list of PayrollGeneration entities in a JSON format showing the monthly payroll for a Gym.
-        [HttpGet("generateMonthly/{id}")]
+        [HttpGet("generateMonthly/{gymId}")]
         public ActionResult <IEnumerable<PayrollGenerationDto>> GetMonthlyPayroll(int gymId)
         {
+            Console.WriteLine(gymId);
             var payrollsItem = _repository.GetMonthlyPayroll(gymId);
+
             return Ok(_mapper.Map<IEnumerable<PayrollGenerationDto>>(payrollsItem));
         }
 
         //GET api/payrolls/generatePerClass/{id}
         //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per class for a Gym.
-        [HttpGet("generatePerClass/{id}")]
+        [HttpGet("generatePerClass/{gymId}")]
         public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerClass(int gymId)
         {
             var payrollsItem = _repository.GetPayrollPerClass(gymId);
-            return Ok(_mapper.Map<IEnumerable<PayrollDto>>(payrollsItem));
+            return Ok(_mapper.Map<IEnumerable<PayrollGenerationDto>>(payrollsItem));
         }
 
         //GET api/payrolls/generatePerHour/{id}
         //This request returns a list of PayrollGeneration entities in a JSON format showing the payroll per hour for a Gym.
-        [HttpGet("generatePerHour/{id}")]
+        [HttpGet("generatePerHour/{gymId}")]
         public ActionResult <IEnumerable<PayrollGenerationDto>> GetPayrollPerHours(int gymId)
         {
             var payrollsItem = _repository.GetPayrollPerHours(gymId);
-            return Ok(_mapper.Map<IEnumerable<PayrollDto>>(payrollsItem));
+            return Ok(_mapper.Map<IEnumerable<PayrollGenerationDto>>(payrollsItem));
         }
 
     }
