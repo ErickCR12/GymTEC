@@ -13,16 +13,12 @@ export class TableProductosComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionada = {} as Sucursal;
 
   prodDisp: Producto[] = [];
 
   ngOnInit(): void {
     this.getSucursales();
-  }
-
-  onChange(idSucursal: string): void {
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+    this.getProductos();
   }
 
   getSucursales(): void {
@@ -33,10 +29,10 @@ export class TableProductosComponent implements OnInit {
     this.dataService.getAllProductos().subscribe(data => this.prodDisp = data);
   }
 
-  asosciar(producto: Producto, sede): void{
+  asociar(producto: Producto, sede): void{
     this.dataService.asociarProducto(producto, +sede).subscribe();
   }
-  
-  
+
+
 
 }

@@ -255,7 +255,7 @@ export class DataService {
 
   pagoMensual(sucursalId: number): Observable<GeneracionPlanilla[]> {
     this.messageService.add('DataService: fetched pagoMensual');
-    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generateMonthly' + sucursalId)
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generateMonthly/' + sucursalId)
       .pipe(
         catchError(this.handleError<GeneracionPlanilla[]>('pagoMensual', []))
       );
@@ -263,7 +263,7 @@ export class DataService {
 
   pagoPorClase(sucursalId: number): Observable<GeneracionPlanilla[]> {
     this.messageService.add('DataService: fetched pagoPorClase');
-    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerClass' + sucursalId)
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerClass/' + sucursalId)
       .pipe(
         catchError(this.handleError<GeneracionPlanilla[]>('pagoPorClase', []))
       );
@@ -271,7 +271,7 @@ export class DataService {
 
   pagoPorHora(sucursalId: number): Observable<GeneracionPlanilla[]> {
     this.messageService.add('DataService: fetched pagoPorHora');
-    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerHour' + sucursalId)
+    return this.http.get<GeneracionPlanilla[]>(this.planillasUrl + 'generatePerHour/' + sucursalId)
       .pipe(
         catchError(this.handleError<GeneracionPlanilla[]>('pagoPorHora', []))
       );

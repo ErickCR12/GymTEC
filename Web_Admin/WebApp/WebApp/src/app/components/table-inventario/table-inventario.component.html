@@ -22,14 +22,14 @@
         <td>{{maquina.brand}}</td>
         <td>{{maquina.price}}</td>
         <td>
-          <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)" #sedeSelect>
+          <select name="sedes" type="sedes" id="sedes" #sedeSelect>
 
             <option value="" selected>Seleccionar Sucursal</option>
 
             <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
           </select>
         </td>
-        <td><button type="submit" class="btn btn-success mb-2" (click)="asociar(producto, sedeSelect.value )">Asociar</button></td>
+        <td><button type="submit" class="btn btn-success mb-2" (click)="asociar(maquina, sedeSelect.value )">Asociar</button></td>
       </tr>
     </tbody>
   </table>

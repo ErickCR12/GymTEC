@@ -3,4 +3,5 @@ export class Producto{
   name: string;
   description: string;
   price: number;
+  isAssociated: boolean;
 }

@@ -13,23 +13,21 @@ export class TableInventarioComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionada = {} as Sucursal;
-
   maquinas: Maquina[] = [];
 
   ngOnInit(): void {
-  }
-
-  onChange(idSucursal: string): void {
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+    this.getSucursales();
+    this.getMaquinas();
   }
 
   getSucursales(): void {
     this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
-
-  asosciar(maquina: Maquina, sede): void {
+  getMaquinas(): void{
+    this.dataService.getAllMaquinas().subscribe(data => this.maquinas = data);
+  }
+  asociar(maquina: Maquina, sede): void {
     this.dataService.asociarMaquina(maquina, +sede).subscribe();
   }
 

@@ -13,25 +13,23 @@ export class TableTratamientosComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   sucursalesDisp: Sucursal[] = [];
-  sucursalSeleccionada = {} as Sucursal;
-
   tratamientosDisp: Tratamiento[] = [];
 
   ngOnInit(): void {
+    this.getSucursales();
+    this.getTratamientos();
   }
 
-  onChange(idSucursal: string): void {
-    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+  getTratamientos(): void{
+    this.dataService.getAllTratamientos().subscribe(data => this.tratamientosDisp = data);
   }
 
   getSucursales(): void {
     this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
-  asosciar(tratamiento: Tratamiento, sede): void {
+  asociar(tratamiento: Tratamiento, sede): void {
     this.dataService.asociarSpa(tratamiento, +sede).subscribe();
   }
-
- 
 
 }

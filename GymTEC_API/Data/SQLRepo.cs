@@ -292,8 +292,9 @@ public IEnumerable<GymService> GetAllServices()
             List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
             
             connection.Open();
-            var sql = "SELECT * FROM dbo.GetMonthlyPayroll()"; //Stored Function
+            var sql = "SELECT * FROM dbo.GetMonthlyPayroll(@gymId)"; //Stored Function
             SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@gymId", gymId);
             SqlDataReader dataReader = command.ExecuteReader();
             while(dataReader.Read()) //Loads all the atributes for each Payroll entity
             {
@@ -316,8 +317,9 @@ public IEnumerable<GymService> GetAllServices()
             List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
             
             connection.Open();
-            var sql = "SELECT * FROM dbo.GetPayrollPerClass()"; //Stored Function
+            var sql = "SELECT * FROM dbo.GetPayrollPerClass(@gymId)"; //Stored Function
             SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@gymId", gymId);
             SqlDataReader dataReader = command.ExecuteReader();
             while(dataReader.Read()) //Loads all the atributes for each Payroll entity
             {
@@ -339,8 +341,9 @@ public IEnumerable<GymService> GetAllServices()
             List<PayrollGeneration> payrolls = new List<PayrollGeneration>();
             
             connection.Open();
-            var sql = "SELECT * FROM dbo.GetPayrollPerHours()"; //Stored Function
+            var sql = "SELECT * FROM dbo.GetPayrollPerHours(@gymId)"; //Stored Function
             SqlCommand command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@gymId", gymId);
             SqlDataReader dataReader = command.ExecuteReader();
             while(dataReader.Read()) //Loads all the atributes for each Payroll entity
             {
