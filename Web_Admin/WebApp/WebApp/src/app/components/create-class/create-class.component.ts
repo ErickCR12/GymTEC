@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Sucursal } from '../../models/sucursal';
+import { DataService } from '../../data.service';
+import { Empleado } from '../../models/empleado';
 
 @Component({
   selector: 'app-create-class',
@@ -7,34 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateClassComponent implements OnInit {
 
-  constructor() { }
+  sucursalesDisp: Sucursal[] = [];
+  sucursalSeleccionada = {} as Sucursal;
+
+  empleadosDisp: Empleado[] = [];
+  empleadoSeleccionada = {} as Empleado;
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.getSucursales();
   }
 
-  getAllDeviceTypes(): void {
-    //this.dataService.getAllDeviceTypes().subscribe( data => this.deviceTypes = data);
+  onChange(idSucursal: string): void {
+    this.sucursalSeleccionada = this.sucursalesDisp.find(x => x.id === Number(idSucursal));
+  }
+  onChangeEmp(idEmpleado: string): void {
+    this.empleadoSeleccionada = this.empleadosDisp.find(x => x.email === idEmpleado);
   }
 
-  addDeviceType(name: string,  warranty_months_str: string): void {
-    //let warranty_months = Number(warranty_months_str);
-    //let new_device_type = {name, description, warranty_months} as DeviceType;
-    /**this.dataService.addDeviceType(new_device_type).subscribe(data => {
-      if (data){
-        this.deviceTypes.push(new_device_type);
-      }
-    });**/
+  getSucursales(): void {
+    this.dataService.getAllSucursales().subscribe(data => this.sucursalesDisp = data);
   }
 
-  deleteDeviceType(name: string, index: number): void {
-    //this.deviceTypes.splice(index, 1);
-    //this.dataService.deleteDeviceType(name).subscribe();
-  }
-
-  updateDeviceType(name: string, warranty_months_str: string): void {
-    //let warranty_months = Number(warranty_months_str);
-    //let updated_device_type = {name, description, warranty_months} as DeviceType;
-    //this.dataService.updateDeviceType(updated_device_type).subscribe();
+  getEmpleados(): void {
+    this.dataService.getAllEmpleados().subscribe(data => this.empleadosDisp = data);
   }
 
 }

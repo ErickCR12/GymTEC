@@ -5,12 +5,15 @@
     <main class="form-DeviceType">
       <form>
         <h1 class="h3 mb-3 fw-normal">Create Class</h1>
-        <a class="nav-link" href="#">
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            Tipo
-          </button>
-        </a>
+        <div>
+          <select name="empl" type="empl" id="empl" #empl (change)="onChange(empl.value)" #emplSelect>
+
+            <option value="" selected>Seleccione Tipo </option>
+
+            <option *ngFor="let empl of empleadosDisp" [value]="empl.email">ID: {{empl.email}}</option>
+          </select>
+        </div>
+
         <a>
           <label class="switch">
             <input type="checkbox">
@@ -18,58 +21,32 @@
             <span class="slider round"></span>
           </label>
         </a>
-        <a class="nav-link" href="#">
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            Instructor
-          </button>
-        </a>
-
         <label for="inputCapacidad" class="visually-hidden">Capacidad</label>
         <input id="inputCapacidad" class="form-control" placeholder="Capacidad" #Capacidad>
 
-        <span>Days of the week imparted:</span>
         <div>
-          <a>
-            <label class="switch">
-              L<input type="checkbox">
+          <select name="empl" type="empl" id="empl" #empl (change)="onChange(empl.value)" #emplSelect>
 
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              K<input type="checkbox">
+            <option value="" selected>Seleccione correo del empleado</option>
 
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              M<input type="checkbox">
-
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              J
-              <input type="checkbox">
-
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              V
-              <input type="checkbox">
-
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              S
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-            <label class="switch">
-              D
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-          </a>
+            <option *ngFor="let empl of empleadosDisp" [value]="empl.email">ID: {{empl.email}}</option>
+          </select>
         </div>
+
+        <div>
+          <select name="sedes" type="sedes" id="sedes" #sucursal (change)="onChange(sucursal.value)" #sedeSelect>
+
+            <option value="" selected>Seleccionar Sucursal</option>
+
+            <option *ngFor="let sede of sucursalesDisp" [value]="sede.id">ID: {{sede.id}}</option>
+          </select>
+        </div>
+
+        <span>Dia de la clase:</span>
+        <div>
+          <input type="date" id="fecha" name="fecha" #fechainput required value=null>
+        </div>
+        
 
         <!--Upload data to loging with this button -->
         <button class="w-100 btn btn-lg btn-primary" type="submit" href="welcome!">
